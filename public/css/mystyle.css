@@ -17,20 +17,24 @@ body{
 }
 .panel
 {
-    position: relative;
+    
+    /* border: solid; */
+    position: relative; 
     background:linear-gradient(90deg,rgb(247, 98, 102)10%,rgb(239, 240, 240));
     padding:3px ;
     color: #fff;
-    overflow: hidden;
+    /* overflow: hidden; */
     margin-bottom:10px;
     margin-left: 13%; 
     border-top-left-radius: 110px;  /* 100px of height + 10px of border */
-    border-bottom-left-radius: 110px; /* 100px of height + 10px of border */
+    border-bottom-left-radius: 110px; /* 100px of height + 10px of border*/
     width:70%;
 
-    box-shadow: -1px 5px 10px 3px rgba(137, 137, 137, 0.5);
+     box-shadow: -1px 5px 10px 3px rgba(137, 137, 137, 0.5);
 }
-.panel button{
+
+.btn-group
+{
     float: right;
 }
 
@@ -71,11 +75,10 @@ body{
 
 }
 .row{
-    border: solid; 
     padding: 0;
     margin: 0;
     width:100%;
-    overflow:auto;
+    /* overflow:auto; */
     /* margin-left: 10%; */
     
 }

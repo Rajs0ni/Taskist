@@ -25,21 +25,42 @@
         @if(count($todos))
         <?php $count = 1; ?>
          @foreach($todos as $todo) 
-        <div class="row">
-        <div class='panel '>   
+<div class="row">
+        <div class='panel container'> 
+        <div class="dropdown" >
+                         <div class="btn-group">
+                                <button type="button" class="btn" data-toggle="dropdown" style="background:none;border:none; outline:none"><i class="fa fa-ellipsis-v"></i>
+                                </button>
+                                
+                                <div class="dropdown-menu">
+                                @if($todo->pin==0)  
+                                <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i> Pin</a>
+                                @else
+                                <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin" style="color:red"></i> Pin</a>
+                                @endif
+                                <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i> Pin</a>
+                                <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i> Pin</a>
+                                <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i> Pin</a>
+                                <a class="dropdown-item" href="""   id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i> Pin</a>
+
+                                <a class="dropdown-item" href="#" id="archive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive"></i> Archives</a>
+                                </div>
+                </div>  
                 <div class="circle"></div><span id="span1"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
                  <div class="wrapper">
                        <h3><a href="/todo/{{$todo->id}}/show">{{$todo->title}}</a></h3> 
                         <span id="span2" >&#x25cf; {{$todo->completion_date}}</span>
+                        @if($todo->pin==0)  
+                        <div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i> Pin</a>
+                        @else
+                        <div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin" style="color:red"></i> Pin</a>
+                        @endif
                  </div>
-
-  <button type="button" class="" data-toggle="dropdown" style="background:none;border:none; outline:none"><i class="fa fa-ellipsis-v"></i>
-    </button>
-   
-  
- 
+                
+        </div>
 </div>
-            <!-- <div class="outersubmenu ">
+
+      <!-- <div class="outersubmenu ">
                         @if($todo->pin==0)
                                 <div><div hidden>{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i></div>
                         @else
@@ -48,17 +69,13 @@
                          <div><div hidden>{{$todo->id}}</div><i class="fa fa-archive"  id="archive"></i></div>
                          <div><div hidden>{{$todo->id}}</div><i class="fa fa-trash"  id="trash"></i></div>
                  </div> -->
-      </div>
+      <!-- </div> -->
 
-       <div style="display:inline-block;position:relative; ">
-    <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i> Pin</a>
-      <a class="dropdown-item" href="#"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive"  id="archive"></i> Archives</a>
-      
-    </div>
+    
   
          @endforeach
          @else
-        <h4 id="notFoundAlert">!! Record Not Found !!</h4>
+        <!-- <h4 id="notFoundAlert">!! Record Not Found !!</h4> -->
         @endif
       @include('todo._sideBar')
 @endsection
