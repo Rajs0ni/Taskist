@@ -39,7 +39,7 @@
                                 <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin" style="color:red"></i>&ensp;Unpin</a>
                                 @endif
                                 <a class="dropdown-item " href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-pencil"  id="pin"></i>&ensp;Edit</a>
-                                <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fas fa-clock"  id="pin"></i>&ensp;Reminder</a>
+                                <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-pencil"  id="pin"></i>&ensp;Reminder</a>
                                 <a class="dropdown-item" href="#" id="archive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive"></i>&ensp;Archive</a>
                                 <a class="dropdown-item addcollab" href="#"   id="addcollab" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"  ></i>&ensp;Add Collaborator</a>
                                 

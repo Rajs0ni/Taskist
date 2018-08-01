@@ -7,6 +7,8 @@ use App\Todo;
 use Requests;
 use Carbon\Carbon;
 use Illuminate\Html\HtmlServiceProvider;
+use Illuminate\Support\Facades\Auth;
+
 
 class TodosController extends Controller
 {
@@ -72,6 +74,7 @@ class TodosController extends Controller
         $todo->task = $request->input('task');
         $todo->date_created = Carbon::now();
         $todo->completion_date = $request->input('completion_date');
+        $todo->user_id=Auth::id();
         $todo->save();
         return redirect('/')->with([
             'flash_message' => 'Task has been created!'
