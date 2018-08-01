@@ -37,7 +37,10 @@ body{
 {
     float: right;
 }
-
+.dropdown-item:hover
+{
+  background-color: lavender;
+}
 /* .panel::before
 {
     content: '';
@@ -59,21 +62,21 @@ body{
 {
     width: 100%;
 } */
-.outersubmenu{
+/*.outersubmenu{
     /* position: absolute;
    
     margin-bottom: 10px;
     margin-top: 10px;
-    right:5%; */
-    /* display: inline-block;
+    right:5%; 
+    display: inline-block;
     padding:0;
     margin: 0;
     margin-left: 5px;
     padding-top: 3px;
-     display:none;  */
-    /* border:solid; */
+     display:none; 
+     border:solid; 
 
-}
+}*/
 .row{
     padding: 0;
     margin: 0;
@@ -430,4 +433,10 @@ body{
 }
 .gridbtn .fa:hover{
     color: rgb(27, 74, 91,1);
+}
+.disabled{
+    pointer-events: none;
+}
+.enabled{
+    pointer-events: auto;
 }

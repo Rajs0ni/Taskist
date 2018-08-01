@@ -47,3 +47,6 @@ Route::post('/todo/changeorder','TodosController@order');
 Route::get('todo/sort/by/title','TodosController@sortByTitle');
 Route::get('todo/sort/by/date','TodosController@sortByDate');
 Route::resource('todo','TodosController');
+Auth::routes();
+
+Route::get('/home', 'TodosController@index')->name('home');

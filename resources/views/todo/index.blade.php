@@ -34,30 +34,31 @@
                                 
                                 <div class="dropdown-menu">
                                 @if($todo->pin==0)  
-                                <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i> Pin</a>
+                                <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i>&ensp;Pin</a>
                                 @else
-                                <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin" style="color:red"></i> Pin</a>
+                                <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin" style="color:red"></i>&ensp;Unpin</a>
                                 @endif
-                                <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i> Pin</a>
-                                <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i> Pin</a>
-                                <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i> Pin</a>
-                                <a class="dropdown-item" href="""   id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i> Pin</a>
+                                <a class="dropdown-item " href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-pencil"  id="pin"></i>&ensp;Edit</a>
+                                <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fas fa-clock"  id="pin"></i>&ensp;Reminder</a>
+                                <a class="dropdown-item" href="#" id="archive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive"></i>&ensp;Archive</a>
+                                <a class="dropdown-item addcollab" href="#"   id="addcollab" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"  ></i>&ensp;Add Collaborator</a>
+                                
+                                <a class="dropdown-item" href="#"   id="trash" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i>&ensp;Delete</a>
 
-                                <a class="dropdown-item" href="#" id="archive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive"></i> Archives</a>
+                               
                                 </div>
+                                
                 </div>  
+
+
                 <div class="circle"></div><span id="span1"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
                  <div class="wrapper">
                        <h3><a href="/todo/{{$todo->id}}/show">{{$todo->title}}</a></h3> 
                         <span id="span2" >&#x25cf; {{$todo->completion_date}}</span>
-                        @if($todo->pin==0)  
-                        <div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i> Pin</a>
-                        @else
-                        <div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin" style="color:red"></i> Pin</a>
-                        @endif
                  </div>
                 
         </div>
+        
 </div>
 
       <!-- <div class="outersubmenu ">
@@ -74,6 +75,18 @@
     
   
          @endforeach
+         <div class="collab">
+                                        Add Collaborator
+                                        <span class="close">&times;</span>
+                                        <hr>
+                                        <div class="body">
+                                                <label for="tags">Email</label>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                                <input type="text" id="tag">
+                                                <br><br>
+                                                <button class="btn btn-primary" id="add">Add</button>
+                                        </div>
+                                </div>
          @else
         <!-- <h4 id="notFoundAlert">!! Record Not Found !!</h4> -->
         @endif

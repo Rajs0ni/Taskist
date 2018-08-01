@@ -7,6 +7,13 @@ $('document').ready(function(){
     $(this).find(".outersubmenu").css({'display':'none'});
 });
 
+
+$(".collab").hide();
+$(".addcollab").click(function(){
+// $("html,body").addClass("disabled");
+// $(".collab").addClass("enabled");
+$(".collab").show();
+});
     $("body").on('click','#pin',function(){
         todo = $(this).parent().text();
         

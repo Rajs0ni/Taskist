@@ -10,10 +10,15 @@ use Illuminate\Html\HtmlServiceProvider;
 
 class TodosController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     // Home Page
     public function index()
     {
-        $todos = Todo::where('trashed','=','0')
+        $todos = Todo::where('user_id','=',auth()->user()->id)
+                    ->where('trashed','=','0')
                     ->where('archive','=','0')
                     ->orderBy('pin','desc')
                     ->orderBy('created_at','desc')
@@ -21,7 +26,8 @@ class TodosController extends Controller
         return view('todo.index',compact('todos'));
     }
     public function myorder(){
-        $todos = Todo::where('trashed','=','0')
+        $todos = Todo::where('user_id','=',auth()->user()->id)
+                    ->where('trashed','=','0')
                     ->where('archive','=','0')
                     ->orderBy('order','asc')
                         ->get();
@@ -39,7 +45,8 @@ class TodosController extends Controller
     }
     public function all()
     {
-        $todos = Todo::where('trashed','=','0')
+        $todos = Todo::where('user_id','=',auth()->user()->id)
+                        ->where('trashed','=','0')
                     ->orderBy('pin','desc')
                     ->orderBy('created_at','desc')
                         ->get();
