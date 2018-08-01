@@ -33,14 +33,9 @@
                         <span id="span2" >&#x25cf; {{$todo->completion_date}}</span>
                  </div>
 
-  <button type="button" class="" data-toggle="dropdown" style="background:none;border:none; outline:none">...
+  <button type="button" class="" data-toggle="dropdown" style="background:none;border:none; outline:none"><i class="fa fa-ellipsis-v"></i>
     </button>
-    <div class="dropdown-menu">
-    <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i> Pin</a>
-      <a class="dropdown-item" href="#"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive"  id="archive"></i> Archives</a>
-      
-    </div>
-  
+   
   
  
 </div>
@@ -54,6 +49,13 @@
                          <div><div hidden>{{$todo->id}}</div><i class="fa fa-trash"  id="trash"></i></div>
                  </div> -->
       </div>
+
+       <div style="display:inline-block;position:relative; ">
+    <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i> Pin</a>
+      <a class="dropdown-item" href="#"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive"  id="archive"></i> Archives</a>
+      
+    </div>
+  
          @endforeach
          @else
         <h4 id="notFoundAlert">!! Record Not Found !!</h4>
