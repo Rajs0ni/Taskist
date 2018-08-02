@@ -7,7 +7,7 @@
                  <i class="fa fa-th-large"></i> </button>
         </a> 
         <a href="{{action('TodosController@gridview')}}">
-                <button type="button" class="btn viewtype" title="Grid View" >
+                <button type="button" class="btn viewtype" title="Notification" >
                  <i class="fa fa-bell"></i></button>
         </a> 
     

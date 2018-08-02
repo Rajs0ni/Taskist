@@ -46,6 +46,7 @@ Route::get('/todo/changeorder',function(){
 Route::post('/todo/changeorder','TodosController@order');
 Route::get('todo/sort/by/title','TodosController@sortByTitle');
 Route::get('todo/sort/by/date','TodosController@sortByDate');
+Route::get('/todo/color/{id}','TodosController@color');
 Route::resource('todo','TodosController');
 Auth::routes();
 

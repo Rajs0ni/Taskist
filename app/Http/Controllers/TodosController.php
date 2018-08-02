@@ -7,6 +7,8 @@ use App\Todo;
 use Requests;
 use Carbon\Carbon;
 use Illuminate\Html\HtmlServiceProvider;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -48,10 +50,10 @@ class TodosController extends Controller
     public function all()
     {
         $todos = Todo::where('user_id','=',auth()->user()->id)
-                        ->where('trashed','=','0')
+                    ->where('trashed','=','0')
                     ->orderBy('pin','desc')
                     ->orderBy('created_at','desc')
-                        ->get();
+                    ->get();
         return view('todo.index',compact('todos'));
     }
     // Create New Task
@@ -254,4 +256,11 @@ class TodosController extends Controller
             'flash_message' => 'Task has been restored!'
         ]);
     }
+//     public function color($id)
+//     {
+//       $todos = Todo::findOrFail($id);
+//       $todos->taskColor = Input::get('color');
+//       $todos->save();
+//       return back()->with('color',$color);  
+//     }
 }

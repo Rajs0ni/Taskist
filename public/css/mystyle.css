@@ -84,19 +84,10 @@ body{
     padding: 0;
     margin: 0;
     width:100%;
-    /* overflow:auto; */
-    /* margin-left: 10%; */
-    
 }
-.outersubmenu div{
-    padding:0;
-    margin: 0;
-    text-align: center;
-}
-.outersubmenu .fa{
-    font-size: 20px;
-    color:rgb(27, 74, 91);
-    cursor: pointer;
+.dropdown-menu{
+    background-color:rgb(248, 248, 248);
+    outline: none;
 }
 .panel h3{
     display: inline-block;
@@ -393,7 +384,7 @@ body{
 }
 .gridtask textarea{
     resize: none;
-    height:100px;
+    height:110px;
     border: none;
     max-width: 200px;
     overflow:hidden;
@@ -419,19 +410,14 @@ body{
 }
 .gridbtn{
     position: relative;
-    top: -20px;
+    padding: 8px;
+    padding-left: 10px;
 }
-.gridbtn button{
-    position: absolute;
-    width:40px;
-    right:10px;
-   
-    outline: none;
-    background: none;
-    border: none;
-}
+.gridbtn a{
+    padding: 2px;
+} 
 .gridbtn .fa{
-    font-size: 22px;
+    font-size: 18px;
     color: rgb(27, 74, 91,0.5);
 }
 .gridbtn .fa:hover{
@@ -442,7 +428,4 @@ body{
 }
 .enabled{
     pointer-events: auto;
-}
-body{
-background:red;    
 }
