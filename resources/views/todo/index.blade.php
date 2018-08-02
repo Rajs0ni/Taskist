@@ -15,7 +15,58 @@
                         {{ session('alert') }}
                 </div>
         @endif
+ @if(isset($pinned))
+    @if(!count($pinned))
+    @else
+            @if(count($todos)) <!--Filter Pinned Tasks-->
+                  @if(count($unpinned))
+                    <h4>Pinned</h4><hr>
+                  @else  
+                  @endif        
+                        <?php $count = 1; ?>
+                        @foreach($todos as $todo) 
+                                @if($todo->pin==1)   
+                                @if($todo->archive ==1)
+                                        @include('todo._archivedPartial') <!--include all pinned and archived tasks-->
+                                        <?php $count++; ?>
+                                @else
+                                        @include('todo._archivePartial')  <!--include all pinned and unarchived tasks-->
+                                        <?php $count++; ?>
+                                @endif
+                                @endif    
+                        @endforeach      
+           @else
+                        <h4 id="notFoundAlert">!! Record Not Found !!</h4>
+           @endif
+    @endif
+@endif                
+@if(isset($unpinned))
+        @if(!count($unpinned))
+        @else
+                @if(count($todos)) <!--Filter Other Tasks-->
+                     @if(count($pinned))
+                        <h4>Others</h4><hr>
+                     @else
+                     @endif   
+                        <?php $count = 1; ?>
+                        @foreach($todos as $todo) 
+                                @if($todo->pin == 0) 
+                                  @if($todo->archive == 0)  
+                                        @include('todo._archivePartial') <!--include all unpinned and unarchived tasks-->
+                                        <?php $count++; ?>
+                                  @else
+                                        @include('todo._archivedPartial') <!--include all unpinned and archived tasks-->
+                                        <?php $count++; ?>
+                                  @endif
+                                @endif  
+                        @endforeach
+                @else
+                        <h4 id="notFoundAlert">!! Record Not Found !!</h4>
+                @endif
+        @endif       
+@endif         
 
+<<<<<<< HEAD
 @if(count($todos))
         <?php $count = 1; ?>
          @foreach($todos as $todo) 
@@ -74,5 +125,8 @@
         <h4 id="notFoundAlert">!! Record Not Found !!</h4>
 @endif
        
+=======
+>>>>>>> f3f843ddd072743de97f769763d172ad8034713c
 @include('todo._sideBar')
+
 @endsection
