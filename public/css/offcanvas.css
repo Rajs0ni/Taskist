@@ -133,34 +133,34 @@ body {
 }
 
 /* Let's open up the menu */
-.shazam {
-  /*.content_inner {
+/* .myclass {
+  .content_inner {
     height: 100%;
-  }*/
-}
-.shazam .content {
+  }
+} */
+.myclass .content {
   -webkit-transform: rotate(-30deg);
           transform: rotate(-30deg);
 }
-.shazam .menu_open {
+.myclass .menu_open {
   -webkit-transform: rotate(-20deg);
           transform: rotate(-20deg);
 }
-.shazam .menu_close {
+.myclass .menu_close {
   -webkit-transform: rotate(0);
           transform: rotate(0);
 }
-.shazam .menu_items li {
+.myclass .menu_items li {
   -webkit-transform: translateX(0);
           transform: translateX(0);
   transition: -webkit-transform 0.35s 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transition: transform 0.35s 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transition: transform 0.35s 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275), -webkit-transform 0.35s 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-.shazam .menu_items li:nth-child(2) {
+.myclass .menu_items li:nth-child(2) {
   transition-delay: .47s;
 }
-.shazam .menu_items li:nth-child(3) {
+.myclass .menu_items li:nth-child(3) {
   transition-delay: .48s;
 }
 

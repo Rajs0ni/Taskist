@@ -48,10 +48,10 @@ class TodosController extends Controller
     public function all()
     {
         $todos = Todo::where('user_id','=',auth()->user()->id)
-                        ->where('trashed','=','0')
+                    ->where('trashed','=','0')
                     ->orderBy('pin','desc')
                     ->orderBy('created_at','desc')
-                        ->get();
+                    ->get();
         return view('todo.index',compact('todos'));
     }
     // Create New Task

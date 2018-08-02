@@ -1,22 +1,24 @@
 @extends('todo.app')
 
 @section('content')
+
     @include('todo._viewstyle')
-            <span id="mainHeading">Todo App</span>
-                @if (Session::has('flash_message'))
-                  <div class="alert alert-success ml-5 {{ Session::has('flash_message_important')? 'alert-important' : ''}}">
-                        {{ Session::get('flash_message')}}
-                   </div>
-                @endif
-                @if (session('alert'))
-                 <div class="alert alert-success">
-                         {{ session('alert') }}
-                 </div>
-                @endif
-        <div class="container gridContainer">
-            @if(count($todos))
-            <?php $count = 1; ?>
-            @foreach($todos as $todo) 
+    <span id="mainHeading">Todo App</span>
+    @if (Session::has('flash_message'))
+        <div class="alert alert-success ml-5 {{ Session::has('flash_message_important')? 'alert-important' : ''}}">
+            {{ Session::get('flash_message')}}
+        </div>
+    @endif
+    @if (session('alert'))
+        <div class="alert alert-success">
+                {{ session('alert') }}
+        </div>
+    @endif
+
+<div class="container gridContainer">
+    @if(count($todos))
+        <?php $count = 1; ?>
+        @foreach($todos as $todo) 
             <div class="grid">
                 <div class="grid_count_title">
                     <div class="count"></div>
@@ -24,17 +26,28 @@
                     <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
                 </div>
                 <div class="gridtask"><textarea >{{ $todo->task}}</textarea></div>
-                <div class="griddate"><input type="text" value='{{ $todo->completion_date}}'></div>
-                <div class="gridbtn"><button><a href="{{action('TodosController@gridshow',$todo->id)}}"><i class="fa fa-eye"></i></a></button></div>
-            </div>
-            @endforeach
-            @else
-            <h4 id="notFoundAlert">!! Record Not Found !!</h4>
-            @endif
-        </div>
-      @include('todo._sideBar')
-@endsection
+                <div class="gridbtn">
+                    @if($todo->pin==0)    
+                        <a href="#" id="pin"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i></a>
+                    @else
+                        <a href="#" id="pin"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin" style="color:red"></i></a>
+                    @endif
+                        <a href="{{ action('TodosController@edit', $todo->id ) }}" id="edit"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-pencil"  id="edit"></i></a>
+                        <a href="#" id="reminder"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-bell"  id="reminder"></i></a>
+                    @if($todo->archive == 0)
+                        <a href="#" id="archive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="archive"></i></a>
+                    @else   
+                        <a href="#" id="unarchive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="unarchive" style="color:rgb(244, 152, 66)"></i></a>
+                    @endif 
+                        <a class="addcollab" href="#"   id="addcollab" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i></a>
+                        <a  href="#"  id="trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i></a>
+                </div>
+            </div><!-- End of Grid -->
+        @endforeach
+    @else
+        <h4 id="notFoundAlert">!! Record Not Found !!</h4>
+    @endif
+</div><!-- End of gridContainer -->
 
-@section('footer')
- 
+@include('todo._sideBar')
 @endsection
