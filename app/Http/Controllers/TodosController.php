@@ -7,6 +7,7 @@ use App\Todo;
 use Requests;
 use Carbon\Carbon;
 use Illuminate\Html\HtmlServiceProvider;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -25,16 +26,18 @@ class TodosController extends Controller
                     ->orderBy('pin','desc')
                     ->orderBy('created_at','desc')
                         ->get();
-        return view('todo.index',compact('todos'));
+                        $pinned = DB::table('todos')->where('pin',1)->get();
+                        $unpinned = DB::table('todos')->where('pin',0)->get();
+        return view('todo.index',compact('todos','pinned','unpinned'));
     }
-    public function myorder(){
-        $todos = Todo::where('user_id','=',auth()->user()->id)
-                    ->where('trashed','=','0')
-                    ->where('archive','=','0')
-                    ->orderBy('order','asc')
-                        ->get();
-        return view('todo.myorder',compact('todos'));
-    }
+    // public function myorder(){
+    //     $todos = Todo::where('user_id','=',auth()->user()->id)
+    //                 ->where('trashed','=','0')
+    //                 ->where('archive','=','0')
+    //                 ->orderBy('order','asc')
+    //                     ->get();
+    //     return view('todo.myorder',compact('todos'));
+    // }
     public function order(){
         $i = 0;
 
@@ -52,7 +55,9 @@ class TodosController extends Controller
                     ->orderBy('pin','desc')
                     ->orderBy('created_at','desc')
                     ->get();
-        return view('todo.index',compact('todos'));
+                    $pinned = DB::table('todos')->where('pin',1)->get();
+                    $unpinned = DB::table('todos')->where('pin',0)->get();
+        return view('todo.index',compact('todos','pinned','unpinned'));
     }
     // Create New Task
     public function create()
@@ -84,19 +89,22 @@ class TodosController extends Controller
     // Show a particular task
     public function show($id)
     {
-        $todo = Todo::findOrFail($id);
+        $todo = Todo::where('user_id','=',auth()->user()->id)
+                      ->findOrFail($id);
         return view('todo.show',compact('todo'));
     }
     // Grid Show
     public function gridshow($id)
     {
-        $todo = Todo::findOrFail($id);
+        $todo = Todo::where('user_id','=',auth()->user()->id)
+                      ->findOrFail($id);
         return view('todo.gridshow',compact('todo'));
     }
     // Edit task
     public function edit($id)
     {
-        $todo = Todo::findOrFail($id);
+        $todo = Todo::where('user_id','=',auth()->user()->id)
+                        ->findOrFail($id);
         return view('todo.edit',compact('todo')); 
     }
     // Update task
@@ -109,14 +117,16 @@ class TodosController extends Controller
             'completion_date' => 'required|date|after_or_equal:today'
         ]);
 
-        $todo = Todo::findOrFail($id);
+        $todo = Todo::where('user_id','=',auth()->user()->id)
+                        ->findOrFail($id);
         $todo->update($request->all());
         return redirect()->action('TodosController@show',$todo->id);;
     }
     // Delete a particular task
     public function deleteTask($id)
     {
-        $todo = Todo::findOrFail($id);
+        $todo = Todo::where('user_id','=',auth()->user()->id)
+                        ->findOrFail($id);
         $todo->delete();
         return redirect('/')->with('alert','Task Deleted!');
     }
@@ -133,7 +143,8 @@ class TodosController extends Controller
             'keyword' => 'required'
         ]);
         $keyword = $request->input('keyword');
-        $todos = Todo::search($keyword)->get();
+        $todos = Todo::where('user_id','=',auth()->user()->id)
+                       ->search($keyword)->get();
         return view('todo.index',compact('todos'));
     }
     // Delete all tasks
@@ -141,7 +152,8 @@ class TodosController extends Controller
     {
         $val=request('val');
         if($val==1){
-            $todos = Todo::all();
+            $todos = Todo::where('user_id','=',auth()->user()->id)
+                           ->get();
             foreach($todos as $todo){
                 $todo->trashed=1;
                 $todo->save();
@@ -149,25 +161,33 @@ class TodosController extends Controller
             return redirect('/')->with('alert','All the tasks have been trashed!');
         }
        
-        $todos = Todo::truncate();
+        $todos = Todo::where('user_id','=',auth()->user()->id)->get();
+
+        foreach($todos as $todo){
+            $todo->delete();
+        }
+
         return redirect('/')->with('alert','All the tasks have been deleted!');
     }
     // Get completed tasks
     public function getCompleted()
     {
-        $todos = Todo::getCompleted()->get();
+        $todos = Todo::where('user_id','=',auth()->user()->id)
+                        ->getCompleted()->get();
         return view('todo.index',compact('todos'));
     }
     // Get In Process tasks
     public function getProcessing()
     {
-        $todos = Todo::getProcessing()->get();
+        $todos = Todo::where('user_id','=',auth()->user()->id)
+                        ->getProcessing()->get();
         return view('todo.index',compact('todos'));
     }
     // Get pending tasks
     public function getPending()
     {
-        $todos = Todo::getPending()->get();
+        $todos = Todo::where('user_id','=',auth()->user()->id)
+                       ->getPending()->get();
         return view('todo.index',compact('todos'));
     }
     // Help User
@@ -178,19 +198,22 @@ class TodosController extends Controller
     // Grid View
     public function gridview()
     {
-        $todos = Todo::orderBy('created_at','desc')->get();
+        $todos = Todo::where('user_id','=',auth()->user()->id)
+                        ->orderBy('created_at','desc')->get();
         return view('todo.gridview',compact('todos'));
     }
     // Sort by Title
     public function sortByTitle()
     {
-        $todos = Todo::orderBy('title')->get();
+        $todos = Todo::where('user_id','=',auth()->user()->id)
+                        ->orderBy('title')->get();
         return view('todo.index',compact('todos'));
     }
     // Sort by Date
     public function sortByDate()
     {
-        $todos = Todo::orderBy('date_created')->get();
+        $todos = Todo::where('user_id','=',auth()->user()->id)
+                    ->orderBy('date_created')->get();
         return view('todo.index',compact('todos'));
     }
 
@@ -216,14 +239,16 @@ class TodosController extends Controller
     }
 
     public function trash(){
-        $todos = Todo::where('trashed','=','1')
+        $todos = Todo::where('user_id','=',auth()->user()->id)
+                        ->where('trashed','=','1')
                         ->orderBy('created_at','desc')
                         ->get();
         return view('todo.trash',compact('todos'));
     }
 
     public function archived(){
-        $todos = Todo::where('archive','=','1')
+        $todos = Todo::where('user_id','=',auth()->user()->id)
+                        ->where('archive','=','1')
                         ->where('trashed','=','0')
                         ->orderBy('pin','desc')
                         ->orderBy('created_at','desc')
