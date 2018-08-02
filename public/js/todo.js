@@ -67,10 +67,23 @@ $(".collab").show();
            window.location.assign('/todo/clearall?val='+val);
 
     });
+    $('#colorpicker').click(function()
+    {
+         $color = $(this).val();
+         $(this).parent().parent().parent().parent().parent().css('background',$color);
+         //alert('hey');
+    });
 // $('.outersubmenu').mouseover(function(){
 //     $(this).css({'display':'block'});  
 //   });
 //   $('.outersubmenu').mouseout(function(){
 //     $(this).css({'display':'none'});
 // });
+
+    
 });
+// function change()
+// {
+//     var color = document.getElementById('colorpicker').value;
+//     document.getElementById('panel').style.color = 'pink';
+// }

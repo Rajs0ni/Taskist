@@ -6,8 +6,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href=/css/mystyle.css >
+  <!-- <link href="/Microsoft-Office-Style-Color-Picker-Plugin-evol-colorpicker/css/evol.colorpicker.min.css" rel="stylesheet">
+  <script src="/Microsoft-Office-Style-Color-Picker-Plugin-evol-colorpicker/js/evol.colorpicker.min.js"></script> -->
     <link rel="stylesheet" type="text/css" href=/css/offcanvas.css >
     <link rel="stylesheet" type="text/scss" href=/css/offcanvas.scss >
+    <link rel="stylesheet" href="spectrum.css">
+    <script src="jquery.min.js"></script>
+    <script src="spectrum.js"></script>
 @endsection
 @section('content')
         @include('todo._viewstyle')
@@ -22,43 +27,39 @@
                          {{ session('alert') }}
                  </div>
                 @endif
+                <!-- <input type="color"> -->
         @if(count($todos))
         <?php $count = 1; ?>
          @foreach($todos as $todo) 
 <div class="row">
         <div class='panel container'> 
-        <div class="dropdown" >
-                         <div class="btn-group">
-                                <button type="button" class="btn" data-toggle="dropdown" style="background:none;border:none; outline:none"><i class="fa fa-ellipsis-v"></i>
-                                </button>
-                                
-                                <div class="dropdown-menu">
-                                @if($todo->pin==0)  
-                                <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i>&ensp;Pin</a>
-                                @else
-                                <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin" style="color:red"></i>&ensp;Unpin</a>
-                                @endif
-                                <a class="dropdown-item " href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-pencil"  id="pin"></i>&ensp;Edit</a>
-                                <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-pencil"  id="pin"></i>&ensp;Reminder</a>
-                                <a class="dropdown-item" href="#" id="archive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive"></i>&ensp;Archive</a>
-                                <a class="dropdown-item addcollab" href="#"   id="addcollab" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"  ></i>&ensp;Add Collaborator</a>
-                                
-                                <a class="dropdown-item" href="#"   id="trash" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i>&ensp;Delete</a>
-
-                               
-                                </div>
-                                
+                <div class="dropdown">
+                                <div class="btn-group">
+                                        <button type="button" class="btn" data-toggle="dropdown" style="background:none;border:none; outline:none"><i class="fa fa-ellipsis-v"></i>
+                                        </button>
+                                        
+                                        <div class="dropdown-menu">
+                                        @if($todo->pin==0)  
+                                                <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i>&ensp;Pin</a>
+                                        @else
+                                                <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin" style="color:red"></i>&ensp;Unpin</a>
+                                        @endif
+                                                <a class="dropdown-item " href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-pencil"  id="pin"></i>&ensp;Edit</a>
+                                                <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-pencil"  id="pin"></i>&ensp;Reminder</a>
+                                                <a class="dropdown-item" href="#" id="archive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive"></i>&ensp;Archive</a>
+                                                <a class="dropdown-item addcollab" href="#"   id="addcollab" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"  ></i>&ensp;Add Collaborator</a>
+                                                
+                                                <a class="dropdown-item" href="#"   id="trash" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i>&ensp;Delete</a>
+                                                <a class="dropdown-item" href="#" ><div hidden style="display:inline-block;border:solid;">{{$todo->id}}</div>
+                                                <input type="color" id="colorpicker" style="width:20px;"> &ensp;Change Color</a>
+                                </div>        
                 </div>  
-
-
                 <div class="circle"></div><span id="span1"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
-                 <div class="wrapper">
-                       <h3><a href="/todo/{{$todo->id}}/show">{{$todo->title}}</a></h3> 
-                        <span id="span2" >&#x25cf; {{$todo->completion_date}}</span>
-                 </div>
-                
-        </div>
-        
+                        <div class="wrapper">
+                        <h3><a href="/todo/{{$todo->id}}/show">{{$todo->title}}</a></h3> 
+                                <span id="span2" >&#x25cf; {{$todo->completion_date}}</span>
+                </div>
+        </div>  
 </div>
 
       <!-- <div class="outersubmenu ">
