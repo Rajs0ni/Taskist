@@ -67,18 +67,6 @@ $(".collab").show();
            window.location.assign('/todo/clearall?val='+val);
 
     });
-    
-    $("#colorh").colorpicker();
-
-
-    // $('.colorpicker').click(function()
-    // {
-    //      color = $(this).val(); 
-    //      $(this).parent().parent().parent().parent().parent().css('background',color);
-    // });
-
-
-    
 });
 // var colorWell;
 // var defaultColor = "#0000ff";

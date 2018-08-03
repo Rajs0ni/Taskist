@@ -21,15 +21,12 @@
     <link rel="stylesheet" type="text/scss" href=/css/offcanvas.scss >
     <script src="/js/todo.js"></script>
     <!-- my cdn's-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
-
-    <link rel="stylesheet" href="text/css" href="/colorpicker/css/evol-colorpicker.css">
-    <link rel="stylesheet" href="text/css" href="/colorpicker/css/evol-colorpicker.min.css">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="/colorpicker/css/evol-colorpicker.css">
+    <link rel="stylesheet" type="text/css" href="/colorpicker/css/evol-colorpicker.min.css">
     <script src="/colorpicker/js/evol-colorpicker.js"></script>
-    <script src="/colorpicker/js/evol-colorpicker.min.js"></script>
-
-
+    <script src="/colorpicker/js/evol-colorpicker.min.js"></script> -->
     <!-- end -->
  </head>
     @yield('styles')

@@ -1,6 +1,10 @@
         <div class='form-group'>
         {!! Form::label('title', 'Title:',['class' => 'formLabel']) !!}
-        {!! Form::text('title',null, ['class'=>'form-control show_content hover','placeholder'=>'Enter Title']) !!}
+        @if(!isset($search))
+          {!! Form::text('title',null, ['class'=>'form-control show_content hover','placeholder'=>'Enter Title']) !!}
+        @else
+          {!! Form::text('title',$search, ['class'=>'form-control show_content hover','placeholder'=>'Enter Title']) !!}
+        @endif
         </div>
         <div class='form-group'>
         {!! Form::label('task', 'Task:',['class' => 'formLabel']) !!}

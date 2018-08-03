@@ -15,118 +15,56 @@
                         {{ session('alert') }}
                 </div>
         @endif
- @if(isset($pinned))
-    @if(!count($pinned))
-    @else
-            @if(count($todos)) <!--Filter Pinned Tasks-->
-                  @if(count($unpinned))
-                    <h4>Pinned</h4><hr>
-                  @else  
-                  @endif        
-                        <?php $count = 1; ?>
-                        @foreach($todos as $todo) 
-                                @if($todo->pin==1)   
+ 
+@if(count($todos)) 
+<!-- condition for pinned tasks --> 
+        @if(count($pinned))
+          <h4>Pinned</h4><hr>      
+                <?php $count = 1; ?>
+                @foreach($todos as $todo) 
+                        @if($todo->pin == 1)
                                 @if($todo->archive ==1)
-                                        @include('todo._archivedPartial') <!--include all pinned and archived tasks-->
+                                        @include('todo._archivedPartial') 
                                         <?php $count++; ?>
                                 @else
-                                        @include('todo._archivePartial')  <!--include all pinned and unarchived tasks-->
+                                        @include('todo._archivePartial')  
                                         <?php $count++; ?>
                                 @endif
-                                @endif    
-                        @endforeach      
-           @else
-                        <h4 id="notFoundAlert">!! Record Not Found !!</h4>
-           @endif
-    @endif
-@endif                
-@if(isset($unpinned))
-        @if(!count($unpinned))
-        @else
-                @if(count($todos)) <!--Filter Other Tasks-->
-                     @if(count($pinned))
-                        <h4>Others</h4><hr>
-                     @else
-                     @endif   
-                        <?php $count = 1; ?>
-                        @foreach($todos as $todo) 
-                                @if($todo->pin == 0) 
-                                  @if($todo->archive == 0)  
-                                        @include('todo._archivePartial') <!--include all unpinned and unarchived tasks-->
-                                        <?php $count++; ?>
-                                  @else
-                                        @include('todo._archivedPartial') <!--include all unpinned and archived tasks-->
-                                        <?php $count++; ?>
-                                  @endif
-                                @endif  
-                        @endforeach
+                        @endif        
+                @endforeach       
+        @endif         
+<!--condition for others tasks -->
+        @if(count($unpinned))
+                @if(count($pinned))
+                  <h4>Others</h4><hr> 
                 @else
-                        <h4 id="notFoundAlert">!! Record Not Found !!</h4>
-                @endif
-        @endif       
-@endif         
-
-<<<<<<< HEAD
-@if(count($todos))
-        <?php $count = 1; ?>
-         @foreach($todos as $todo) 
-                
-                <div class="row">
-                @if(isset($color))        
-                <div class='panel container' style="background:{{$color}}"> 
-                @else
-                <div class='panel container'>
-                @endif         
-    
-                                <div class="dropdown" >
-                                        <div class="btn-group">
-                                                <button type="button" class="btn" data-toggle="dropdown" style="background:none;border:none; outline:none"><i class="fa fa-ellipsis-v"></i>
-                                                </button>
-                                                
-                                                <div class="dropdown-menu">
-                                                    @if($todo->pin==0)  
-                                                        <a class="dropdown-item" href="#" id="pin"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i> Pin</a>
-                                                    @else
-                                                        <a class="dropdown-item" href="#" id="pin"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin" style="color:red"></i> Unpin</a>
-                                                    @endif
-                                                        <a class="dropdown-item " href="{{ action('TodosController@edit', $todo->id ) }}" id="edit"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-pencil"  id="edit"></i> Edit</a>
-                                                        <a class="dropdown-item" href="#" id="reminder"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-bell"  id="reminder"></i> Reminder</a>
-                                                    @if($todo->archive == 0)
-                                                        <a class="dropdown-item" href="#" id="archive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="archive"></i> Archive</a>
-                                                    @else   
-                                                        <a class="dropdown-item" href="#" id="unarchive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="unarchive" style="color:rgb(244, 152, 66)"></i> Unarchive</a>
-                                                    @endif 
-                                                        <a class="dropdown-item" href="#">
-                                                                <div hidden style="display:inline-block">{{$todo->id}}</div>
-                                                       <i class="fa fa-trash" id="color"></i> Change Color</a>
-                                                        
-                                                        <a class="dropdown-item addcollab" href="#"   id="addcollab" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i> Add Collaborator</a>
-                                                        <a class="dropdown-item" href="#"  id="trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i> Delete</a>
-
-                                                </div>
-                                        </div>       
-                                </div>  
-
-
-                                <div class="circle"></div><span id="span1"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
-                                <div class="wrapper">
-                                        <h3><a href="/todo/{{$todo->id}}/show">{{$todo->title}}</a></h3> 
-                                        <span id="span2" >&#x25cf; {{$todo->completion_date}}</span>
-                                </div>
-                                
-                        </div><!-- End of Panel -->
-                        
-                </div><!-- End of Row  -->
-                
-        @endforeach
-        <div id="div1"></div>
-<input type="button" id="colorh">
+                @endif    
+                <?php $count = 1; ?>
+                @foreach($todos as $todo) 
+                        @if($todo->pin == 0) 
+                                @if($todo->archive == 0)  
+                                        @include('todo._archivePartial') 
+                                        <?php $count++; ?>
+                                @else
+                                        @include('todo._archivedPartial') 
+                                        <?php $count++; ?>
+                                @endif
+                        @endif        
+                @endforeach
+        @else        
+        @endif  
+<!-- end others task-->          
 @else
-        <h4 id="notFoundAlert">!! Record Not Found !!</h4>
-@endif
-       
-=======
->>>>>>> f3f843ddd072743de97f769763d172ad8034713c
+    <!-- check if search variable is set -->
+    @if(isset($search)) 
+        <h4 id="notFoundAlert">"<i><b>{{$search}}</b></i>"&ensp;{{$message}}
+           <a href="/create/{{$search}}">Create it</a></h4>
+    <!-- if search var is not set -->
+    @else
+        <h4 id="notFoundAlert">{{$message}}</h4>  
+    @endif    
+@endif     
+
 @include('todo._sideBar')
 
 @endsection

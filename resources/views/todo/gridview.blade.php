@@ -16,7 +16,9 @@
     @endif
 
 <div class="container gridContainer">
-    @if(count($todos)) <!--Filter Pinned Tasks-->
+@if(count($todos)) 
+       <!-- for pinned tasks -->
+    @if(count($pinned))
         <h4>Pinned</h4><hr>
         <?php $count = 1; ?>
         @foreach($todos as $todo) 
@@ -47,12 +49,15 @@
             </div><!-- End of Grid -->
           @endif
         @endforeach
-    @else
-        <h4 id="notFoundAlert">!! Record Not Found !!</h4>
-    @endif
-    
-    @if(count($todos)) <!--Filter Other Tasks-->
-        <br><br><h4>Others</h4><hr>
+    @else    
+    @endif    
+        <!-- for other tasks -->
+        <br><br>
+        @if(count($unpinned))
+                @if(count($pinned))
+                  <h4>Others</h4><hr> 
+                @else
+                @endif  
         <?php $count = 1; ?>
         @foreach($todos as $todo) 
           @if($todo->pin == 0)
@@ -82,9 +87,10 @@
             </div><!-- End of Grid -->
           @endif
         @endforeach
-    @else
+    @endif    
+@else
         <h4 id="notFoundAlert">!! Record Not Found !!</h4>
-    @endif
+@endif
 
 </div><!-- End of gridContainer -->
 
