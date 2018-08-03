@@ -10,9 +10,22 @@
                 {{ Session::get('flash_message')}}
                 </div>
         @endif
-        @if (session('alert'))
-                <div class="alert alert-success">
+        @if (Session::has('alert'))
+                <div class="alert alert-danger">
                         {{ session('alert') }}
+                        {{session()->forget('alert')}}
+                </div>
+        @endif
+        @if (Session::has('duplicate'))
+                <div class="alert alert-warning">
+                        {{ session('duplicate') }}
+                       {{ session()->forget('duplicate')}}
+                </div>
+        @endif
+        @if (Session::has('flash'))
+                <div class="alert alert-success">
+                        {{ session('flash') }}
+                       {{ session()->forget('flash')}}
                 </div>
         @endif
 
@@ -40,7 +53,8 @@
                                                     @else   
                                                         <a class="dropdown-item" href="#" id="unarchive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="unarchive" style="color:rgb(244, 152, 66)"></i> Unarchive</a>
                                                     @endif 
-                                                        <a class="dropdown-item addcollab" href="#"   id="addcollab" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i> Add Collaborator</a>
+                                                    <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+                                                        <a class="dropdown-item addcollab" href="#" data-toggle="modal" data-target="#myModal" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i> Add Collaborator</a>
                                                         <a class="dropdown-item" href="#"  id="trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i> Delete</a>
 
                                                 </div>
@@ -64,17 +78,27 @@
 @else
         <h4 id="notFoundAlert">!! Record Not Found !!</h4>
 @endif
-        <div class="collab">
-                Add Collaborator
-                <span class="close">&times;</span>
-                <hr>
-                <div class="body">
-                        <label for="tags">Email</label>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="text" id="tag">
-                        <br><br>
-                        <button class="btn btn-primary" id="add">Add</button>
-                </div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Collaborator</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
+        <div class="modal-body">
+
+          <p>Add email </p>
+          <input type="email" id="collab">
+          <input  id="val" value="" hidden>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="addCollaborator">Add</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 @include('todo._sideBar')
 @endsection

@@ -43,9 +43,14 @@ Route::get('/todo/changeorder',function(){
                         ->get();
     return view('todo.changeorder',compact('todos'));
 });
+Route::get('/addcollaborator','TodosController@addcollab');
+Route::get('/collab','TodosController@collab');
 Route::post('/todo/changeorder','TodosController@order');
 Route::get('todo/sort/by/title','TodosController@sortByTitle');
+Route::get('/setsession','TodosController@setsession');
 Route::get('todo/sort/by/date','TodosController@sortByDate');
+Route::get('/acceptcollab','TodosController@acceptcollab');
+Route::get('/rejectcollab','TodosController@rejectcollab');
 Route::resource('todo','TodosController');
 Auth::routes();
 

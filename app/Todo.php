@@ -4,7 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\carbon;
-
+use App\Collaborator;
+use App\User;
 class Todo extends Model
 {
     protected $fillable = [
@@ -16,6 +17,13 @@ class Todo extends Model
     ];
     protected $dates = ['completion_date'];
 
+    public function collaborators(){
+        return $this->belongsToMany(Collaborator::class);
+    }
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
     public function setCompletionDateAttribute($date)
     {
         $this->attributes['completion_date'] = Carbon::parse($date);
@@ -33,16 +41,19 @@ class Todo extends Model
     public function scopeGetCompleted($query)
     {
         return $query->Select('*')
+        ->where('user_id','=',auth()->user()->id)
                 ->where('completion_date','<', Carbon::now()->toDateString());
     }
     public function scopeGetProcessing($query)
     {
         return $query->Select('*')
+        ->where('user_id','=',auth()->user()->id)
                 ->where('completion_date','=', Carbon::now()->toDateString());
     }
     public function scopeGetPending($query)
     {
         return $query->Select('*')
+        ->where('user_id','=',auth()->user()->id)
                 ->where('completion_date','>', Carbon::now()->toDateString());
     }
   

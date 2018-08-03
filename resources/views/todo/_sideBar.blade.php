@@ -4,6 +4,7 @@
                  <a href="{{ action('TodosController@getCompleted')}}"><i class="fa fa-check "></i> Completed Tasks</a>
                  <a href="{{ action('TodosController@getProcessing') }}"><i class="fa fa-spinner "></i> Processing Tasks</a>
                  <a href="{{ action('TodosController@getPending') }}"><i class="fa fa-hourglass-end "></i> Pending Tasks</a>
+                 <a href="{{ action('TodosController@collab') }}"><i class="fa fa-calendar text-muted"></i> Collaborated</a>
                  <a href="{{ action('TodosController@all') }}"><i class="fa fa-calendar text-muted"></i> All Task</a>
                  <hr>
                  <div><span>Sort By</span></div>

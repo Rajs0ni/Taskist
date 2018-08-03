@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Todo;
+use App\User;
+use App\Collaborator;
 use Requests;
+use DB;
+use Session;
 use Carbon\Carbon;
 use Illuminate\Html\HtmlServiceProvider;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +31,27 @@ class TodosController extends Controller
                         ->get();
         return view('todo.index',compact('todos'));
     }
+
+    public function acceptcollab(Request $request)
+    {
+        $id=request('id');
+        DB::table('todo_user')->where('user_id','=',auth()->user()->id)->where('todo_id','=',$id)->update([ 'status' => 'A' ]);
+        return response()->json(array("msg","Accepted"),200);
+    }
+    public function rejectcollab(Request $request)
+    {
+        $id=request('id');
+        DB::table('todo_user')->where('user_id','=',auth()->user()->id)->where('todo_id','=',$id)->delete();
+        return response()->json(array("msg","Rejected"),200);
+    }
+
+    public function collab()
+    {
+        $accepted = auth()->user()->todos()->where('status','A')->get();
+        $unaccepted = auth()->user()->todos()->where('status','I')->get();
+        return view('todo.collab',compact('accepted','unaccepted'));
+    }
+
     public function myorder(){
         $todos = Todo::where('user_id','=',auth()->user()->id)
                     ->where('trashed','=','0')
@@ -126,6 +151,34 @@ class TodosController extends Controller
         return view('todo.search');
     }
     // Find the task
+
+    public function setsession(Request $request)
+    {
+        $type = request('type');
+        if($type=='success'){
+            Session::put('flash',request('message'));
+        }
+        elseif($type=='duplicate'){
+            Session::put('duplicate',request('message'));
+        }
+        elseif($type=='yourself'){
+            Session::put('duplicate',request('message'));
+        }
+        elseif($type=='error'){
+            Session::put('alert',request('message'));
+        }
+        elseif($type=='Accepted'){
+            Session::put('flash',request('message'));
+        }
+        elseif($type=='rejected'){
+            Session::put('alert',request('message'));
+        }
+        else{
+            Session::put('alert',request('message'));
+        }
+       
+    }
+
     public function find(Request $request)
     {
         $this->validate($request,[
@@ -184,13 +237,13 @@ class TodosController extends Controller
     // Sort by Title
     public function sortByTitle()
     {
-        $todos = Todo::orderBy('title')->get();
+        $todos = Todo::where('user_id','=',auth()->user()->id)->orderBy('title')->get();
         return view('todo.index',compact('todos'));
     }
     // Sort by Date
     public function sortByDate()
     {
-        $todos = Todo::orderBy('date_created')->get();
+        $todos = Todo::where('user_id','=',auth()->user()->id)->orderBy('date_created')->get();
         return view('todo.index',compact('todos'));
     }
 
@@ -216,14 +269,33 @@ class TodosController extends Controller
     }
 
     public function trash(){
-        $todos = Todo::where('trashed','=','1')
+        $todos = Todo::where('user_id','=',auth()->user()->id)
+                        ->where('trashed','=','1')
                         ->orderBy('created_at','desc')
                         ->get();
         return view('todo.trash',compact('todos'));
     }
 
+    public function addcollab(Request $request)
+    {
+        $user2 = User::where('email','=',request('email'))->first();
+        $task = Todo::where('id','=',request('id'))->first();
+        $user1 = auth()->user()->id;
+        if( $task->user_id == $user2->id){
+            return response()->json(array("msg","yourself"),200);
+        }
+        else if(! $task->users()->where('id',$user2->id)->exists()){
+            $task->users()->save($user2);
+            return response()->json(array("msg","success"),200);
+        }
+        else{
+            return response()->json(array("msg","duplicate"),200);
+        }
+    }
+
     public function archived(){
-        $todos = Todo::where('archive','=','1')
+        $todos = Todo::where('user_id','=',auth()->user()->id)
+                        ->where('archive','=','1')
                         ->where('trashed','=','0')
                         ->orderBy('pin','desc')
                         ->orderBy('created_at','desc')
