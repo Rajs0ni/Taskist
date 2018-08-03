@@ -403,4 +403,5 @@ $accepted = auth()->user()->todos()->where('status','A')->get();
 return view('todo.alltasks',compact('todos','pinned','unpinned','accepted','message'));
 }
 
+
 }

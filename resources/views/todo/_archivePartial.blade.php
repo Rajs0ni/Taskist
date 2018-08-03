@@ -19,7 +19,7 @@
                                 <a class="dropdown-item" href="#" id="unarchive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="unarchive" style="color:rgb(244, 152, 66)"></i> Unarchive</a>
                             @endif 
                             <a class="dropdown-item" href="#"  id="color"><div hidden style="display:inline-block">{{$todo->id}}</div><input type="color" style="width:20px;" id="colorpicker"> Change Color</a>
-                                <a class="dropdown-item addcollab" href="#"   id="addcollab" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i> Add Collaborator</a>
+                                <a class="dropdown-item addcollab" href="#"   id="addcollab" data-toggle="modal" data-target="#myModal" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i> Add Collaborator</a>
                                 <a class="dropdown-item" href="#"  id="trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i> Delete</a>
 
                         </div>
@@ -31,6 +31,7 @@
         <div class="wrapper">
                 <h3><a href="/todo/{{$todo->id}}/show">{{$todo->title}}</a></h3> 
                 <span id="span2" >&#x25cf; {{$todo->completion_date}}</span>
+                
         </div>
                 
     </div><!-- End of Panel -->

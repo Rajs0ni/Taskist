@@ -1,6 +1,5 @@
 @extends('todo.app')
 
-
 @section('content')
 
         @include('todo._viewstyle')
