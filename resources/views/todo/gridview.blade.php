@@ -36,8 +36,8 @@
                     @else
                         <a href="#" id="pin" title="Unpin"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin" style="color:red"></i></a>
                     @endif
-                        <a href="{{ action('TodosController@edit', $todo->id ) }}" id="edit" title="Edit"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-pencil"  id="edit"></i></a>
-                        <a href="#" id="reminder" title="Reminder"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-bell"  id="reminder"></i></a>
+                        <a href="{{ action('TodosController@edit', $todo->id ) }}" id="edit" title="Edit"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-edit" id="edit"></i></a>
+                        <a href="#" id="snooze" title="Snooze"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-clock"  id="snooze"></i></a>
                     @if($todo->archive == 0)
                         <a href="#" id="archive" title="Archive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="archive"></i></a>
                     @else   

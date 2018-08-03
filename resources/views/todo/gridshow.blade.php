@@ -34,7 +34,7 @@
            <div class="col-4">
                <a href="{{ action('TodosController@edit', $todo->id ) }}">
                    <button id="edit"  type="button" class="btn btn-info myButton" >
-                    <li class="fa fa-pencil"></li> Edit
+                    <li class="fa fa-edit"></li> Edit
                     </button>
                 </a>
            </div>

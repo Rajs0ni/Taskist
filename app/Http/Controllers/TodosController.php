@@ -45,14 +45,7 @@ class TodosController extends Controller
         $message = "!! No Record Is Avaliable !!";
         return view('todo.index',compact('todos','pinned','unpinned','message'));
     }
-    // public function myorder(){
-    //     $todos = Todo::where('user_id','=',auth()->user()->id)
-    //                 ->where('trashed','=','0')
-    //                 ->where('archive','=','0')
-    //                 ->orderBy('order','asc')
-    //                     ->get();
-    //     return view('todo.myorder',compact('todos'));
-    // }
+  
     public function order()
     {
         $i = 0;
@@ -189,7 +182,7 @@ class TodosController extends Controller
                         ->getCompleted()->get();
         $pinned = DB::table('todos')->where('pin',1)->get();
         $unpinned = DB::table('todos')->where('pin',0)->get();
-        $message = "!! No One Task Get Completed !!";
+        $message = "!! Not Found !!";
         return view('todo.index',compact('todos','pinned','unpinned','message'));
     }
     // Get In Process tasks
@@ -201,19 +194,19 @@ class TodosController extends Controller
                         ->get();
         $pinned = DB::table('todos')->where('pin',1)->get();
         $unpinned = DB::table('todos')->where('pin',0)->get();
-        $message = "!! No Task Is In Progress !!";           
+        $message = "!! Not Found !!";           
         return view('todo.index',compact('todos','pinned','unpinned','message'));
     }
     // Get pending tasks
     public function getPending()
     {
-        $todos = Todo::where('user_id','=',auth()->user()->id)->
-                       where('trashed',0)->where('archive',0)
+        $todos = Todo::where('user_id','=',auth()->user()->id)
+                       ->where('trashed',0)->where('archive',0)
                        ->getPending()->orderBy('pin','desc')
                        ->get();
         $pinned = DB::table('todos')->where('pin',1)->get();
         $unpinned = DB::table('todos')->where('pin',0)->get();
-        $message = "!! No Pending Task !!";
+        $message = "!! Not Found !!";
         return view('todo.index',compact('todos','pinned','unpinned','message'));
     }
     // Help User
@@ -239,7 +232,7 @@ class TodosController extends Controller
                         where('trashed',0)->orderBy('title')->get();
         $pinned = DB::table('todos')->where('pin',1)->get();
         $unpinned = DB::table('todos')->where('pin',0)->get();
-        $message = "!! No Task To Sort !!";
+        $message = "!! Not Found !!";
         return view('todo.index',compact('todos','pinned','unpinned','message'));
     }
     // Sort by Date
@@ -249,7 +242,7 @@ class TodosController extends Controller
                     where('trashed',0)->orderBy('date_created')->get();
         $pinned = DB::table('todos')->where('pin',1)->get();
         $unpinned = DB::table('todos')->where('pin',0)->get();
-        $message = "!! No Task To Sort !!";
+        $message = "!! Not Found !!";
         return view('todo.index',compact('todos','pinned','unpinned','message'));
     }
     //Trash A Particular Task
@@ -291,7 +284,7 @@ class TodosController extends Controller
                         ->get();
         $pinned = DB::table('todos')->where('pin',1)->get();
         $unpinned = DB::table('todos')->where('pin',0)->get();
-        $message = "!! No Archived Task !!";     
+        $message = "!! Not Found !!";     
         return view('todo.archive',compact('todos','pinned','unpinned','message'));
     }
     //Unarchive task
