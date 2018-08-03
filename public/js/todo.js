@@ -219,10 +219,29 @@ $("#addCollaborator").click(function(){
            window.location.assign('/todo/clearall?val='+val);
 
     });
-// $('.outersubmenu').mouseover(function(){
-//     $(this).css({'display':'block'});  
-//   });
-//   $('.outersubmenu').mouseout(function(){
-//     $(this).css({'display':'none'});
-// });
 });
+// var colorWell;
+// var defaultColor = "#0000ff";
+
+// window.addEventListener("load", startup, false);
+// function startup()
+// {
+//   colorWell = document.querySelector("#colorWell");
+//   colorWell.value = defaultColor;
+//   colorWell.addEventListener("input", updateFirst, false);
+//  colorWell.addEventListener("change", updateAll, false);
+//   colorWell.select();
+// }
+// function updateFirst(event) {
+//   var p = document.getElementsByClassName("panel");
+
+//   if (p) {
+//     p.style.background = event.target.value;
+//   }
+// }
+// function updateAll(event) {
+//   document.querySelectorAll("div").forEach(function(p) {
+//     p.style.background = event.target.value;
+//   });
+
+

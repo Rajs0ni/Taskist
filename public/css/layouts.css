@@ -1,0 +1,13 @@
+body{
+    background: #EFEFF0;
+}
+.navbar{
+    background: rgb(243, 114, 114);
+}
+.navbar-brand{
+    color: #fff;
+}
+.hover:focus{   
+    border-color: rgba(243, 114, 114,0.8);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgb(247, 98, 102, 0.6);
+}

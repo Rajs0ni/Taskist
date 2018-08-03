@@ -17,30 +17,26 @@ body{
 }
 .panel
 {
-    
-    /* border: solid; */
     position: relative; 
-    background:linear-gradient(90deg,rgb(247, 98, 102)10%,rgb(239, 240, 240));
+    background:linear-gradient(90deg,rgb(243, 114, 114)10%,rgb(239, 240, 240));
     padding:3px ;
     color: #fff;
-    /* overflow: hidden; */
     margin-bottom:10px;
     margin-left: 13%; 
     border-top-left-radius: 110px;  /* 100px of height + 10px of border */
     border-bottom-left-radius: 110px; /* 100px of height + 10px of border*/
     width:70%;
-
-     box-shadow: -1px 5px 10px 3px rgba(137, 137, 137, 0.5);
+    box-shadow: -1px 5px 10px 3px rgba(137, 137, 137, 0.5);
 }
-
+/* .dropdown
+{
+    background-color: red;
+} */
 .btn-group
 {
     float: right;
 }
-.dropdown-item:hover
-{
-  background-color: lavender;
-}
+
 /* .panel::before
 {
     content: '';
@@ -85,6 +81,10 @@ body{
 .dropdown-menu{
     background-color:rgb(248, 248, 248);
     outline: none;
+}
+.dropdown-item:hover
+{
+  background-color: rgba(230,230,250,.5);
 }
 .panel h3{
     display: inline-block;
@@ -234,17 +234,18 @@ body{
     width: 100%;
     padding: 5px;
     top: 7px;
+    left: 5px;
 }
 .aside span{
     letter-spacing: 1px;
 }
 .aside div{
-    background:linear-gradient(#e44c51,#F76266);
+    background:linear-gradient(#F76266,rgb(243, 114, 114));
     width: 100%;
     margin-bottom: 15px;
     color: #fff;
     text-align: center;
-    padding: 7px 0px;
+    padding: 5px 0px;
     border-radius: 3px;
     box-shadow:0px 3px 5px rgba(0, 0, 0, 0.3);
 }
@@ -277,7 +278,7 @@ body{
     top: 25%;
 }
 
- .helpContainer span{
+.helpContainer span{
     
     font-size: 32px;
     line-height: 50px;
@@ -306,12 +307,18 @@ body{
     text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3); 
     color: #fff;
 }
-.viewWrapper a:last-child
-{
-    margin-left: 10px;
+.viewWrapper ul{
+    display: inline-block;
 }
+
 .viewWrapper  a{
     text-decoration: none;
+    display: inline-block;
+}
+.viewWrapper a:nth-child(3)
+{
+    margin-left: 10px;
+    margin-right: 5px;
 }
 .active{
     box-shadow: 0px 0px 4px inset rgba(0,0,0,0.5)
@@ -375,10 +382,6 @@ body{
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.gridtask{
-    position: relative;
-    top:5px;
-}
 .gridtask textarea{
     resize: none;
     height:110px;
@@ -388,12 +391,8 @@ body{
     padding:3px;
     padding-left:10px;
     padding-right:8px;
-    border-bottom: 1px solid rgba(129, 129, 129,0.3);
     pointer-events: none;
-}
-.griddate{
-    position: relative;
-    top:05px;
+    box-shadow: 0px 0px 1px 1px  rgba(0,0,0,.3);
 }
 .griddate input{
     background: none;
@@ -408,7 +407,8 @@ body{
 .gridbtn{
     position: relative;
     padding: 8px;
-    padding-left: 10px;
+    padding-left: 12px;
+    
 }
 .gridbtn a{
     padding: 2px;

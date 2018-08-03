@@ -30,7 +30,7 @@
         @endif
 
  
-@if(count($todos)) 
+@if(count($todos)||count($accepted)) 
 <!-- condition for pinned tasks --> 
         @if(count($pinned))
           <h4>Pinned</h4><hr>      
@@ -64,8 +64,22 @@
                                         <?php $count++; ?>
                                 @endif
                         @endif        
-                @endforeach
-        @else        
+                @endforeach      
+        @endif  
+        @if(count($accepted))
+                <h4>Collaborated tasks</h4>  
+                <?php $count = 1; ?>
+                @foreach($accepted as $todo) 
+                        @if($todo->pin == 0) 
+                                @if($todo->archive == 0)  
+                                        @include('todo._archivePartial') 
+                                        <?php $count++; ?>
+                                @else
+                                        @include('todo._archivedPartial') 
+                                        <?php $count++; ?>
+                                @endif
+                        @endif        
+                @endforeach      
         @endif  
 <!-- end others task-->          
 @else

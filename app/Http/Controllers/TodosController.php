@@ -11,6 +11,7 @@ use DB;
 use Session;
 use Carbon\Carbon;
 use Illuminate\Html\HtmlServiceProvider;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -25,11 +26,15 @@ class TodosController extends Controller
     {
         $todos = Todo::where('user_id','=',auth()->user()->id)
                     ->where('trashed','=','0')
-                    ->where('archive','=','0')
+                    ->where('archive',0)
                     ->orderBy('pin','desc')
                     ->orderBy('created_at','desc')
-                        ->get();
-        return view('todo.index',compact('todos'));
+                    ->get();
+        $pinned = DB::table('todos')->where('pin',1)->get();
+        $unpinned = DB::table('todos')->where('pin',0)->get();
+        $message = "!!  No Record Is Avaliable !!";
+        
+        return view('todo.index',compact('todos','pinned','unpinned','message'));
     }
 
     public function acceptcollab(Request $request)
@@ -55,34 +60,42 @@ class TodosController extends Controller
     public function myorder(){
         $todos = Todo::where('user_id','=',auth()->user()->id)
                     ->where('trashed','=','0')
-                    ->where('archive','=','0')
-                    ->orderBy('order','asc')
-                        ->get();
-        return view('todo.myorder',compact('todos'));
+                    ->orderBy('pin','desc')
+                    ->orderBy('created_at','desc')
+                    ->get();
+        $pinned = DB::table('todos')->where('pin',1)->get();
+        $unpinned = DB::table('todos')->where('pin',0)->get();
+        $message = "!! No Record Is Avaliable !!";
+        return view('todo.index',compact('todos','pinned','unpinned','message'));
     }
-    public function order(){
+    // public function myorder(){
+    //     $todos = Todo::where('user_id','=',auth()->user()->id)
+    //                 ->where('trashed','=','0')
+    //                 ->where('archive','=','0')
+    //                 ->orderBy('order','asc')
+    //                     ->get();
+    //     return view('todo.myorder',compact('todos'));
+    // }
+    public function order()
+    {
         $i = 0;
-
-        foreach ($_POST['item'] as $value) {
+        foreach ($_POST['item'] as $value)
+        {
             // Execute statement:
             // UPDATE [Table] SET [Position] = $i WHERE [EntityId] = $value
             $i++;
             DB::table('todos')->where('id', '=', $value)->update([ 'order' => $i ]);
         }   
     }
-    public function all()
-    {
-        $todos = Todo::where('user_id','=',auth()->user()->id)
-                    ->where('trashed','=','0')
-                    ->orderBy('pin','desc')
-                    ->orderBy('created_at','desc')
-                    ->get();
-        return view('todo.index',compact('todos'));
-    }
     // Create New Task
     public function create()
     {
         return view('todo.create');
+    }
+    //create after search
+    public function create1($search)
+    {
+        return view('todo.create',compact('search'));
     }
     // Store Task
     public function store(Request $request)
@@ -109,19 +122,22 @@ class TodosController extends Controller
     // Show a particular task
     public function show($id)
     {
-        $todo = Todo::findOrFail($id);
+        $todo = Todo::where('user_id','=',auth()->user()->id)
+                      ->findOrFail($id);
         return view('todo.show',compact('todo'));
     }
     // Grid Show
     public function gridshow($id)
     {
-        $todo = Todo::findOrFail($id);
+        $todo = Todo::where('user_id','=',auth()->user()->id)
+                      ->findOrFail($id);
         return view('todo.gridshow',compact('todo'));
     }
     // Edit task
     public function edit($id)
     {
-        $todo = Todo::findOrFail($id);
+        $todo = Todo::where('user_id','=',auth()->user()->id)
+                        ->findOrFail($id);
         return view('todo.edit',compact('todo')); 
     }
     // Update task
@@ -134,14 +150,16 @@ class TodosController extends Controller
             'completion_date' => 'required|date|after_or_equal:today'
         ]);
 
-        $todo = Todo::findOrFail($id);
+        $todo = Todo::where('user_id','=',auth()->user()->id)
+                        ->findOrFail($id);
         $todo->update($request->all());
         return redirect()->action('TodosController@show',$todo->id);;
     }
     // Delete a particular task
     public function deleteTask($id)
     {
-        $todo = Todo::findOrFail($id);
+        $todo = Todo::where('user_id','=',auth()->user()->id)
+                        ->findOrFail($id);
         $todo->delete();
         return redirect('/')->with('alert','Task Deleted!');
     }
@@ -186,42 +204,68 @@ class TodosController extends Controller
             'keyword' => 'required'
         ]);
         $keyword = $request->input('keyword');
-        $todos = Todo::search($keyword)->get();
-        return view('todo.index',compact('todos'));
+        $todos = Todo::where('user_id','=',auth()->user()->id)
+                       ->search($keyword)->orderBy('pin','DESC')->get();
+        $search = Input::get('keyword');               
+        $pinned = DB::table('todos')->where('pin',1)->get();
+        $unpinned = DB::table('todos')->where('pin',0)->get();
+        $message = "!! Not Exist !!";                
+        return view('todo.index',compact('todos','pinned','unpinned','message','search'));
     }
     // Delete all tasks
     public function clearall(Request $request)
     {
         $val=request('val');
         if($val==1){
-            $todos = Todo::all();
+            $todos = Todo::where('user_id','=',auth()->user()->id)
+                           ->get();
             foreach($todos as $todo){
                 $todo->trashed=1;
                 $todo->save();
             }
             return redirect('/')->with('alert','All the tasks have been trashed!');
         }
-       
-        $todos = Todo::truncate();
+        $todos = Todo::where('user_id','=',auth()->user()->id)->get();
+        foreach($todos as $todo)
+        {
+            $todo->delete();
+        }
         return redirect('/')->with('alert','All the tasks have been deleted!');
     }
     // Get completed tasks
     public function getCompleted()
     {
-        $todos = Todo::getCompleted()->get();
-        return view('todo.index',compact('todos'));
+        $todos = Todo::where('user_id','=',auth()->user()->id)->
+                       where('trashed',0)->where('archive',0)->orderBy('pin','desc')
+                        ->getCompleted()->get();
+        $pinned = DB::table('todos')->where('pin',1)->get();
+        $unpinned = DB::table('todos')->where('pin',0)->get();
+        $message = "!! No One Task Get Completed !!";
+        return view('todo.index',compact('todos','pinned','unpinned','message'));
     }
     // Get In Process tasks
     public function getProcessing()
     {
-        $todos = Todo::getProcessing()->get();
-        return view('todo.index',compact('todos'));
+        $todos = Todo::where('user_id','=',auth()->user()->id)->
+                        where('trashed',0)->where('archive',0)
+                        ->getProcessing()->orderBy('pin','desc')
+                        ->get();
+        $pinned = DB::table('todos')->where('pin',1)->get();
+        $unpinned = DB::table('todos')->where('pin',0)->get();
+        $message = "!! No Task Is In Progress !!";           
+        return view('todo.index',compact('todos','pinned','unpinned','message'));
     }
     // Get pending tasks
     public function getPending()
     {
-        $todos = Todo::getPending()->get();
-        return view('todo.index',compact('todos'));
+        $todos = Todo::where('user_id','=',auth()->user()->id)->
+                       where('trashed',0)->where('archive',0)
+                       ->getPending()->orderBy('pin','desc')
+                       ->get();
+        $pinned = DB::table('todos')->where('pin',1)->get();
+        $unpinned = DB::table('todos')->where('pin',0)->get();
+        $message = "!! No Pending Task !!";
+        return view('todo.index',compact('todos','pinned','unpinned','message'));
     }
     // Help User
     public function help()
@@ -231,22 +275,35 @@ class TodosController extends Controller
     // Grid View
     public function gridview()
     {
-        $todos = Todo::orderBy('created_at','desc')->get();
-        return view('todo.gridview',compact('todos'));
+        $todos = Todo::where('user_id','=',auth()->user()->id)->
+                        where('trashed',0)->
+                        where('archive',0)->orderBy('pin','desc')->get();
+        $pinned = DB::table('todos')->where('pin',1)->get();
+        $unpinned = DB::table('todos')->where('pin',0)->get();
+                                
+        return view('todo.gridview',compact('todos','pinned','unpinned'));
     }
     // Sort by Title
     public function sortByTitle()
     {
-        $todos = Todo::where('user_id','=',auth()->user()->id)->orderBy('title')->get();
-        return view('todo.index',compact('todos'));
+        $todos = Todo::where('user_id','=',auth()->user()->id)->
+                        where('trashed',0)->orderBy('title')->get();
+        $pinned = DB::table('todos')->where('pin',1)->get();
+        $unpinned = DB::table('todos')->where('pin',0)->get();
+        $message = "!! No Task To Sort !!";
+        return view('todo.index',compact('todos','pinned','unpinned','message'));
     }
     // Sort by Date
     public function sortByDate()
     {
-        $todos = Todo::where('user_id','=',auth()->user()->id)->orderBy('date_created')->get();
-        return view('todo.index',compact('todos'));
+        $todos = Todo::where('user_id','=',auth()->user()->id)->
+                    where('trashed',0)->orderBy('date_created')->get();
+        $pinned = DB::table('todos')->where('pin',1)->get();
+        $unpinned = DB::table('todos')->where('pin',0)->get();
+        $message = "!! No Task To Sort !!";
+        return view('todo.index',compact('todos','pinned','unpinned','message'));
     }
-
+    //Trash A Particular Task
     public function trashTask(Todo $todo){
         $todo->trashed=1;
         $todo->save();
@@ -254,7 +311,7 @@ class TodosController extends Controller
             'flash_message' => 'Task has been trashed!'
         ]);
     }
-
+    //Pin task
     public function pinTask(Todo $todo){
         $todo->pin=!$todo->pin;
         $todo->save();
@@ -267,7 +324,7 @@ class TodosController extends Controller
             'flash_message' => 'Task has been unpinned!'
         ]);
     }
-
+    //Tasks In Trash
     public function trash(){
         $todos = Todo::where('user_id','=',auth()->user()->id)
                         ->where('trashed','=','1')
@@ -300,9 +357,12 @@ class TodosController extends Controller
                         ->orderBy('pin','desc')
                         ->orderBy('created_at','desc')
                         ->get();
-        return view('todo.archive',compact('todos'));
+        $pinned = DB::table('todos')->where('pin',1)->get();
+        $unpinned = DB::table('todos')->where('pin',0)->get();
+        $message = "!! No Archived Task !!";     
+        return view('todo.archive',compact('todos','pinned','unpinned','message'));
     }
-
+    //Unarchive task
     public function unarchive(Todo $todo){
         $todo->archive=0;
         $todo->save();
@@ -310,7 +370,7 @@ class TodosController extends Controller
             'flash_message' => 'Task has been unarchived!'
         ]);
     }
-
+    //Archive task
     public function archiveTask(Todo $todo){
         $todo->archive=1;
         $todo->save();
@@ -318,7 +378,7 @@ class TodosController extends Controller
             'flash_message' => 'Task has been archived!'
         ]);
     }
-
+    //Restore Task
     public function restore(Todo $todo){
         $todo->trashed=0;
         $todo->save();
@@ -326,4 +386,28 @@ class TodosController extends Controller
             'flash_message' => 'Task has been restored!'
         ]);
     }
+//     public function color($id)
+//     {
+//       $todos = Todo::findOrFail($id);
+//       $todos->taskColor = Input::get('color');
+//       $todos->save();
+//       return back()->with('color',$color);  
+//     }
+
+
+//All Task
+public function all()
+{
+$todos = Todo::where('user_id','=',auth()->user()->id)
+->where('trashed','=','0')
+->orderBy('pin','desc')
+->orderBy('created_at','desc')
+->get();
+$pinned = DB::table('todos')->where('pin',1)->get();
+$unpinned = DB::table('todos')->where('pin',0)->get();
+$message = "!! No Record Is Avaliable !!";
+$accepted = auth()->user()->todos()->where('status','A')->get();
+return view('todo.alltasks',compact('todos','pinned','unpinned','accepted','message'));
+}
+
 }
