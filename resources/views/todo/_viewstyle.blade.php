@@ -9,11 +9,11 @@
                 <button type="button" class="btn viewtype" title="Grid View" >
                  <i class="fa fa-th-large"></i> </button>
         </a> 
-        <a href="{{action('TodosController@gridview')}}">
-                <button type="button" class="btn viewtype" title="Notification" >
+        <a href="#">
+                <button type="button" class="btn viewtype" id="notification" title="Notification" >
                  <i class="fa fa-bell"></i></button>
         </a>
-        <ul class="navbar-nav ml-auto" >
+        <ul class="navbar-nav ml-3 " >
                 <!-- Authentication Links -->
                 @guest
                         <li class="nav-item">
@@ -43,4 +43,38 @@
                 @endguest
         </ul>        
        
+ </div>
+
+ <div class="Notification-panel">
+        <div class="Notification-header">
+                Notifications
+                <button type="button" class="close mr-2 mt-1" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="Notification-content">
+                <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                </div>
+                <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                </div>
+                <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                </div>
+                <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                </div>
+                <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                </div>
+                <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                </div>
+                <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                </div>
+                <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                </div>
+        </div>
+ 
  </div>

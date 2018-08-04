@@ -4,14 +4,16 @@
 
     @include('todo._viewstyle')
     <span id="mainHeading">Todo App</span>
-    @if (Session::has('flash_message'))
+    @if(Session::has('flash_message'))
         <div class="alert alert-success ml-5 {{ Session::has('flash_message_important')? 'alert-important' : ''}}">
             {{ Session::get('flash_message')}}
+            {{ session()->forget('flash_message')}}
         </div>
     @endif
-    @if (session('alert'))
+    @if(session('alert'))
         <div class="alert alert-success">
                 {{ session('alert') }}
+                {{ session()->forget('alert')}}
         </div>
     @endif
 

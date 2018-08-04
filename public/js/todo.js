@@ -1,4 +1,7 @@
 $('document').ready(function(){
+  $('#notification').on('click',function(){
+    $('.Notification-panel').css({'display':'block'});
+  });
     
   $('.row').mouseover(function(){
     $(this).find(".outersubmenu").css({'display':'block'});  

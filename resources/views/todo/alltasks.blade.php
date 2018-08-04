@@ -35,7 +35,7 @@
         @if(count($pinned))
           <h4>Pinned</h4><hr>      
                 <?php $count = 1; ?>
-                @foreach($todos as $todo) 
+                @foreach($pinned as $todo) 
                         @if($todo->pin == 1)
                                 @if($todo->archive ==1)
                                         @include('todo._archivedPartial') 
@@ -54,7 +54,7 @@
                 @else
                 @endif    
                 <?php $count = 1; ?>
-                @foreach($todos as $todo) 
+                @foreach($unpinned as $todo) 
                         @if($todo->pin == 0) 
                                 @if($todo->archive == 0)  
                                         @include('todo._archivePartial') 
