@@ -10,10 +10,10 @@
                  <a href="{{ action('TodosController@sortByDate') }}"><i class="fa fa-sort-amount-desc"></i> Date</a> 
                  <hr>
                  <div><span>Task Categorization</span></div>
-                 <a href="{{ action('TodosController@getCompleted')}}"><i class="fa fa-check-square "></i> Completed Tasks</a>
-                 <a href="{{ action('TodosController@getPending') }}"><i class="fa fa-hourglass-end "></i> Pending Tasks</a>
                  <a href="{{ action('TodosController@getProcessing') }}"><i class="fa fa-sun "></i> Today's Tasks</a>
-                 <a href="{{ action('TodosController@collab') }}"><i class="fa fa-calendar text-muted"></i> Collaborated</a>
+                 <a href="{{ action('TodosController@collab') }}"><i class="fa fa-users"></i> Collaboration</a>
+                 <a href="{{ action('TodosController@getPending') }}"><i class="fa fa-hourglass-end "></i> Pending Tasks</a>
+                 <a href="{{ action('TodosController@getCompleted')}}"><i class="fa fa-check-square "></i> Completed Tasks</a>
                  <a href="{{ action('TodosController@all') }}"><i class="fa fa-tasks"></i> All Task</a>
                  <hr>
                  <a href="{{ action('TodosController@archived') }}"><i class="fa fa-archive"></i> Archive</a><br>

@@ -8,6 +8,7 @@
         @if (Session::has('flash_message'))
                 <div class="alert alert-success ml-5 {{ Session::has('flash_message_important')? 'alert-important' : ''}}">
                 {{ Session::get('flash_message')}}
+                {{ session()->forget('flash_message')}}
                 </div>
         @endif
         @if (Session::has('alert'))
@@ -31,11 +32,11 @@
 
  
 @if(count($todos)) 
-<!-- condition for pinned tasks --> 
+<!-- Filter pinned tasks --> 
         @if(count($pinned))
           <h4>Pinned</h4><hr>      
                 <?php $count = 1; ?>
-                @foreach($todos as $todo) 
+                @foreach($pinned as $todo) 
                         @if($todo->pin == 1)
                                 @if($todo->archive ==1)
                                         @include('todo._archivedPartial') 
@@ -47,8 +48,8 @@
                         @endif        
                 @endforeach       
         @endif         
-<!--condition for others tasks -->
-        @if(count($unpinned))
+<!--Filter others tasks -->
+@if(count($unpinned))
                 @if(count($pinned))
                   <h4>Others</h4><hr> 
                 @else
@@ -56,16 +57,15 @@
                 <?php $count = 1; ?>
                 @foreach($todos as $todo) 
                         @if($todo->pin == 0) 
-                                @if($todo->archive == 0)  
-                                        @include('todo._archivePartial') 
+                               @if($todo->archive == 0)   
+                                        @include('todo._archivePartial')
                                         <?php $count++; ?>
                                 @else
                                         @include('todo._archivedPartial') 
                                         <?php $count++; ?>
                                 @endif
                         @endif        
-                @endforeach
-        @else        
+                @endforeach      
         @endif  
 <!-- end others task-->          
 @else
@@ -79,28 +79,7 @@
     @endif    
 @endif     
 
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Add Collaborator</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
 
-          <p>Add email </p>
-          <input type="email" id="collab">
-          <input  id="val" value="" hidden>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" id="addCollaborator">Add</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
 @include('todo._sideBar')
 
 @endsection

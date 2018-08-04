@@ -4,14 +4,16 @@
 
     @include('todo._viewstyle')
     <span id="mainHeading">Todo App</span>
-    @if (Session::has('flash_message'))
+    @if(Session::has('flash_message'))
         <div class="alert alert-success ml-5 {{ Session::has('flash_message_important')? 'alert-important' : ''}}">
             {{ Session::get('flash_message')}}
+            {{ session()->forget('flash_message')}}
         </div>
     @endif
-    @if (session('alert'))
+    @if(session('alert'))
         <div class="alert alert-success">
                 {{ session('alert') }}
+                {{ session()->forget('alert')}}
         </div>
     @endif
 
@@ -74,7 +76,7 @@
                     @else
                         <a href="#" id="Unpin" title="Unpin"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack" id="pin" style="color:red"></i></a>
                     @endif
-                        <a href="{{ action('TodosController@edit', $todo->id ) }}" id="edit" title="Edit"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-pencil" id="edit"></i></a>
+                        <a href="{{ action('TodosController@edit', $todo->id ) }}" id="edit" title="Edit"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-edit" id="edit"></i></a>
                         <a href="#" id="reminder" title="Reminder"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-bell" id="reminder"></i></a>
                     @if($todo->archive == 0)
                         <a href="#" id="archive" title="Archive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="archive"></i></a>
