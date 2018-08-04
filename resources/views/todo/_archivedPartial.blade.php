@@ -14,11 +14,14 @@
                                 <a class="dropdown-item " href="{{ action('TodosController@edit', $todo->id ) }}" id="edit"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-pencil"  id="edit"></i> Edit</a>
                                 <a class="dropdown-item" href="#" id="reminder"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-clock"></i> Snooze</a>
                             @if($todo->archive == 0)
-                                <a class="dropdown-item" href="#" id="archive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="archive"></i> Archive</a>
+                                <a class="dropdown-item" href="#" class="arc" id="archive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="archive"></i> Archive</a>
                             @else   
                                 <a class="dropdown-item" href="#" id="unarchive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="unarchive" style="color:rgb(244, 152, 66)"></i> Unarchive</a>
                             @endif 
-                            <a class="dropdown-item" href="#"  id="color"><div hidden style="display:inline-block">{{$todo->id}}</div><input type="color" style="width:20px;" id="colorpicker"> Change Color</a>
+                            <a class="dropdown-item" href="#"><div hidden style="display:inline-block">{{$todo->id}}</div>
+                               <input type="color" style="width:20px;" id="colorpicker">
+                               Change Color
+                            </a>
                                 <a class="dropdown-item addcollab" href="#" data-toggle="modal" data-target="#myModal"   id="addcollab" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i> Add Collaborator</a>
                                 <a class="dropdown-item" href="#"  id="trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i> Delete</a>
 

@@ -219,29 +219,42 @@ $("#addCollaborator").click(function(){
            window.location.assign('/todo/clearall?val='+val);
 
     });
+    // $(".list").on('click',function()
+    // {
+    //    //alert('list');
+    //         //var list =  0;
+    //         $.ajax({
+    //             url: '/todo',
+    //             Type: 'GET',
+    //             data: { 
+    //                 _token : $('meta[name="csrf-token"]').attr('content'), 
+    //                 'list': 0,
+    //             },
+    //             headers: {
+    //                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+    //             },
+    //             success: function (data) {
+    //                 alert('yes');
+    //             },
+    //             error: function () {
+    //                 alert("Tag or Times aren't formatted right");
+    //             }
+    //         });
+
+    // });
+    $('#colorpicker').bind('input',function()
+    {
+        //alert('hey');
+        color = $(this).val();
+        x = $(this).parent().parent().parent().parent().parent();
+        x.css('background',color);
+    });
+   
 });
-// var colorWell;
-// var defaultColor = "#0000ff";
 
-// window.addEventListener("load", startup, false);
-// function startup()
-// {
-//   colorWell = document.querySelector("#colorWell");
-//   colorWell.value = defaultColor;
-//   colorWell.addEventListener("input", updateFirst, false);
-//  colorWell.addEventListener("change", updateAll, false);
-//   colorWell.select();
-// }
-// function updateFirst(event) {
-//   var p = document.getElementsByClassName("panel");
+// var theInput = document.getElementById("colorpicker");
+// var theColor = theInput.value;
+// theInput.addEventListener("input", function() {
 
-//   if (p) {
-//     p.style.background = event.target.value;
-//   }
-// }
-// function updateAll(event) {
-//   document.querySelectorAll("div").forEach(function(p) {
-//     p.style.background = event.target.value;
-//   });
-
-
+// document.getElementById("color").style.color = theInput.value;
+// }, false);
