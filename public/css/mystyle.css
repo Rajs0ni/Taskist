@@ -438,6 +438,19 @@ body{
 .enabled{
     pointer-events: auto;
 }
+
+.modal{
+    position:absolute;
+    top:25%;
+}
+
+.notis{
+    width:200px;
+    border:solid;
+    position:absolute;
+    right:213px;
+    display:none;
+}
 #ellipsis{
     background: none !important;
     border:none !important;

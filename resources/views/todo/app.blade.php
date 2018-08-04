@@ -6,28 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Todo App</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" >
+     <meta name="csrf-token" content="{{ csrf_token() }}">
+ 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" ></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  
+  
+     <link rel="stylesheet" href="/css/datetime.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" type="text/css">   
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+  <script src="/js/datetime.js"></script>
+
+  
     <link rel="stylesheet" type="text/css" href=/css/mystyle.css >
     <link rel="stylesheet" type="text/css" href=/css/offcanvas.css >
     <link rel="stylesheet" type="text/scss" href=/css/offcanvas.scss >
     <script src="/js/todo.js"></script>
-    <!-- my cdn's-->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
-    <link rel="stylesheet" type="text/css" href="/colorpicker/css/evol-colorpicker.css">
-    <link rel="stylesheet" type="text/css" href="/colorpicker/css/evol-colorpicker.min.css">
-    <script src="/colorpicker/js/evol-colorpicker.js"></script>
-    <script src="/colorpicker/js/evol-colorpicker.min.js"></script> -->
-    <!-- end -->
+  
  </head>
     @yield('styles')
 <body>
@@ -68,5 +73,13 @@ $('.content').on('click', function(){
     $('div.alert').not('.alert-important').delay(2000).slideUp(300);
  </script>
 
+@include('todo.remindermodalbox')
+                <div class="modal-footer">
+                        <button type="button" class="btn btn-success" id="add_reminder">DONE</button>
+                        </div>
+                        
+                    </div>
+                    </div>
+                </div>
 </body>
 </html>
