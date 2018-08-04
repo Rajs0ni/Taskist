@@ -1,5 +1,7 @@
+(function ( $ ) {
+    var id,title; 
 $('document').ready(function(){
-    
+    $('[data-toggle="tooltip"]').tooltip();    
   $('.row').mouseover(function(){
     $(this).find(".outersubmenu").css({'display':'block'});  
   });
@@ -67,10 +69,53 @@ $(".collab").show();
            window.location.assign('/todo/clearall?val='+val);
 
     });
-// $('.outersubmenu').mouseover(function(){
-//     $(this).css({'display':'block'});  
-//   });
-//   $('.outersubmenu').mouseout(function(){
-//     $(this).css({'display':'none'});
-// });
+
+    $('body').on('click','#reminder',function(){
+        $('#addreminder').fadeIn(200);
+        $("#datepicker").datetimepicker({
+            minDate:new Date(),
+            altField:'#timepicker',
+            dateFormat: 'dd-mm-yy'
+           });
+     id=$(this).parent().find('#task_id').val();           
+     title=$(this).parent().find('#task_title').val();       
+    })
+          
+    $(".close").click(function(){      
+      $('#addreminder').fadeOut(200);
+      $('#datepicker').val('');
+      $('#timepicker').val('');
+  });
+  
+  $('#add_reminder').click(function(){
+    var date=$('#datepicker').val();
+    var time=$('#timepicker').val();
+    if(date!="" && time!=""){
+    $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({                       
+      url: '/addreminder',
+      method:'post',
+      data:{
+        id:id,
+        title:title,
+        date:date,
+        time:time
+      }
+    });
+}
+$('#addreminder').fadeOut(200);
+$('#datepicker').val('');
+$('#timepicker').val('');
+
+
+  });
+
+  
 });
+
+
+}( jQuery ));

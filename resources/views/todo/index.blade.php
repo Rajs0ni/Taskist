@@ -8,6 +8,8 @@
   <link rel="stylesheet" type="text/css" href=/css/mystyle.css >
     <link rel="stylesheet" type="text/css" href=/css/offcanvas.css >
     <link rel="stylesheet" type="text/scss" href=/css/offcanvas.scss >
+
+
 @endsection
 @section('content')
         @include('todo._viewstyle')
@@ -33,13 +35,15 @@
                                 </button>
                                 
                                 <div class="dropdown-menu">
+                                <input type='hidden' value={{$todo->id}} id='task_id'>
+                                <input type='hidden' value={{$todo->title}} id='task_title'>
                                 @if($todo->pin==0)  
                                 <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i>&ensp;Pin</a>
                                 @else
                                 <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin" style="color:red"></i>&ensp;Unpin</a>
                                 @endif
                                 <a class="dropdown-item " href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-pencil"  id="pin"></i>&ensp;Edit</a>
-                                <a class="dropdown-item" href="#" id="pin" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-pencil"  id="pin"></i>&ensp;Reminder</a>
+                                <a class="dropdown-item" href="#" id="reminder" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-pencil"  id="pin"></i>&ensp;Reminder</a>
                                 <a class="dropdown-item" href="#" id="archive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive"></i>&ensp;Archive</a>
                                 <a class="dropdown-item addcollab" href="#"   id="addcollab" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"  ></i>&ensp;Add Collaborator</a>
                                 
@@ -60,18 +64,6 @@
         </div>
         
 </div>
-
-      <!-- <div class="outersubmenu ">
-                        @if($todo->pin==0)
-                                <div><div hidden>{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i></div>
-                        @else
-                                <div><div hidden>{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin" style="color:red"></i></div>
-                        @endif
-                         <div><div hidden>{{$todo->id}}</div><i class="fa fa-archive"  id="archive"></i></div>
-                         <div><div hidden>{{$todo->id}}</div><i class="fa fa-trash"  id="trash"></i></div>
-                 </div> -->
-      <!-- </div> -->
-
     
   
          @endforeach
@@ -90,6 +82,18 @@
          @else
         <!-- <h4 id="notFoundAlert">!! Record Not Found !!</h4> -->
         @endif
+
+        
+            @include('todo.remindermodalbox')
+                               <div class="modal-footer">
+                        <button type="button" class="btn btn-success" id="add_reminder">DONE</button>
+                        </div>
+                        
+                    </div>
+                    </div>
+                </div>
+
+
       @include('todo._sideBar')
 @endsection
 

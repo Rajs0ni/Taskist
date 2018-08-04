@@ -49,4 +49,9 @@ Route::get('todo/sort/by/date','TodosController@sortByDate');
 Route::resource('todo','TodosController');
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'TodosController@index')->name('home');
+Route::post('/addreminder','TodosController@addreminder');
+Route::get('/getreminder','TodosController@getreminder');
+Route::get('/removeremindernoti','TodosController@removeremindernoti');
+Route::get('/getremtime','TodosController@getremtime');
+Route::get('/removereminder','TodosController@removereminder');

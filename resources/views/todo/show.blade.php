@@ -11,8 +11,132 @@
                 <div class="col text-left">
                     <h3 style="color:#F76266;font-weight:bold; text-transform:capitalize;">{{$todo->title}}</a></h3>
                 </div>
-                <div class="col text-right">
+             
+              
+                <div class="col text-right">             
+                   @if(isset($rem))
+                   <span id="remclock"><i class="fa fa-clock clock"  style="font-size:20px;" ></i></span>
+                    <div class="dropdown mr-3 ml-1" style="display:inline-block;">
+                    <span ><i class="fas fa-caret-down" id="clk"></i></span>
+                        <ul class="dropdown-menu">
+                        <li id="editreminder">Edit</li>
+                        <li id="removereminder">Remove</li>
+                        </ul>
+                    </div>
+                     <script>
+            (function ( $ ) {
+                    var event1="";
+                     $('[data-toggle="tooltip"]').tooltip();
+                      $('.fa-caret-down').click(function(){
+                        $(".dropdown-menu").toggle();
+                          event1='ready';
+                        })
+                        
+                        $('html').on('click',function(evt){
+                            if(event1=='ready'){    
+                            if(evt.target.id == "clk")
+                                return;
+                            
+                            if($(".dropdown-menu").css('display')=='block')
+                                $(".dropdown-menu").css('display','none');
+                            
+                                event1="";
+                            }
+                        });
+
+                        $('#editreminder').click(function(){
+                            $('#addreminder').fadeIn(200);
+                              $.ajaxSetup({
+                                    headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    }
+                                });
+                                $.ajax({                       
+                                url: '/getremtime',
+                                method:'get',
+                                data:{
+                                    id:{{$todo->id}}
+                                },
+                                success(response){       
+                                    response=response.split('on');                             
+                                    $('#datepicker').val(response[0]);
+                                    $('#timepicker').val(response[1]);
+                            
+                                }
+                                });
+                               
+                            $("#datepicker").datetimepicker({
+                                    minDate:new Date(),
+                                    altField:'#timepicker',
+                                    dateFormat: 'dd-mm-yy'
+                                });
+                         })
+
+                        $('body').on('click','#addrem',function(){
+                                  var date=$('#datepicker').val();
+                                var time=$('#timepicker').val();
+                                if(date!="" && time!=""){
+                                $.ajaxSetup({
+                                    headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    }
+                                });
+                                $.ajax({                       
+                                url: '/addreminder',
+                                method:'post',
+                                data:{
+                                    id:{{$todo->id}},
+                                    title:"{{$todo->title}}",
+                                    date:date,
+                                    time:time
+                                }
+                                });
+                            }
+                            $('#addreminder').fadeOut(200);
+                            $('#datepicker').val('');
+                            $('#timepicker').val('');
+
+                            });
+
+                            
+                            $('.clock').hover(function(){
+                               $.ajaxSetup({
+                                    headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    }
+                                });
+                                $.ajax({                       
+                                url: '/getremtime',
+                                method:'get',
+                                data:{
+                                    id:{{$todo->id}}
+                                },
+                                success(response){       
+                             $('.clock').prop({'title':response});                            
+                                }
+                                });
+                            });
+
+                            $("#removereminder").click(function(){
+                                 if(confirm('Remove reminder')){
+                                  $(this).parent().parent().parent().find('#remclock').remove();
+                                  $(this).parents('.dropdown').remove();
+                                   $.ajax({                       
+                                    url: '/removereminder',
+                                    method:'get',
+                                    data:{
+                                        id:{{$todo->id}}
+                                    }
+                                   });
+                                
+                                 }
+                            });
+                        }( jQuery ));
+                    </script>
+                   
+                    @endif
                     <strong><span class="date">{{$todo->completion_date}}</span></strong>
+                    
                 </div> 
             </div>
             <hr>
@@ -53,5 +177,14 @@
 </div>
    
 @endif
+        @include('todo.remindermodalbox')
+                         <div class="modal-footer">
+                        <button type="button" class="btn btn-success" id="addrem">DONE</button>
+                        </div>
+                        
+                    </div>
+                    </div>
+                </div>
+
 
 @endsection
