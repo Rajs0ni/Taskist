@@ -12,10 +12,12 @@
 */
 
 Route::get('/', 'TodosController@index');
+Route::get('/todo/view/{todo}', 'TodosController@index1');
 
 Route::get('/todo', 'TodosController@index');
 Route::get('/todo/all', 'TodosController@all');
 Route::get('/todo/create', 'TodosController@create');
+Route::get('/create/{todo}','TodosController@create1');
 Route::post('/todo/store', 'TodosController@store');
 Route::get('/todo/{todo}/show','TodosController@show');
 Route::get('/todo/{todo}/gshow','TodosController@gridshow');
@@ -43,9 +45,15 @@ Route::get('/todo/changeorder',function(){
                         ->get();
     return view('todo.changeorder',compact('todos'));
 });
+Route::get('/addcollaborator','TodosController@addcollab');
+Route::get('/collab','TodosController@collab');
 Route::post('/todo/changeorder','TodosController@order');
 Route::get('todo/sort/by/title','TodosController@sortByTitle');
+Route::get('/setsession','TodosController@setsession');
 Route::get('todo/sort/by/date','TodosController@sortByDate');
+Route::get('/acceptcollab','TodosController@acceptcollab');
+Route::get('/rejectcollab','TodosController@rejectcollab');
+Route::get('/todo/color/{id}','TodosController@color');
 Route::resource('todo','TodosController');
 Auth::routes();
 
