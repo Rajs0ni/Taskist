@@ -10,7 +10,7 @@
                 <button type="button" class="btn viewtype" title="Grid View" >
                  <i class="fa fa-th-large"></i> </button>
         </a> 
-      <button type="button" class="btn viewtype" title="Grid View" id="shownoti">
+      <button type="button" class="btn viewtype" title="Notifications" id="shownoti">
                  <i class="fa fa-bell"></i></button>
 
                   <ul class="navbar-nav ml-3 " >

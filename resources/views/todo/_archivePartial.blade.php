@@ -6,8 +6,8 @@
                         </button>
                         
                         <div class="dropdown-menu">
-                                <input type='hidden' value={{$todo->id}} id='task_id'>
-                                <input type='hidden' value={{$todo->title}} id='task_title'>
+                                <input type='hidden' value='{{$todo->id}}' id='task_id'>
+                                <input type='hidden' value='{{$todo->title}}' id='task_title'>
 
                             @if($todo->pin==0)  
                                

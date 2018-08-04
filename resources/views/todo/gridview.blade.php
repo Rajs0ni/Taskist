@@ -33,8 +33,8 @@
                 </div>
                 <div class="gridtask"><textarea >{{ $todo->task}}</textarea></div>
                 <div class="gridbtn">
-                                <input type='hidden' value={{$todo->id}} id='task_id'>
-                                <input type='hidden' value={{$todo->title}} id='task_title'>
+                                <input type='hidden' value='{{$todo->id}}' id='task_id'>
+                                <input type='hidden' value='{{$todo->title}}' id='task_title'>
 
                     @if($todo->pin==0)    
                         <a href="#" id="pin" title="Pin"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i></a>
@@ -75,8 +75,8 @@
                 </div>
                 <div class="gridtask"><textarea >{{ $todo->task}}</textarea></div>
                 <div class="gridbtn">
-                                <input type='hidden' value={{$todo->id}} id='task_id'>
-                                <input type='hidden' value={{$todo->title}} id='task_title'>
+                                <input type='hidden' value='{{$todo->id}}' id='task_id'>
+                                <input type='hidden' value='{{$todo->title}}' id='task_title'>
 
                     @if($todo->pin==0)    
                         <a href="#" id="pin" title="Pin"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack" id="pin"></i></a>
