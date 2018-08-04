@@ -73,5 +73,13 @@ $('.content').on('click', function(){
     $('div.alert').not('.alert-important').delay(2000).slideUp(300);
  </script>
 
+@include('todo.remindermodalbox')
+                <div class="modal-footer">
+                        <button type="button" class="btn btn-success" id="add_reminder">DONE</button>
+                        </div>
+                        
+                    </div>
+                    </div>
+                </div>
 </body>
 </html>

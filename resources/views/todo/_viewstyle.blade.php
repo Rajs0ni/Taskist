@@ -10,7 +10,7 @@
                 <button type="button" class="btn viewtype" title="Grid View" >
                  <i class="fa fa-th-large"></i> </button>
         </a> 
-                <button type="button" class="btn viewtype" title="Grid View" id="shownoti">
+      <button type="button" class="btn viewtype" title="Grid View" id="shownoti">
                  <i class="fa fa-bell"></i></button>
 
                   <ul class="navbar-nav ml-3 " >
@@ -119,14 +119,14 @@ $('#shownoti').click(function(){
     })  --}}
 
   
-  $('html').on('click',function(evt){
+  {{--  $('html').on('click',function(evt){
             if(evt.target.id == "notific" || evt.target.id =="shownoti" || evt.target.id =="remm" || evt.target.id =="dell")
                   return;
             if($(evt.target).closest('#notific').length)
                  return;
             if($(".notis").css('display')=='block')
                 $(".notis").css('display','none');
-        });  
+        });    --}}
 
 $('body').on('click','.delrem',function(){
     var id=$(this).parents('.rem').find('.taskid').val();
