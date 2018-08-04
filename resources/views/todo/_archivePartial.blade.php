@@ -31,6 +31,7 @@
         <div class="wrapper">
                 <h3><a href="/todo/{{$todo->id}}/show">{{$todo->title}}</a></h3> 
                 <span id="span2" >&#x25cf; {{$todo->completion_date}}</span>
+                
         </div>
                 
     </div><!-- End of Panel -->
