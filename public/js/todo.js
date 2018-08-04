@@ -1,8 +1,7 @@
+(function ( $ ) {
+    var id,title; 
 $('document').ready(function(){
-  $('#notification').on('click',function(){
-    $('.Notification-panel').css({'display':'block'});
-  });
-    
+    $('[data-toggle="tooltip"]').tooltip();    
   $('.row').mouseover(function(){
     $(this).find(".outersubmenu").css({'display':'block'});  
   });
@@ -222,42 +221,94 @@ $("#addCollaborator").click(function(){
            window.location.assign('/todo/clearall?val='+val);
 
     });
-    // $(".list").on('click',function()
-    // {
-    //    //alert('list');
-    //         //var list =  0;
-    //         $.ajax({
-    //             url: '/todo',
-    //             Type: 'GET',
-    //             data: { 
-    //                 _token : $('meta[name="csrf-token"]').attr('content'), 
-    //                 'list': 0,
-    //             },
-    //             headers: {
-    //                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-    //             },
-    //             success: function (data) {
-    //                 alert('yes');
-    //             },
-    //             error: function () {
-    //                 alert("Tag or Times aren't formatted right");
-    //             }
-    //         });
 
-    // });
-    $('#colorpicker').bind('input',function()
-    {
-        //alert('hey');
-        color = $(this).val();
-        x = $(this).parent().parent().parent().parent().parent();
-        x.css('background',color);
+    $('body').on('click','#reminder',function(){
+        $('#addreminder').fadeIn(200);
+        $("#datepicker").datetimepicker({
+            minDate:new Date(),
+            altField:'#timepicker',
+            dateFormat: 'dd-mm-yy'
+           });
+     id=$(this).parent().find('#task_id').val();           
+     title=$(this).parent().find('#task_title').val();       
+    })
+
+    $('body').on('click','#snooze',function(){
+        $('#addreminder').fadeIn(200);
+        $("#datepicker").datetimepicker({
+            minDate:new Date(),
+            altField:'#timepicker',
+            dateFormat: 'dd-mm-yy'
+           });
+     id=$(this).parent().find('#task_id').val();           
+     title=$(this).parent().find('#task_title').val();
+     alert(id);
+     alert(title);       
+    })
+
+    $('#addremm').click(function(){
+        var date=$('#datepicker').val();
+        var time=$('#timepicker').val();
+        if(date!="" && time!=""){
+        $.ajaxSetup({
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+          });
+          $.ajax({                       
+          url: '/addreminder',
+          method:'post',
+          data:{
+            id:id,
+            title:title,
+            date:date,
+            time:time
+          }
+        });
+    }
+    $('#addreminder').fadeOut(200);
+    $('#datepicker').val('');
+    $('#timepicker').val('');
+    
+    
+      });
+    
+              
+    $(".close").click(function(){      
+      $('#addreminder').fadeOut(200);
+      $('#datepicker').val('');
+      $('#timepicker').val('');
+  });
+  
+  $('#add_reminder').click(function(){
+    var date=$('#datepicker').val();
+    var time=$('#timepicker').val();
+    if(date!="" && time!=""){
+    $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({                       
+      url: '/addreminder',
+      method:'post',
+      data:{
+        id:id,
+        title:title,
+        date:date,
+        time:time
+      }
     });
-   
+}
+$('#addreminder').fadeOut(200);
+$('#datepicker').val('');
+$('#timepicker').val('');
+
+
+  });
+
+  
 });
 
-// var theInput = document.getElementById("colorpicker");
-// var theColor = theInput.value;
-// theInput.addEventListener("input", function() {
 
-// document.getElementById("color").style.color = theInput.value;
-// }, false);
+}( jQuery ));

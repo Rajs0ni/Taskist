@@ -7,14 +7,13 @@ use App\Todo;
 use App\User;
 use App\Collaborator;
 use Requests;
-use DB;
 use Session;
 use Carbon\Carbon;
 use Illuminate\Html\HtmlServiceProvider;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
-
-
+use App\Reminder;
+use Illuminate\Support\Facades\DB;
 class TodosController extends Controller
 {
     public function __construct()
@@ -136,8 +135,13 @@ class TodosController extends Controller
     // Show a particular task
     public function show($id)
     {
-        $todo = Todo::where('user_id','=',auth()->user()->id)
-                      ->findOrFail($id);
+        $todo = Todo::where('user_id','=',auth()->user()->id)->findOrFail($id);
+        $rem = Reminder::where('taskid',$id)->get();
+        if(sizeof($rem)>0){
+            $rem = Reminder::where('taskid',$id)->get()[0];
+            return view('todo.show',compact('todo','rem'));    
+        }
+        else
         return view('todo.show',compact('todo'));
     }
     // Grid Show
@@ -167,6 +171,9 @@ class TodosController extends Controller
         $todo = Todo::where('user_id','=',auth()->user()->id)
                         ->findOrFail($id);
         $todo->update($request->all());
+        $rem = Reminder::where('taskid',$id)->get()->all()[0];
+        $rem->title=$request->title;
+        $rem->save();
         return redirect()->action('TodosController@show',$todo->id);;
     }
     // Delete a particular task
@@ -175,6 +182,7 @@ class TodosController extends Controller
         $todo = Todo::where('user_id','=',auth()->user()->id)
                         ->findOrFail($id);
         $todo->delete();
+        Reminder::where('taskid',$id)->delete();
         return redirect('/')->with('alert','Task Deleted!');
     }
     // Search task
@@ -407,5 +415,57 @@ class TodosController extends Controller
             'flash_message' => 'Task has been restored!'
         ]);
     }
+
+    public function addreminder(Request $request){
+        date_default_timezone_set("Asia/Kolkata");
+          $find=sizeof(Reminder::where('user_id',Auth::id())->where('taskid',$request->id)->get());
+          $d=strtotime($request->date);
+          $d=date("d-m-Y",$d);
+          $t=strtotime($request->time);
+          $t=date("h:i:sa",$t);
+          if($find == 0){
+                
+                $rem = new Reminder;
+                $rem->taskid =  $request->id;
+                $rem->user_id =  Auth::id(); 
+                $rem->remdate = $d;
+                $rem->remtime = $t;
+                $rem->title=  $request->title;
+                $rem->save();
+         }
+           else{
+                $id = Reminder::where('user_id',Auth::id())->where('taskid',$request->id)->get()[0]->id;
+                $find = Reminder::findOrFail($id);
+                $find->remdate = $d;
+                $find->remtime = $t;
+                $find->readed =0;
+                $find->noti=1;
+                $find->save();
+           }
+
+    }
+
+    public function getreminder(){
+     date_default_timezone_set("Asia/Kolkata");
+     $notification =DB::table('reminders')->where('user_id',Auth::id())->where('remdate','<=',date('d-m-Y'))->where('remtime','<=',date('h:i:sa'))->where('noti',1)->get();
+     echo $notification;
+      
+ }
+  
+    public function removeremindernoti(Request $request){
+        $rem = Reminder::findOrFail($request->id);
+        $rem->noti=0;
+        $rem->save();      
  
+    
+    }
+    public function  getremtime(Request $request){
+          $rem = Reminder::where('taskid',$request->id)->get()[0];
+          echo $rem->remdate . " on " .$rem->remtime;
+    }
+
+    public function  removereminder(Request $request){
+        $rem = Reminder::where('taskid',$request->id)->get()[0];
+        $rem->delete();
+  }      
 }
