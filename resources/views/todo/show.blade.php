@@ -13,14 +13,14 @@
                 </div>
              
               
-                <div class="col text-right">             
+                <div class="col text-right ">             
                    @if(isset($rem))
-                   <span id="remclock"><i class="fa fa-clock clock"  style="font-size:20px;" ></i></span>
-                    <div class="dropdown mr-3 ml-1" style="display:inline-block;">
-                    <span ><i class="fas fa-caret-down" id="clk"></i></span>
-                        <ul class="dropdown-menu">
-                        <li id="editreminder">Edit</li>
-                        <li id="removereminder">Remove</li>
+                   <span id="remclock"><i class="fa fa-clock clock "  style="font-size:20px;" ></i></span>
+                    <div class="dropdown mr-2 ml-1 " style="display:inline-block;">
+                    <span><i class="fas fa-caret-down" id="clk"></i></span>
+                        <ul class="dropdown-menu ml-0">
+                        <li id="editreminder" class="dropdown-item">Edit</li>
+                        <li id="removereminder" class="dropdown-item">Remove</li>
                         </ul>
                     </div>
                      <script>
@@ -97,21 +97,21 @@
          <div class="row">
            <div class="col-4">
                <a href="{{ action('TodosController@index') }}">
-                   <button id="goBack" type="button" class="btn btn-defeault myButton" >
+                   <button id="goBack" type="button" class="btn btn-defeault myButton vanishOutline" >
                        <i class="fa fa-arrow-circle-left"></i> Go Back
                     </button>
                 </a>
            </div>
            <div class="col-4">
                <a href="{{ action('TodosController@edit', $todo->id ) }}">
-                   <button id="edit"  type="button" class="btn btn-info myButton" >
+                   <button id="edit"  type="button" class="btn btn-info myButton vanishOutline" >
                     <li class="fa fa-edit"></li> Edit
                     </button>
                 </a>
            </div>
           <div class="col-4">
             <form action="{{ action('TodosController@deleteTask', $todo->id )}}" onSubmit="if(!confirm('Are you sure you want to permanently delete this task?')){return false;}" > 
-                <button id="delete" type="submit" class="btn btn-danger myButton">
+                <button id="delete" type="submit" class="btn btn-danger myButton vanishOutline">
                         <i class="fa fa-trash"></i> Delete
                  </button>
             </form>

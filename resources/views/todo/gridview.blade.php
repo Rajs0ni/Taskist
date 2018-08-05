@@ -30,6 +30,7 @@
                     <div class="count"></div>
                     <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
                     <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
+                   
                 </div>
                 <div class="gridtask"><textarea >{{ $todo->task}}</textarea></div>
                 <div class="gridbtn">

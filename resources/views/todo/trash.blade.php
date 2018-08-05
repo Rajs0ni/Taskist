@@ -23,12 +23,12 @@
                         <div class='panel container'  style="background:linear-gradient(90deg,rgb(165, 165, 165)10%,rgb(225, 222, 222))"> 
                                 <div class="dropdown" >
                                         <div class="btn-group">
-                                                <button type="button" class="btn" data-toggle="dropdown" style="background:none;border:none; outline:none"><i class="fa fa-ellipsis-v"></i>
+                                                <button type="button" id="ellipsis" class="btn vanishOutline" data-toggle="dropdown" style="background:none;border:none; outline:none"><i class="fa fa-ellipsis-v"></i>
                                                 </button>
                                                 
-                                                <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#" id="restore"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-undo" id="restore"></i> Restore</a>
-                                                        <a class="dropdown-item" href="#" id="delete"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  id="delete"></i> Delete</a>    
+                                                <div class="dropdown-menu  ">
+                                                        <a class="dropdown-item   " href="#" id="restore"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-redo-alt" id="restore"></i> Restore</a>
+                                                        <a class="dropdown-item   " href="#" id="delete"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  id="delete"></i> Delete</a>    
                                                 </div>
                                         </div>       
                                 </div>  

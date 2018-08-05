@@ -350,6 +350,10 @@ body{
 }
 .grid_count_title{
     border-bottom: 1px solid rgba(129, 129, 129,0.3);
+    max-width:70%;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;  
 }
 .grid .grid_count_title .count{
     position: relative;
@@ -376,9 +380,12 @@ body{
 }
 .gridtitle{
     position: relative;
-    width: 100px;
+    width: 100%;
     display: inline-block;
     margin-left: -10px;
+    max-width:100px;
+    text-overflow: ellipsis;
+    white-space: nowrap;  
 }
 .gridtitle input{
     background: none;
@@ -390,7 +397,7 @@ body{
     text-transform: capitalize;
     color:rgb(27, 74, 91);
     font-weight: bold;
-    max-width: 200px;
+    max-width: 100px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -405,6 +412,16 @@ body{
     padding-right:8px;
     pointer-events: none;
     box-shadow: 0px 0px 1px 1px  rgba(0,0,0,.3);
+}
+.griddate input{
+    background: none;
+    padding:3px;
+    padding-left:10px;
+    border:none;
+    outline: none;
+    font-weight: bold;
+    max-width: 110px;
+    pointer-events: none;
 }
 .griddate input{
     background: none;
@@ -443,25 +460,18 @@ body{
     position:absolute;
     top:25%;
 }
-
-.notis{
-    width:200px;
-    border:solid;
-    position:absolute;
-    right:213px;
-    display:none;
-}
-#ellipsis{
-    background: none !important;
+.vanishOutline{
     border:none !important;
     outline:none !important;
 }
-#ellipsis:focus,#ellipsis:active {
+.vanishOutline:focus, .vanishOutline:active{
     outline: none !important;
-    box-shadow: none;
- }
-
- .Notification-panel{
+    box-shadow: none !important;
+}
+#ellipsis{
+    background: none !important;
+}
+ .notis{
     position:absolute;
     right:15%;
     width:500px;
@@ -471,7 +481,9 @@ body{
     overflow:hidden;
     z-index: 100;
     display: none;
-
+}
+.notis:hover{
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.3);
 }
  .Notification-header{
      width:100%;
@@ -481,10 +493,48 @@ body{
      padding:2%;
      padding-left:3%;
  }
+ .Notification-content{
 
- .Notification-content div{
-    margin-top:.5%;
-     padding:1%;
-     padding-left:2%;
-     border-bottom:1px solid lavender;
+     padding:.7%;
+     color: #000;
  }
+.Notification-content a{
+
+    text-decoration: none;
+    font-size: 130%;
+    color: #000;
+ }
+.rem{
+     margin-top:.75%;
+     padding:1.75%;
+     border:1px solid lavender;
+     border-radius:2px;
+ }
+ .rem:hover{
+    background:rgba(239,239,240,0.7);
+}
+ .delrem{
+     display:none;
+ 
+}
+.dropdown-menu{
+    padding:0; 
+    padding-top: 1px;   
+ }
+ .dropdown-item{
+    padding:5px 10px;
+    border-bottom:.5px solid lavender;
+    text-transform:capitalize;
+    cursor:pointer;
+}
+.dropdown-item:hover{
+    background:rgba(239,239,240,0.5);
+}
+#clk{
+    cursor:pointer;
+    font-size:20px;
+    margin-left:-3px;
+}
+.fa-clock:hover, .fa-caret-down:hover{
+    color:#F76266;
+}
