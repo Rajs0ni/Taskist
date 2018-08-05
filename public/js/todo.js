@@ -1,5 +1,5 @@
 (function ( $ ) {
-    var id,title; 
+    var id,title,oldval,editevent="",thishtml,canedit="",addlab=""; 
 $('document').ready(function(){
     $('[data-toggle="tooltip"]').tooltip();    
   $('.row').mouseover(function(){
@@ -8,7 +8,24 @@ $('document').ready(function(){
   $('.row').mouseout(function(){
     $(this).find(".outersubmenu").css({'display':'none'});
 });
+// color picker
 
+// $("#colorpicker").bind('input',function()
+// {
+// // alert('fr');
+// color = $(this).val();
+// x = $(this).parent().parent().parent().parent().parent();
+// x.css('background',color);
+// });
+$('body').on('change',"#colorpicker",function()
+{
+   
+    color = $(this).val();
+    x = $(this).parent().parent().parent().parent().parent();
+    x.css('background',color);
+
+});
+// end color picker
 $("body").on('click',".accept",function(){
     id = $(this).children().text();
 
@@ -300,15 +317,214 @@ $('#timepicker').val('');
 
   });
 
-
-  $('#addlabels').click(function(){
-    $('#addlabelsmodal').css('display','block');   
-})  
-
-$('#closelabels').click(function(){
-    $('#addlabelsmodal').css('display','none');
-})
+  $('#labels_add').click(function(){
+    $("#alllabels").empty();  
+    $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({                       
+      url: '/getlabels',
+      method:'get',
+      success(response){
+        if(response.length>0){
+        for(var i=0;i<response.length;i++){
+            var span=$('<span class="dellabel"></span>').css({'display':'none','float':'right'});
+            var span1=$('<span class="labelvalue"></span>').text(response[i].name);
+            var ii=$('<i class="fa fa-trash pr-3" ></i>');
+            span.append(ii);
+            var div=$("<div class='newlabel pl-3'></div>").css({'border':'1px solid lavender','margin':'3px','padding':'3px'});
+            div.append(span1).append(span);
+            $("#alllabels").append(div);
+        }
+    }
+    }
+    });
+ })
+  $("#addlabels").on('keyup', function (e) {
+    addlab="ready";
+    if (e.keyCode == 13) {
+        addlabels();
+    }
 });
+
+$('html').click(function(event){
+    if(addlab=="ready"){
+         if(event.target.id =="addlabels")
+             return;
+        
+        addlabels();
+        addlab="";
+    }
+})
+function addlabels(){
+    if($("#addlabels").val()!=""){
+        var value=$("#addlabels").val().toUpperCase();
+      $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        $.ajax({                       
+        url: '/addnewlabel',
+        method:'post',
+        data:{
+          val:value
+        },success(response){
+          if(response == 'exists'){
+              $("#addlabels").val('');
+              $("#addlabels").attr("placeholder",'ALREADY EXISTS');
+          }
+          else{
+              $("#addlabels").attr("placeholder",'create new label');
+              var span=$('<span class="dellabel"></span>').css({'display':'none','float':'right'});
+              var span1=$('<span class="labelvalue"></span>').text(value);
+              var i=$('<i class="fa fa-trash pr-3" ></i>');
+              span.append(i);
+              var div=$("<div class='newlabel pl-3'></div>").css({'border':'1px solid lavender','margin':'3px','padding':'3px'}); 
+              div.append(span1).append(span);
+              $("#alllabels").append(div);
+              $("#addlabels").val('');
+          }
+        }
+      });
+      
+    }
+}
+$('body').on('mouseenter','.newlabel',function(){
+    $(this).css('background','rgba(239,239,240,0.9)');  
+  $(this).find('.dellabel').css('display','inline');
+})
+
+$('body').on('mouseleave','.newlabel',function(){
+    $(this).css('background','#FFFFFF');
+    $(this).find('.dellabel').css('display','none');
+})
+
+$('body').on('click','.dellabel',function(){
+    var val = $(this).parent().find('.labelvalue').text();
+    if(confirm('DELETE LABEL "'+ val +'"')){
+     $(this).parent().remove();
+     $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({                       
+      url: '/dellabel',
+      method:'get',
+      data:{
+        val:val
+      }
+    });
+}
+})
+
+$('body').on('dblclick','.newlabel',function(event){
+     editevent="ready";
+    event.stopImmediatePropagation();
+     oldval = $(this).find('.labelvalue').text();
+    var ip=$('<input type="text" class="newlabelval">').val(oldval).css({"border":"none","border-bottom":"1px solid"});
+    $(this).html(ip);
+});
+
+$("body").on('keyup','.newlabelval' ,function (e) {
+    thishtml=this;
+    if (e.keyCode == 13) {
+        edithandler1(thishtml);
+    }
+   else if( canedit=="ready"){
+        return;
+    }
+    else{
+        edithandler2(thishtml);
+    }
+});
+
+$('html').on('click',function(e){
+    if(editevent == 'ready'){
+        if(e.target.nodeName =="INPUT"){
+            canedit="ready";
+            return;      
+        }
+
+        canedit="";
+        edithandler();
+        editevent="";
+    }
+})
+function edithandler(){
+ $('.newlabelval').keyup();
+}
+function edithandler1(thishtml){
+    if($(".newlabelval").val()==""){
+        $(thishtml).replaceWith('<div class="newlabel"><span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span></div>');
+    }  
+    else{   
+        var value=$(".newlabelval").val().toUpperCase();
+      $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        $.ajax({                       
+        url: '/updatelabel',
+        method:'post',
+        data:{
+          oldval:oldval,
+          newval:value
+        },success(response){
+          if(response == 'exists'){
+            $(thishtml).replaceWith('<div class="newlabel"><span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span></div>');
+             
+          }
+          else{
+              $(".newlabelval").attr("placeholder",'edit label');
+              $(thishtml).replaceWith('<div class="newlabel"><span class="labelvalue">'+value+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span></div>');
+              }
+        }
+      });
+      
+    }
+}
+
+function edithandler2(thishtml){
+    if($(".newlabelval").val()==""){
+        $(thishtml).replaceWith('<div class="newlabel"><span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span></div>');
+    }  
+ else{
+    var value=$(".newlabelval").val().toUpperCase();
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        $.ajax({                       
+        url: '/updatelabel',
+        method:'post',
+        data:{
+          oldval:oldval,
+          newval:value
+        },success(response){
+            if($(".newlabelval").val()== ""){
+           $(thishtml).replaceWith('<div class="newlabel"><span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span></div>');             
+        
+         }
+          else if(response == 'exists'){
+              $(thishtml).replaceWith('<div class="newlabel"><span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span></div>');             
+          }
+          else{
+              $(".newlabelval").attr("placeholder",'edit label');
+              $(thishtml).replaceWith('<div class="newlabel"><span class="labelvalue">'+value+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span></div>');
+              }
+        }
+      });
+      
+    }   
+}
+});
+
 
 
 }( jQuery ));

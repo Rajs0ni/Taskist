@@ -13,7 +13,6 @@
 
 Route::get('/', 'TodosController@index');
 Route::get('/todo/view/{todo}', 'TodosController@index1');
-
 Route::get('/todo', 'TodosController@index');
 Route::get('/todo/all', 'TodosController@all');
 Route::get('/todo/create', 'TodosController@create');
@@ -65,3 +64,7 @@ Route::get('/getreminder','TodosController@getreminder');
 Route::get('/removeremindernoti','TodosController@removeremindernoti');
 Route::get('/getremtime','TodosController@getremtime');
 Route::get('/removereminder','TodosController@removereminder');
+Route::post('/addnewlabel','LabelController@addnewlabel');
+Route::get('/getlabels','LabelController@getlabels');
+Route::get('/dellabel','LabelController@dellabel');
+Route::post('/updatelabel','LabelController@updatelabel');
