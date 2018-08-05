@@ -223,7 +223,6 @@ $("#addCollaborator").click(function(){
     });
 
     $('body').on('click','#reminder',function(){
-        $('#addreminder').fadeIn(200);
         $("#datepicker").datetimepicker({
             minDate:new Date(),
             altField:'#timepicker',
@@ -234,7 +233,6 @@ $("#addCollaborator").click(function(){
     })
 
     $('body').on('click','#snooze',function(){
-        $('#addreminder').fadeIn(200);
         $("#datepicker").datetimepicker({
             minDate:new Date(),
             altField:'#timepicker',
@@ -242,9 +240,7 @@ $("#addCollaborator").click(function(){
            });
      id=$(this).parent().find('#task_id').val();           
      title=$(this).parent().find('#task_title').val();
-     alert(id);
-     alert(title);       
-    })
+        })
 
     $('#addremm').click(function(){
         var date=$('#datepicker').val();
@@ -266,7 +262,6 @@ $("#addCollaborator").click(function(){
           }
         });
     }
-    $('#addreminder').fadeOut(200);
     $('#datepicker').val('');
     $('#timepicker').val('');
     
@@ -275,7 +270,6 @@ $("#addCollaborator").click(function(){
     
               
     $(".close").click(function(){      
-      $('#addreminder').fadeOut(200);
       $('#datepicker').val('');
       $('#timepicker').val('');
   });
@@ -300,14 +294,20 @@ $("#addCollaborator").click(function(){
       }
     });
 }
-$('#addreminder').fadeOut(200);
 $('#datepicker').val('');
 $('#timepicker').val('');
 
 
   });
 
-  
+
+  $('#addlabels').click(function(){
+    $('#addlabelsmodal').css('display','block');   
+})  
+
+$('#closelabels').click(function(){
+    $('#addlabelsmodal').css('display','none');
+})
 });
 
 

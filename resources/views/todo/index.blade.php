@@ -82,7 +82,7 @@
 @include('todo._sideBar')
 @include('todo.remindermodalbox')
                 <div class="modal-footer">
-                        <button type="button" class="btn btn-success" id="add_reminder">DONE</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal" id="add_reminder">DONE</button>
                         </div>
                         
                     </div>
@@ -92,7 +92,7 @@
 
      @include('todo.remindermodalbox')
                          <div class="modal-footer">
-                        <button type="button" class="btn btn-success" id="addremm">DONE</button>
+                        <button type="button" class="btn btn-success" id="addremm" data-dismiss="modal">DONE</button>
                         </div>
                         
                     </div>
