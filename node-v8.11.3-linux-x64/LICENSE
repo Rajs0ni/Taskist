@@ -907,7 +907,7 @@ The externally maintained libraries used by Node.js are:
     include the Package, and Distribute the result without restriction,
     provided the result does not expose a direct interface to the Package.
 
-    Items That are Not Considered Part of a Modified Version
+     s That are Not Considered Part of a Modified Version
 
     (9) Works (including, but not limited to, modules and scripts) that
     merely extend or make use of the Package, do not, by themselves, cause
