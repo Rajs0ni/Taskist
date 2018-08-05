@@ -350,7 +350,7 @@ body{
 }
 .grid_count_title{
     border-bottom: 1px solid rgba(129, 129, 129,0.3);
-    max-width:70%;
+    max-width:100%;
     overflow:hidden;
     text-overflow: ellipsis;
     white-space: nowrap;  
@@ -443,10 +443,17 @@ body{
     padding: 2px;
 } 
 .gridbtn .fa{
-    font-size: 18px;
+    font-size: 16px;
     color: rgb(27, 74, 91,0.5);
 }
 .gridbtn .fa:hover{
+    color: rgb(27, 74, 91,1);
+}
+#gridEye{
+    font-size: 16px;
+    color: rgb(27, 74, 91,0.5);
+}
+#gridEye:hover{
     color: rgb(27, 74, 91,1);
 }
 .disabled{

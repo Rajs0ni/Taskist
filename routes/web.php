@@ -13,7 +13,6 @@
 
 Route::get('/', 'TodosController@index');
 Route::get('/todo/view/{todo}', 'TodosController@index1');
-
 Route::get('/todo', 'TodosController@index');
 Route::get('/todo/all', 'TodosController@all');
 Route::get('/todo/create', 'TodosController@create');

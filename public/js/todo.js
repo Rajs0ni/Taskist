@@ -8,7 +8,24 @@ $('document').ready(function(){
   $('.row').mouseout(function(){
     $(this).find(".outersubmenu").css({'display':'none'});
 });
+// color picker
 
+// $("#colorpicker").bind('input',function()
+// {
+// // alert('fr');
+// color = $(this).val();
+// x = $(this).parent().parent().parent().parent().parent();
+// x.css('background',color);
+// });
+$('body').on('change',"#colorpicker",function()
+{
+   
+    color = $(this).val();
+    x = $(this).parent().parent().parent().parent().parent();
+    x.css('background',color);
+
+});
+// end color picker
 $("body").on('click',".accept",function(){
     id = $(this).children().text();
 
@@ -485,6 +502,7 @@ function edithandler2(thishtml){
     
 }
 });
+
 
 
 }( jQuery ));
