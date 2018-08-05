@@ -99,7 +99,13 @@
         @endforeach
     @endif    
 @else
-        <h4 id="notFoundAlert">!! Record Not Found !!</h4>
+    @if(isset($search)) 
+            <h4 id="notFoundAlert">"<i><b>{{$search}}</b></i>"&ensp;{{$message}}
+            <a href="/create/{{$search}}">Create it</a></h4>
+        <!-- if search var is not set -->
+    @else
+            <h4 id="notFoundAlert">{{$message}}</h4>  
+    @endif  
 @endif
 
 </div><!-- End of gridContainer -->
