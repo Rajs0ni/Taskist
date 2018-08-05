@@ -43,7 +43,7 @@
                 </div> <!-- End of Row -->
         @endforeach
 @else
-         <h4 id="notFoundAlert">!! Not Found !!</h4>
+         <h4 id="notFoundAlert">{{ $message }}</h4>
 @endif
 
 @include('todo._sideBar')

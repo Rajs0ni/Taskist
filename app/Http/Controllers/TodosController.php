@@ -62,7 +62,7 @@ class TodosController extends Controller
         }
         else
         {
-            return view('todo.gridview',compact('todos','pinned','unpinned'));
+            return view('todo.gridview',compact('todos','pinned','unpinned','message'));
 
         }        
     }
@@ -264,7 +264,7 @@ class TodosController extends Controller
         where('trashed',0)->where('pin',1)->get();
         $unpinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->
         where('trashed',0)->where('pin',0)->get();
-        $message = "!! Not Found !!";
+        $message = "!! Tasks Not Found !!";
         return view('todo.index',compact('todos','pinned','unpinned','message'));
     }
     // Get In Process tasks
@@ -278,7 +278,7 @@ class TodosController extends Controller
         where('trashed',0)->where('pin',1)->get();
         $unpinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->
         where('trashed',0)->where('pin',0)->get();
-        $message = "!! Not Found !!";           
+        $message = "!! Tasks Not Found !!";           
         return view('todo.index',compact('todos','pinned','unpinned','message'));
     }
     // Get pending tasks
@@ -292,7 +292,7 @@ class TodosController extends Controller
         where('trashed',0)->where('pin',1)->get();
         $unpinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->
         where('trashed',0)->where('pin',0)->get();
-        $message = "!! Not Found !!";
+        $message = "!! Tasks Not Found !!";
         return view('todo.index',compact('todos','pinned','unpinned','message'));
     }
     // Help User
@@ -308,8 +308,8 @@ class TodosController extends Controller
                         where('archive',0)->orderBy('pin','desc')->get();
         $pinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->where('trashed','=','0')->where('pin',1)->get();
         $unpinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->where('trashed','=','0')->where('pin',0)->get();
-                                
-        return view('todo.gridview',compact('todos','pinned','unpinned'));
+        $message = "!! Tasks Not Found !!";                  
+        return view('todo.gridview',compact('todos','pinned','unpinned','message'));
     }
     // Sort by Title
     public function sortByTitle()
@@ -358,7 +358,8 @@ class TodosController extends Controller
                         ->where('trashed','=','1')
                         ->orderBy('created_at','desc')
                         ->get();
-        return view('todo.trash',compact('todos'));
+                        $message = "!! Empty Trash !!";
+        return view('todo.trash',compact('todos','message'));
     }
 
     public function addcollab(Request $request)
@@ -418,10 +419,11 @@ class TodosController extends Controller
 
     public function addreminder(Request $request){
         date_default_timezone_set("Asia/Kolkata");
+          $todo = Todo::where('user_id','=',auth()->user()->id)->findOrFail($request->id);
           $find=sizeof(Reminder::where('user_id',Auth::id())->where('taskid',$request->id)->get());
           $d=strtotime($request->date);
           $d=date("d-m-Y",$d);
-          $d=Carbon::parse($d)->toFormattedDateString();
+        //   $d=Carbon::parse($d)->toFormattedDateString();
           $t=strtotime($request->time);
           $t=date("h:i:sa",$t);
           if($find == 0){
@@ -433,6 +435,8 @@ class TodosController extends Controller
                 $rem->remtime = $t;
                 $rem->title=  $request->title;
                 $rem->save();
+                $todo->reminder = 1;
+                $todo->save();
          }
            else{
                 $id = Reminder::where('user_id',Auth::id())->where('taskid',$request->id)->get()[0]->id;
@@ -442,6 +446,8 @@ class TodosController extends Controller
                 $find->readed =0;
                 $find->noti=1;
                 $find->save();
+                $todo->reminder = 1;
+                $todo->save();
            }
 
     }
