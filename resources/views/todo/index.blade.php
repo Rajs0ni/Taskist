@@ -29,7 +29,6 @@
                 </div>
         @endif
 
- 
 @if(count($todos)) 
 <!-- Filter pinned tasks --> 
         @if(count($pinned))

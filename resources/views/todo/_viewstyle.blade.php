@@ -78,7 +78,7 @@ function noti(){
             var div=$("<div class='rem' id='remm'></div>");
             var ip=$('<input type="hidden" class="taskid">').val(response[i].id );
             var divv=$("<div></div>");
-            var a=$('<a></a>').text(response[i].title).attr({'href':"/todo/"+response[i].taskid+"/show"});
+            var a=$('<a class="Noti-title"></a>').text(response[i].title).attr({'href':"/todo/"+response[i].taskid+"/show"});
             var div1 = $("<div></div>").css({'display':'inline-block','max-width':'50%','overflow':'hidden','text-overflow':'ellipsis','white-space':'nowrap'}).append(a);
             var span=$("<span class='delrem' id='dell'></span>").css({'float':'right','cursor':'pointer','font-weight':'bold','margin-right':'2.5%'}).html('&times;');
             divv.append(div1).append(span);
@@ -91,8 +91,8 @@ function noti(){
       }
     }
     else{
-           var span=$('<span class="no-notifications"></span>').text('No Notifications Yet');
-           $(".Notification-content").append(span);
+           var span=$('<span class="no-notifications-msg"></span>').text('No Notifications');
+           $(".Notification-content").append('<i class="fa fa-bell no-notifications-bell"></i>').append(span).append('<p class="noti_MSG">You have no new Notifications.</p>');
     }
           }
       }); 

@@ -388,7 +388,7 @@ class TodosController extends Controller
                         ->get();
         $pinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->where('trashed','=','0')->where('pin',1)->get();
         $unpinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->where('trashed','=','0')->where('pin',0)->get();
-        $message = "!! Not Found !!";     
+        $message = "!! No Archived Tasks !!";     
         return view('todo.archive',compact('todos','pinned','unpinned','message'));
     }
     //Unarchive task
