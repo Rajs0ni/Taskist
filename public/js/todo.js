@@ -242,9 +242,7 @@ $("#addCollaborator").click(function(){
            });
      id=$(this).parent().find('#task_id').val();           
      title=$(this).parent().find('#task_title').val();
-     alert(id);
-     alert(title);       
-    })
+        })
 
     $('#addremm').click(function(){
         var date=$('#datepicker').val();
