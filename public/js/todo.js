@@ -334,7 +334,7 @@ $('#timepicker').val('');
             var span1=$('<span class="labelvalue"></span>').text(response[i].name);
             var ii=$('<i class="fa fa-trash pr-3" ></i>');
             span.append(ii);
-            var div=$("<div class='newlabel pl-3'></div>");
+            var div=$("<div class='newlabel pl-3'></div>").css({'border':'1px solid lavender','margin':'3px','padding':'3px'});
             div.append(span1).append(span);
             $("#alllabels").append(div);
         }
@@ -382,7 +382,7 @@ function addlabels(){
               var span1=$('<span class="labelvalue"></span>').text(value);
               var i=$('<i class="fa fa-trash pr-3" ></i>');
               span.append(i);
-              var div=$("<div class='newlabel pl-3'></div>"); 
+              var div=$("<div class='newlabel pl-3'></div>").css({'border':'1px solid lavender','margin':'3px','padding':'3px'}); 
               div.append(span1).append(span);
               $("#alllabels").append(div);
               $("#addlabels").val('');
@@ -393,10 +393,12 @@ function addlabels(){
     }
 }
 $('body').on('mouseenter','.newlabel',function(){
+    $(this).css('background','rgba(239,239,240,0.9)');  
   $(this).find('.dellabel').css('display','inline');
 })
 
 $('body').on('mouseleave','.newlabel',function(){
+    $(this).css('background','#FFFFFF');
     $(this).find('.dellabel').css('display','none');
 })
 

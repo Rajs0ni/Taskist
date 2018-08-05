@@ -14,7 +14,7 @@
                         
                        </div>
 
-                       <div id="alllabels" style="border:solid;max-height:300px;overflow:auto">
+                       <div id="alllabels" style="border:1px solid lavender;max-height:300px;overflow:auto">
                        
                        </div>
                         
