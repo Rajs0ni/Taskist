@@ -467,5 +467,6 @@ class TodosController extends Controller
     public function  removereminder(Request $request){
         $rem = Reminder::where('taskid',$request->id)->get()[0];
         $rem->delete();
-  }      
+  }    
+       
 }

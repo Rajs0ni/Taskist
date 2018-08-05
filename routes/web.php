@@ -65,3 +65,7 @@ Route::get('/getreminder','TodosController@getreminder');
 Route::get('/removeremindernoti','TodosController@removeremindernoti');
 Route::get('/getremtime','TodosController@getremtime');
 Route::get('/removereminder','TodosController@removereminder');
+Route::post('/addnewlabel','LabelController@addnewlabel');
+Route::get('/getlabels','LabelController@getlabels');
+Route::get('/dellabel','LabelController@dellabel');
+Route::post('/updatelabel','LabelController@updatelabel');

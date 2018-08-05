@@ -4,7 +4,7 @@
                  <a href="{{ action('TodosController@create') }}"><i class="fa fa-plus"></i> Quick Add</a>
                  <a href="{{ action('TodosController@search') }}"><i class="fa fa-search "></i> Quick Find</a>
                  <a href="#" id="clearall"><i class="fa fa-trash text-danger " ></i> Quick Clear</a>
-                 <a href="#" id="addlabels"><i class="fas fa-tags"></i> Add labels</a>
+                 <a href="#" id='labels_add' data-toggle="modal" data-target="#addlabelsmodal"><i class="fas fa-tags"></i> Add labels</a>
                  <hr>
                  <div><span>Sort By</span></div>
                  <a href="{{ action('TodosController@sortByTitle') }}"><i class="fa fa-sort-alpha-asc"></i> Title</a><br>
