@@ -1,5 +1,5 @@
 (function ( $ ) {
-    var id,title,oldval,editevent="",thishtml,canedit=""; 
+    var id,title,oldval,editevent="",thishtml,canedit="",addlab=""; 
 $('document').ready(function(){
     $('[data-toggle="tooltip"]').tooltip();    
   $('.row').mouseover(function(){
@@ -343,42 +343,55 @@ $('#timepicker').val('');
     });
  })
   $("#addlabels").on('keyup', function (e) {
+    addlab="ready";
     if (e.keyCode == 13) {
-      if($("#addlabels").val()!=""){
-          var value=$("#addlabels").val().toUpperCase();
-        $.ajaxSetup({
-            headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-          });
-          $.ajax({                       
-          url: '/addnewlabel',
-          method:'post',
-          data:{
-            val:value
-          },success(response){
-            if(response == 'exists'){
-                $("#addlabels").val('');
-                $("#addlabels").attr("placeholder",'ALREADY EXISTS');
-            }
-            else{
-                $("#addlabels").attr("placeholder",'create new label');
-                var span=$('<span class="dellabel"></span>').css({'display':'none','float':'right'});
-                var span1=$('<span class="labelvalue"></span>').text(value);
-                var i=$('<i class="fa fa-trash pr-3" ></i>');
-                span.append(i);
-                var div=$("<div class='newlabel pl-3'></div>"); 
-                div.append(span1).append(span);
-                $("#alllabels").append(div);
-                $("#addlabels").val('');
-            }
-          }
-        });
-        
-      }
+        addlabels();
     }
 });
 
+$('html').click(function(event){
+    if(addlab=="ready"){
+         if(event.target.id =="addlabels")
+             return;
+        
+        addlabels();
+        addlab="";
+    }
+})
+function addlabels(){
+    if($("#addlabels").val()!=""){
+        var value=$("#addlabels").val().toUpperCase();
+      $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        $.ajax({                       
+        url: '/addnewlabel',
+        method:'post',
+        data:{
+          val:value
+        },success(response){
+          if(response == 'exists'){
+              $("#addlabels").val('');
+              $("#addlabels").attr("placeholder",'ALREADY EXISTS');
+          }
+          else{
+              $("#addlabels").attr("placeholder",'create new label');
+              var span=$('<span class="dellabel"></span>').css({'display':'none','float':'right'});
+              var span1=$('<span class="labelvalue"></span>').text(value);
+              var i=$('<i class="fa fa-trash pr-3" ></i>');
+              span.append(i);
+              var div=$("<div class='newlabel pl-3'></div>"); 
+              div.append(span1).append(span);
+              $("#alllabels").append(div);
+              $("#addlabels").val('');
+          }
+        }
+      });
+      
+    }
+}
 $('body').on('mouseenter','.newlabel',function(){
   $(this).find('.dellabel').css('display','inline');
 })
@@ -443,7 +456,10 @@ function edithandler(){
  $('.newlabelval').keyup();
 }
 function edithandler1(thishtml){
-    if($(".newlabelval").val()!=""){
+    if($(".newlabelval").val()==""){
+        $(thishtml).replaceWith('<div class="newlabel"><span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span></div>');
+    }  
+    else{   
         var value=$(".newlabelval").val().toUpperCase();
       $.ajaxSetup({
           headers: {
@@ -458,8 +474,8 @@ function edithandler1(thishtml){
           newval:value
         },success(response){
           if(response == 'exists'){
-              $(".newlabelval").val('');
-              $(".newlabelval").attr("placeholder",'ALREADY EXISTS');
+            $(thishtml).replaceWith('<div class="newlabel"><span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span></div>');
+             
           }
           else{
               $(".newlabelval").attr("placeholder",'edit label');
@@ -472,7 +488,11 @@ function edithandler1(thishtml){
 }
 
 function edithandler2(thishtml){
-        var value=$(".newlabelval").val().toUpperCase();
+    if($(".newlabelval").val()==""){
+        $(thishtml).replaceWith('<div class="newlabel"><span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span></div>');
+    }  
+ else{
+    var value=$(".newlabelval").val().toUpperCase();
         $.ajaxSetup({
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -499,7 +519,7 @@ function edithandler2(thishtml){
         }
       });
       
-    
+    }   
 }
 });
 
