@@ -1,6 +1,5 @@
 
                 $('#editreminder').click(function(){
-                            $('#addreminder').fadeIn(200);
                               $.ajaxSetup({
                                     headers: {
                                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -47,7 +46,6 @@
                                 }
                                 });
                             }
-                            $('#addreminder').fadeOut(200);
                             $('#datepicker').val('');
                             $('#timepicker').val('');
 

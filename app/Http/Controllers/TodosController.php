@@ -387,7 +387,7 @@ class TodosController extends Controller
                         ->get();
         $pinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->where('trashed','=','0')->where('pin',1)->get();
         $unpinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->where('trashed','=','0')->where('pin',0)->get();
-        $message = "!! No Archived Tasks !!";     
+        $message = "!! Not Found !!";     
         return view('todo.archive',compact('todos','pinned','unpinned','message'));
     }
     //Unarchive task
@@ -421,7 +421,6 @@ class TodosController extends Controller
           $find=sizeof(Reminder::where('user_id',Auth::id())->where('taskid',$request->id)->get());
           $d=strtotime($request->date);
           $d=date("d-m-Y",$d);
-          $d=Carbon::parse($d)->toFormattedDateString();
           $t=strtotime($request->time);
           $t=date("h:i:sa",$t);
           if($find == 0){
@@ -447,7 +446,7 @@ class TodosController extends Controller
     }
 
     public function getreminder(){
-     
+        date_default_timezone_set("Asia/Kolkata");
      $notification =DB::table('reminders')->where('user_id',Auth::id())->where('remdate','<=',date('d-m-Y'))->where('remtime','<=',date('h:i:sa'))->where('noti',1)->get();
      echo $notification;
       

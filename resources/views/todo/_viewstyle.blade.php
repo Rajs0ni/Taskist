@@ -73,7 +73,6 @@ function noti(){
       method:'get',
       success(response){
        response=JSON.parse(response);
-       console.log(response);
       if(response.length>0){
       for(var i=0;i<response.length;i++){
             var div=$("<div class='rem' id='remm'></div>");
@@ -99,6 +98,15 @@ function noti(){
       }); 
     
 }
+
+$('body').on('mouseenter','.rem',function(){
+   $(this).find('.delrem').css('display','inline');
+})
+
+
+$('body').on('mouseleave','.rem',function(){
+   $(this).find('.delrem').css('display','none');
+})
 
 $('#shownoti').click(function(){
  $('.notis').toggle(); 
