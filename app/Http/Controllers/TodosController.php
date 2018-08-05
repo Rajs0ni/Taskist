@@ -446,7 +446,7 @@ class TodosController extends Controller
     }
 
     public function getreminder(){
-     date_default_timezone_set("Asia/Kolkata");
+     
      $notification =DB::table('reminders')->where('user_id',Auth::id())->where('remdate','<=',date('d-m-Y'))->where('remtime','<=',date('h:i:sa'))->where('noti',1)->get();
      echo $notification;
       

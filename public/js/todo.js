@@ -307,7 +307,14 @@ $('#timepicker').val('');
 
   });
 
-  
+
+  $('#addlabels').click(function(){
+    $('#addlabelsmodal').css('display','block');   
+})  
+
+$('#closelabels').click(function(){
+    $('#addlabelsmodal').css('display','none');
+})
 });
 
 

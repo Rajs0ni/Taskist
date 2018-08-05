@@ -66,6 +66,7 @@ function noti(){
       method:'get',
       success(response){
        response=JSON.parse(response);
+       console.log(response);
       if(response.length>0){
       for(var i=0;i<response.length;i++){
             var div=$("<div class='rem' id='remm'></div>");
