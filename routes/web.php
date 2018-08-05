@@ -56,6 +56,8 @@ Route::get('/todo/color/{id}','TodosController@color');
 Route::resource('todo','TodosController');
 Auth::routes();
 
+// Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index');
 Route::get('/home', 'TodosController@index')->name('home');
 Route::post('/addreminder','TodosController@addreminder');
 Route::get('/getreminder','TodosController@getreminder');

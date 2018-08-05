@@ -75,7 +75,7 @@ $('.content').on('click', function(){
 
 @include('todo.remindermodalbox')
                 <div class="modal-footer">
-                        <button type="button" class="btn btn-success" id="add_reminder">DONE</button>
+                        <button type="button" class="btn btn-success" id="add_reminder" data-dismiss="modal">DONE</button>
                         </div>
                         
                     </div>

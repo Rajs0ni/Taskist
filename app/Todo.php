@@ -56,5 +56,8 @@ class Todo extends Model
         ->where('user_id','=',auth()->user()->id)
                 ->where('completion_date','>', Carbon::now()->toDateString());
     }
-  
+    
+    public function labels(){   
+        return $this->belongsToMany(Label::class);
+    }
 }
