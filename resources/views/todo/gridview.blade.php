@@ -31,7 +31,7 @@
                     <div class="count"></div>
                     <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
                     <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
-                    <div style="display:inline-block;padding-left:15px"><a href="{{ action('TodosController@show', $todo->id ) }}"><i class="fa fa-eye" id="gridEye"></i></a></div>
+                    <div style="display:inline-block;padding-left:15px"><a href="{{ action('TodosController@show', $todo->id ) }}" title="View"><i class="fa fa-eye" id="gridEye"></i></a></div>
                 </div>
                 
                 <div class="gridtask"><textarea >{{ $todo->task}}</textarea></div>
@@ -46,7 +46,7 @@
                     @endif
                         <a href="{{ action('TodosController@edit', $todo->id ) }}" id="edit" title="Edit"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-edit" id="edit"></i></a>
                     @if($todo->reminder==1)
-                        <a href="#" id="snooze" title="Reminder"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-bell" style="color:rgb(244, 152, 66)"></i></a>   
+                        <a href="#" id="snooze" title="Reminder" data-toggle="modal" data-target="#addreminder" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-bell" style="color:rgb(244, 152, 66)"></i></a>   
                     @else  
                         <a href="#" id="snooze" title="Reminder" data-toggle="modal" data-target="#addreminder" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-bell"></i></a>
                     @endif                    @if($todo->archive == 0)
@@ -78,7 +78,7 @@
                     <div class="count"></div>
                     <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
                     <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
-                    <div style="display:inline-block;padding-left:15px"><a href="{{ action('TodosController@show', $todo->id ) }}"><i class="fa fa-eye" id="gridEye"></i></a></div>
+                    <div style="display:inline-block;padding-left:15px"><a href="{{ action('TodosController@show', $todo->id ) }}" title="View"><i class="fa fa-eye" id="gridEye"></i></a></div>
                 </div>
                 <div class="gridtask"><textarea >{{ $todo->task}}</textarea></div>
                 <div class="gridbtn">
@@ -92,7 +92,7 @@
                     @endif
                         <a href="{{ action('TodosController@edit', $todo->id ) }}" id="edit" title="Edit"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-edit" id="edit"></i></a>
                     @if($todo->reminder==1)
-                        <a href="#" id="snooze" title="Reminder"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-bell" style="color:rgb(244, 152, 66)"></i></a>   
+                        <a href="#" id="snooze" title="Reminder" data-toggle="modal" data-target="#addreminder" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-bell" style="color:rgb(244, 152, 66)"></i></a>   
                     @else  
                         <a href="#" id="snooze" title="Reminder" data-toggle="modal" data-target="#addreminder"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-bell"></i></a>
                     @endif

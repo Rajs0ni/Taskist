@@ -247,11 +247,12 @@ body{
     padding: 5px;
     top: 7px;
     left: 5px;
+   
 }
 .aside span{
     letter-spacing: 1px;
 }
-.aside div{
+.aside .sideBarHeader{
     background:linear-gradient(#F76266,rgb(243, 114, 114));
     width: 100%;
     margin-bottom: 15px;
@@ -463,6 +464,7 @@ body{
     pointer-events: auto;
 }
 
+  
 .modal{
     position:absolute;
     top:25%;
@@ -544,4 +546,26 @@ body{
 }
 .fa-clock:hover, .fa-caret-down:hover{
     color:#F76266;
+}
+.Noti-title{
+    text-transform:capitalize;
+}
+.no-notifications-bell{
+
+    display: block;
+    font-size: 350%;
+    margin-top: 38%;
+    margin-left: 47%;
+    margin-bottom:2%;
+    color:rgba(210, 210, 210,1);;
+}
+.no-notifications-msg{
+    font-size:2.2em;
+    margin-left:26%;
+    color:rgba(190, 190, 190,1);
+}
+.noti_MSG{
+  font-size:1em;
+  margin-left:29%;
+  color:rgba(150, 150, 150,1);
 }
