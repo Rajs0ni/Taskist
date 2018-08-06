@@ -459,8 +459,9 @@ class TodosController extends Controller
                         ->where('trashed','=','1')
                         ->orderBy('created_at','desc')
                         ->get();
-        $todoview = Todo::where('view',0)->get();                
-        return view('todo.trash',compact('todos','todoview'));
+        $todoview = Todo::where('view',0)->get();    
+        $message = "!! Tasks Not Found !!";            
+        return view('todo.trash',compact('todos','todoview','message'));
     }
 
     public function addcollab(Request $request)
