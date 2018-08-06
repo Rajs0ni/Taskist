@@ -62,6 +62,7 @@ $('.rem').mouseenter(function(){
     $('.Notification-content').empty();
     noti();
 };
+
 function noti(){
   $.ajaxSetup({
         headers: {

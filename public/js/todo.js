@@ -405,7 +405,7 @@ $('body').on('mouseleave','.newlabel',function(){
 $('body').on('click','.dellabel',function(){
     var val = $(this).parent().find('.labelvalue').text();
     if(confirm('DELETE LABEL "'+ val +'"')){
-     $(this).parent().remove();
+      $(this).parent().remove();
      $.ajaxSetup({
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -459,7 +459,7 @@ function edithandler(){
 }
 function edithandler1(thishtml){
     if($(".newlabelval").val()==""){
-        $(thishtml).replaceWith('<div class="newlabel"><span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span></div>');
+        $(thishtml).replaceWith('<span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span>');
     }  
     else{   
         var value=$(".newlabelval").val().toUpperCase();
@@ -476,12 +476,12 @@ function edithandler1(thishtml){
           newval:value
         },success(response){
           if(response == 'exists'){
-            $(thishtml).replaceWith('<div class="newlabel"><span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span></div>');
+            $(thishtml).replaceWith('<span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span>');
              
           }
           else{
               $(".newlabelval").attr("placeholder",'edit label');
-              $(thishtml).replaceWith('<div class="newlabel"><span class="labelvalue">'+value+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span></div>');
+              $(thishtml).replaceWith('<span class="labelvalue">'+value+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span>');
               }
         }
       });
@@ -491,7 +491,7 @@ function edithandler1(thishtml){
 
 function edithandler2(thishtml){
     if($(".newlabelval").val()==""){
-        $(thishtml).replaceWith('<div class="newlabel"><span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span></div>');
+        $(thishtml).replaceWith('<span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span>');
     }  
  else{
     var value=$(".newlabelval").val().toUpperCase();
@@ -508,15 +508,15 @@ function edithandler2(thishtml){
           newval:value
         },success(response){
             if($(".newlabelval").val()== ""){
-           $(thishtml).replaceWith('<div class="newlabel"><span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span></div>');             
+           $(thishtml).replaceWith('<span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span>');             
         
          }
           else if(response == 'exists'){
-              $(thishtml).replaceWith('<div class="newlabel"><span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span></div>');             
+              $(thishtml).replaceWith('<span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span>');             
           }
           else{
               $(".newlabelval").attr("placeholder",'edit label');
-              $(thishtml).replaceWith('<div class="newlabel"><span class="labelvalue">'+value+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span></div>');
+              $(thishtml).replaceWith('<span class="labelvalue">'+value+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span>');
               }
         }
       });
