@@ -568,8 +568,18 @@ class TodosController extends Controller
 
     public function getreminder(){
         date_default_timezone_set("Asia/Kolkata");
+        $notifications=[];
+        $c=0;
      $notification =DB::table('reminders')->where('user_id',Auth::id())->where('remdate','<=',date('d-m-Y'))->where('remtime','<=',date('h:i:sa'))->where('noti',1)->get();
-     echo $notification;
+     
+     if(sizeof($notification)>0){
+         for($ct=0;$ct<sizeof($notification);$ct++){
+                 if(Todo::find($notification[$ct]->taskid)->trashed ==0) 
+                    $notifications[$c++]=$notification[$ct];
+             
+         }
+     }
+      echo json_encode($notifications);
       
  }
   
