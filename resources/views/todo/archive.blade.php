@@ -36,7 +36,8 @@
                                                     @endif
                                                         <a class="dropdown-item" href="{{ action('TodosController@edit', $todo->id ) }}" id="edit"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-edit" id="edit"></i> Edit</a>
                                                         <a class="dropdown-item" id="snooze"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-clock"  id="snooze"></i> Snooze</a>
-                                                    @if($todo->archive == 0)
+                                                        <a class="dropdown-item" id="tasklabel" data-toggle="modal" data-target="#tasklab"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fas fa-tags"></i> Labels</a>
+                                                @if($todo->archive == 0)
                                                         <a class="dropdown-item" id="archive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="archive"></i> Archive</a>
                                                     @else   
                                                         <a class="dropdown-item" id="unarchive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="unarchive" style="color:rgb(244, 152, 66)"></i> Unarchive</a>

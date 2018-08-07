@@ -27,6 +27,7 @@
                          })
 
                         $('body').on('click','#addrem',function(){
+                              
                                   var date=$('#datepicker').val();
                                 var time=$('#timepicker').val();
                                 if(date!="" && time!=""){

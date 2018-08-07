@@ -52,7 +52,7 @@ Route::get('/setsession','TodosController@setsession');
 Route::get('todo/sort/by/date','TodosController@sortByDate');
 Route::get('/acceptcollab','TodosController@acceptcollab');
 Route::get('/rejectcollab','TodosController@rejectcollab');
-Route::get('/todo/color/{id}','TodosController@color');
+Route::get('/todo/color','TodosController@color');
 Route::resource('todo','TodosController');
 Auth::routes();
 
@@ -68,3 +68,4 @@ Route::post('/addnewlabel','LabelController@addnewlabel');
 Route::get('/getlabels','LabelController@getlabels');
 Route::get('/dellabel','LabelController@dellabel');
 Route::post('/updatelabel','LabelController@updatelabel');
+Route::get('/searchlabels','LabelController@searchlabels');

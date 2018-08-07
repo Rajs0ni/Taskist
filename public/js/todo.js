@@ -8,24 +8,79 @@ $('document').ready(function(){
   $('.row').mouseout(function(){
     $(this).find(".outersubmenu").css({'display':'none'});
 });
-// color picker
+// color picker for list
 
-// $("#colorpicker").bind('input',function()
-// {
-// // alert('fr');
-// color = $(this).val();
-// x = $(this).parent().parent().parent().parent().parent();
-// x.css('background',color);
-// });
-$('body').on('change',"#colorpicker",function()
+$('body').on('click',"#colorpicker",function()
 {
-   
-    color = $(this).val();
-    x = $(this).parent().parent().parent().parent().parent();
-    x.css('background',color);
+    $('body').on('input',"#colorpicker",function()
+    {
+        color = $(this).val();
+        id = $(this).parents('.color').children().text();
+        x = $(this).parents('.panel');
+        x.css('background',color);
 
+        $.ajax
+        ({
+            type: "GET",
+            url: "/todo/color",
+            data: { 
+            _token : $('meta[name="csrf-token"]').attr('content'), 
+                'color': color,
+                'id' : id 
+            }, 
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            },       
+            success:function(response)
+            {
+            
+            },
+            error:function(response)
+            {
+                alert('ERROR');
+            }
+        });
+    });
 });
-// end color picker
+// end color picker for list
+
+//color picker for grid
+
+$('body').on('click',"#grid_color",function()
+{
+   $('body').on('input',"#grid_color",function()
+   {
+   
+        color = $(this).val();
+        x = $(this).parents('.grid');
+        x.css('background',color);
+        id = $(this).parents('.gridbtn').children().val();
+        $.ajax
+        ({
+            type: "GET",
+            url: "/todo/color",
+            data: { 
+                _token : $('meta[name="csrf-token"]').attr('content'), 
+                'color': color,
+                'id' : id 
+            }, 
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            },       
+            success:function(response)
+            {
+            
+            },
+            error:function(response)
+            {
+                alert('ERROR');
+            }
+        });    
+
+   });
+   
+});
+//color picker for grid end
 $("body").on('click',".accept",function(){
     id = $(this).children().text();
 
@@ -405,7 +460,7 @@ $('body').on('mouseleave','.newlabel',function(){
 $('body').on('click','.dellabel',function(){
     var val = $(this).parent().find('.labelvalue').text();
     if(confirm('DELETE LABEL "'+ val +'"')){
-     $(this).parent().remove();
+      $(this).parent().remove();
      $.ajaxSetup({
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -459,7 +514,7 @@ function edithandler(){
 }
 function edithandler1(thishtml){
     if($(".newlabelval").val()==""){
-        $(thishtml).replaceWith('<div class="newlabel"><span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span></div>');
+        $(thishtml).replaceWith('<span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span>');
     }  
     else{   
         var value=$(".newlabelval").val().toUpperCase();
@@ -476,12 +531,12 @@ function edithandler1(thishtml){
           newval:value
         },success(response){
           if(response == 'exists'){
-            $(thishtml).replaceWith('<div class="newlabel"><span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span></div>');
+            $(thishtml).replaceWith('<span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span>');
              
           }
           else{
               $(".newlabelval").attr("placeholder",'edit label');
-              $(thishtml).replaceWith('<div class="newlabel"><span class="labelvalue">'+value+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span></div>');
+              $(thishtml).replaceWith('<span class="labelvalue">'+value+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span>');
               }
         }
       });
@@ -491,7 +546,7 @@ function edithandler1(thishtml){
 
 function edithandler2(thishtml){
     if($(".newlabelval").val()==""){
-        $(thishtml).replaceWith('<div class="newlabel"><span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span></div>');
+        $(thishtml).replaceWith('<span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span>');
     }  
  else{
     var value=$(".newlabelval").val().toUpperCase();
@@ -508,21 +563,78 @@ function edithandler2(thishtml){
           newval:value
         },success(response){
             if($(".newlabelval").val()== ""){
-           $(thishtml).replaceWith('<div class="newlabel"><span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span></div>');             
+           $(thishtml).replaceWith('<span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span>');             
         
          }
           else if(response == 'exists'){
-              $(thishtml).replaceWith('<div class="newlabel"><span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span></div>');             
+              $(thishtml).replaceWith('<span class="labelvalue">'+oldval+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span>');             
           }
           else{
               $(".newlabelval").attr("placeholder",'edit label');
-              $(thishtml).replaceWith('<div class="newlabel"><span class="labelvalue">'+value+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span></div>');
+              $(thishtml).replaceWith('<span class="labelvalue">'+value+'</span><span class="dellabel" style="display: none; float: right;"><i class="fa fa-trash pr-3"></i></span>');
               }
         }
       });
       
     }   
 }
+
+$('#tasklabel').click(function(){
+    $("#alllabelstask").empty();  
+    $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({                       
+      url: '/getlabels',
+      method:'get',
+      success(response){
+        if(response.length>0){
+            $("#alllabelstask").css({'display':'block'});
+        for(var i=0;i<response.length;i++){
+            var ip=$("<input type='checkbox' class='individuallab'>");
+            var span=$('<span></span>').text(response[i].name);
+            var div=$('<div></div>').append(ip).append(span);
+            var option=$('<option></option>').val(response[i].name).append(div);
+            $("#alllabelstask").append(option);
+        }
+       
+    }
+    else{
+        $("#alllabelstask").css({'display':'none'});
+    }
+    }
+    });
+ })
+
+ $('#searchlabels').keyup(function(){
+    $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({                       
+      url: '/searchlabels',
+      method:'get',
+      data:{
+        val:$(this).val().toUpperCase()
+      },
+      success(response){
+        if(response == 'notexists'){
+        //     $("#alllabelstask").css({'display':'none'});
+        // for(var i=0;i<response.length;i++){
+        //     var option=$('<option></option>').val(response[i].name).text(response[i].name);
+        //     $("#alllabelstask").append(option);
+        // }
+       
+    }
+    else{
+        $("#alllabelstask").css({'display':'none'});
+    }
+    }
+    });
+ })
 });
 
 

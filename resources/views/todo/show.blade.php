@@ -19,7 +19,7 @@
                     <div class="dropdown mr-2 ml-1 " style="display:inline-block;">
                     <span><i class="fas fa-caret-down" id="clk"></i></span>
                         <ul class="dropdown-menu ml-0">
-                        <li id="editreminder" class="dropdown-item">Edit</li>
+                        <li id="editreminder" class="dropdown-item" data-toggle="modal" data-target="#addreminder">Edit</li>
                         <li id="removereminder" class="dropdown-item">Remove</li>
                         </ul>
                     </div>
@@ -126,7 +126,7 @@
 @endif
         @include('todo.remindermodalbox')
                          <div class="modal-footer">
-                        <button type="button" class="btn btn-success" id="addrem">DONE</button>
+                        <button type="button" class="btn btn-success" id="addrem" data-dismiss="modal">DONE</button>
                         </div>
                         
                     </div>

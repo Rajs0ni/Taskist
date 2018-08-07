@@ -43,7 +43,7 @@
                         </div> <!-- End of Row -->
                 @endforeach
         @else
-                <h4 id="notFoundAlert">!! Not Found !!</h4>
+                <h4 id="notFoundAlert">{{ $message }}</h4>
         @endif
 @else    <!-- for grid trash-->
 <div class="container gridContainer"  >
@@ -70,6 +70,7 @@
         
 </div>
 @endif   <!-- end grid trash-->   
+<<<<<<< HEAD
 @if(count($todos))
         <h4>Trash</h4><hr>
         <?php $count = 1; ?> 
@@ -100,6 +101,8 @@
 @else
          <h4 id="notFoundAlert">{{ $message }}</h4>
 @endif
+=======
+>>>>>>> 4a9447cbfeb9b09edb48e690f0915efaa5d36e03
 
 @include('todo._sideBar')
 @endsection

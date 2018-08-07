@@ -1,5 +1,5 @@
 <div class="row">
-    <div class='panel container' style="background:linear-gradient(90deg,rgb(19, 71, 71)10%,rgb(239, 240, 240))"> 
+    <div class='panel container' style="background:{{$todo->taskColor}};"> 
         <div class="dropdown" >
                 <div class="btn-group">
                         <button type="button" id="ellipsis" class="btn vanishOutline" data-toggle="dropdown" ><i class="fa fa-ellipsis-v"></i>
@@ -20,14 +20,15 @@
                             @else  
                                 <a class="dropdown-item" id="reminder" data-toggle="modal" data-target="#addreminder"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-clock" ></i> Snooze</a>
                             @endif  
+                            <a class="dropdown-item" id="tasklabel" data-toggle="modal" data-target="#tasklab"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fas fa-tags"></i> Labels</a>
                             @if($todo->archive == 0)
                                 <a class="dropdown-item" class="arc" id="archive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="archive"></i> Archive</a>
                             @else   
                                 <a class="dropdown-item" id="unarchive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="unarchive" style="color:rgb(244, 152, 66)"></i> Unarchive</a>
                             @endif 
                                 <a class="dropdown-item"><div hidden style="display:inline-block">{{$todo->id}}</div>
-                                <input type="color" style="width:20px;" id="colorpicker">
-                                Change Color
+                                <button id="list_btn" style=";"><i class="fa fa-palette"></i>&ensp;Change Color</button>        
+                                <input type="color" style="" id="colorpicker">
                                 </a>
                                 <a class="dropdown-item addcollab" data-toggle="modal" data-target="#myModal"   id="addcollab" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i> Add Collaborator</a>
                                 <a class="dropdown-item" id="trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i> Delete</a>
