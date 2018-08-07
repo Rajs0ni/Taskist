@@ -8,24 +8,79 @@ $('document').ready(function(){
   $('.row').mouseout(function(){
     $(this).find(".outersubmenu").css({'display':'none'});
 });
-// color picker
+// color picker for list
 
-// $("#colorpicker").bind('input',function()
-// {
-// // alert('fr');
-// color = $(this).val();
-// x = $(this).parent().parent().parent().parent().parent();
-// x.css('background',color);
-// });
-$('body').on('change',"#colorpicker",function()
+$('body').on('click',"#colorpicker",function()
 {
-   
-    color = $(this).val();
-    x = $(this).parent().parent().parent().parent().parent();
-    x.css('background',color);
+    $('body').on('input',"#colorpicker",function()
+    {
+        color = $(this).val();
+        id = $(this).parents('.color').children().text();
+        x = $(this).parents('.panel');
+        x.css('background',color);
 
+        $.ajax
+        ({
+            type: "GET",
+            url: "/todo/color",
+            data: { 
+            _token : $('meta[name="csrf-token"]').attr('content'), 
+                'color': color,
+                'id' : id 
+            }, 
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            },       
+            success:function(response)
+            {
+            
+            },
+            error:function(response)
+            {
+                alert('ERROR');
+            }
+        });
+    });
 });
-// end color picker
+// end color picker for list
+
+//color picker for grid
+
+$('body').on('click',"#grid_color",function()
+{
+   $('body').on('input',"#grid_color",function()
+   {
+   
+        color = $(this).val();
+        x = $(this).parents('.grid');
+        x.css('background',color);
+        id = $(this).parents('.gridbtn').children().val();
+        $.ajax
+        ({
+            type: "GET",
+            url: "/todo/color",
+            data: { 
+                _token : $('meta[name="csrf-token"]').attr('content'), 
+                'color': color,
+                'id' : id 
+            }, 
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            },       
+            success:function(response)
+            {
+            
+            },
+            error:function(response)
+            {
+                alert('ERROR');
+            }
+        });    
+
+   });
+   
+});
+//color picker for grid end
 $("body").on('click',".accept",function(){
     id = $(this).children().text();
 

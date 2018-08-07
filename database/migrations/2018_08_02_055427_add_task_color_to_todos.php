@@ -15,7 +15,7 @@ class AddTaskColorToTodos extends Migration
     {
         //
         Schema::table('todos', function (Blueprint $table) {
-            $table->string('taskColor')->default('#fff');
+            $table->string('taskColor')->default(' #F37272')->change();
         });
     
     }
