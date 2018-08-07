@@ -68,3 +68,4 @@ Route::post('/addnewlabel','LabelController@addnewlabel');
 Route::get('/getlabels','LabelController@getlabels');
 Route::get('/dellabel','LabelController@dellabel');
 Route::post('/updatelabel','LabelController@updatelabel');
+Route::get('/searchlabels','LabelController@searchlabels');
