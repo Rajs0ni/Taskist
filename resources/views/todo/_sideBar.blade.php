@@ -18,8 +18,6 @@
                  <a href="{{ action('TodosController@getCompleted')}}"><i class="fa fa-check-square "></i> Completed Tasks</a>
                  <a href="{{ action('TodosController@all') }}"><i class="fa fa-tasks"></i> All Task</a>
                  <hr>
-                 <a href="{{ action('TodosController@archived') }}"><i class="fa fa-archive"></i> Archive</a><br>
-                 <a href="{{ action('TodosController@trash') }}"><i class="fa fa-trash"></i> Trash</a><br>
                  <a href="{{ action('TodosController@help') }}"><i class="fa fa-question-circle text-primary"></i> Help</a><br></div>
                  
         </aside>

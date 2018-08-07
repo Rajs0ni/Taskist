@@ -480,7 +480,8 @@ body{
 #ellipsis{
     background: none !important;
 }
- .notis{
+
+.notis{
     position:absolute;
     right:15%;
     width:500px;
@@ -547,13 +548,8 @@ body{
 .fa-clock:hover, .fa-caret-down:hover{
     color:#F76266;
 }
-#grid_color
-{
-    opacity:0;
-    width:14%;
-    position:absolute;
-    right:65px;
-    cursor:pointer;
+.Noti-title{
+    text-transform:capitalize;
 }
 .no-notifications-bell{
 
@@ -574,6 +570,15 @@ body{
   margin-left:29%;
   color:rgba(150, 150, 150,1);
 }
+#grid_color
+{
+    opacity:0;
+    width:14%;
+    position:absolute;
+    right:65px;
+    cursor:pointer;
+}
+
 #color_btn
 {
     width:16%;
@@ -598,3 +603,5 @@ body{
     position:absolute;
     right:0px;
 }
+
+
