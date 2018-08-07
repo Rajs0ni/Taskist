@@ -83,5 +83,9 @@ $('.content').on('click', function(){
                     </div>
                     </div>
                 </div>
+
+
+@include('todo.tasklabels')
+
 </body>
 </html>

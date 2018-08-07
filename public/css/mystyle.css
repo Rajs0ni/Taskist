@@ -557,6 +557,25 @@ body{
     right:65px;
     cursor:pointer;
 }
+.no-notifications-bell{
+
+    display: block;
+    font-size: 850%;
+    margin-top: 25%;
+    margin-left: 40%;
+    margin-bottom:2%;
+    color:rgba(210, 210, 210,1);;
+}
+.no-notifications-msg{
+    font-size:2.2em;
+    margin-left:26%;
+    color:rgba(25, 25, 25,1);
+}
+.noti_MSG{
+  font-size:1em;
+  margin-left:29%;
+  color:rgba(150, 150, 150,1);
+}
 #color_btn
 {
     width:16%;

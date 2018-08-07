@@ -578,6 +578,63 @@ function edithandler2(thishtml){
       
     }   
 }
+
+$('#tasklabel').click(function(){
+    $("#alllabelstask").empty();  
+    $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({                       
+      url: '/getlabels',
+      method:'get',
+      success(response){
+        if(response.length>0){
+            $("#alllabelstask").css({'display':'block'});
+        for(var i=0;i<response.length;i++){
+            var ip=$("<input type='checkbox' class='individuallab'>");
+            var span=$('<span></span>').text(response[i].name);
+            var div=$('<div></div>').append(ip).append(span);
+            var option=$('<option></option>').val(response[i].name).append(div);
+            $("#alllabelstask").append(option);
+        }
+       
+    }
+    else{
+        $("#alllabelstask").css({'display':'none'});
+    }
+    }
+    });
+ })
+
+ $('#searchlabels').keyup(function(){
+    $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({                       
+      url: '/searchlabels',
+      method:'get',
+      data:{
+        val:$(this).val().toUpperCase()
+      },
+      success(response){
+        if(response == 'notexists'){
+        //     $("#alllabelstask").css({'display':'none'});
+        // for(var i=0;i<response.length;i++){
+        //     var option=$('<option></option>').val(response[i].name).text(response[i].name);
+        //     $("#alllabelstask").append(option);
+        // }
+       
+    }
+    else{
+        $("#alllabelstask").css({'display':'none'});
+    }
+    }
+    });
+ })
 });
 
 
