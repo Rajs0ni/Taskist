@@ -235,9 +235,11 @@ body{
 .sideWrapper{
     position: absolute;
     border-left:1px solid rgb(219, 219, 219);
+    /* border:solid; */
     height: 100%;
     width: 200px;
     right: 14px;
+    overflow: scroll;
     top:0;
 }
 .aside{

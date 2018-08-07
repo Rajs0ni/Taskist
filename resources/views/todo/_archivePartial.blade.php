@@ -25,8 +25,8 @@
                             @endif 
                             <a class="dropdown-item color">
                               <div hidden style="display:inline-block">{{$todo->id}}</div>
-                                <button id="list_btn" style=";"><i class="fa fa-palette"></i>&ensp;Change Color</button>        
-                                <input type="color" style="" id="colorpicker"> 
+                                <button id="list_btn" ><i class="fa fa-palette"></i>&ensp;Change Color</button>        
+                                <input type="color" id="colorpicker"> 
                             </a>
                             <a class="dropdown-item addcollab" href="#" id="addcollab" data-toggle="modal" data-target="#myModal"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i> Add Collaborator</a>
                             <a class="dropdown-item"  id="trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i> Delete</a>
