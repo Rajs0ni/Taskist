@@ -46,11 +46,11 @@
                 <h4 id="notFoundAlert">!! Not Found !!</h4>
         @endif
 @else    <!-- for grid trash-->
-<div class="container gridContainer">
+<div class="container gridContainer"  >
         @if(count($todos)) 
                 <?php $count = 1; ?>
                 @foreach($todos as $todo) 
-                        <div class="grid">
+                        <div class="grid" style="background:linear-gradient(90deg,rgb(165, 165, 165)10%,rgb(225, 222, 222)); pointer-events:none;">
                                 <div class="grid_count_title">
                                         <div class="count"></div>
                                         <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
@@ -65,7 +65,7 @@
                         </div>
                 @endforeach
         @else
-                <h4 id="notFoundAlert">!! Not Found !!</h4>
+                <h4 id="notFoundAlert">{{ $message }}</h4>
         @endif   
         
 </div>
@@ -75,15 +75,15 @@
         <?php $count = 1; ?> 
         @foreach($todos as $todo) 
                 <div class="row">
-                        <div class='panel container'  style="background:linear-gradient(90deg,rgb(165, 165, 165)10%,rgb(225, 222, 222))"> 
+                        <div class='panel container'  style="background:linear-gradient(90deg,rgb(165, 165, 165)10%,rgb(225, 222, 222)); pointer-events:none;"> 
                                 <div class="dropdown" >
                                         <div class="btn-group">
                                                 <button type="button" id="ellipsis" class="btn vanishOutline" data-toggle="dropdown" style="background:none;border:none; outline:none"><i class="fa fa-ellipsis-v"></i>
                                                 </button>
                                                 
                                                 <div class="dropdown-menu  ">
-                                                        <a class="dropdown-item   " href="#" id="restore"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-redo-alt" id="restore"></i> Restore</a>
-                                                        <a class="dropdown-item   " href="#" id="delete"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  id="delete"></i> Delete</a>    
+                                                        <a class="dropdown-item" id="restore"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-redo-alt" id="restore"></i> Restore</a>
+                                                        <a class="dropdown-item" id="delete"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  id="delete"></i> Delete</a>    
                                                 </div>
                                         </div>       
                                 </div>  
