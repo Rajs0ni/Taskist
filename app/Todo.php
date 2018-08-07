@@ -59,5 +59,9 @@ class Todo extends Model
     
     public function labels(){   
         return $this->belongsToMany(Label::class);
+
+    }
+    public function hasLabel($label) {
+        return $this->labels->contains($label);
     }
 }

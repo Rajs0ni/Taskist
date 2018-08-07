@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Label;
+use App\Todo;
 use Illuminate\Support\Facades\Auth;
 class LabelController extends Controller
 {
@@ -40,7 +41,7 @@ class LabelController extends Controller
     }  
    
     public function searchlabels(Request $request){
-            $lab=Label::where('name','like',$request->val.'%')->get();
+            $lab=Label::where('user_id',Auth::id())->where('name','like',$request->val.'%')->get();
             if(sizeof($lab)>0){
                 return $lab;
             }
@@ -48,4 +49,54 @@ class LabelController extends Controller
                 return "notexists";
             }
     }
+    
+    public function addlabelrel(Request $request){
+       $task = Todo::find($request->taskid);
+       $label = Label::find($request->labid);
+       $task->labels()->attach($label);   
+    }
+    
+    public function dellabelrel(Request $request){
+        $task = Todo::find($request->taskid);
+        $label = Label::find($request->labid);
+        $task->labels()->detach($label); 
+    
+    }
+   
+    public function getlabelstask(Request $request){
+        $alllab =  Label::where('user_id',Auth::id())->get();
+        $tasklab = Todo::find($request->taskid)->labels;
+        if(sizeof($tasklab)>0 && sizeof($alllab)>0){
+            $alllab=$alllab->all();
+            $tasklab=$tasklab->all();
+            $difflab = array_udiff($alllab, $tasklab,
+                     function ($a, $b) {
+                        return $a->id - $b->id;
+                    }
+                    );        
+            return [$difflab,$tasklab];        
+        }
+        else if(sizeof($alllab)>0){
+                return $alllab;
+        }
+        else
+         return [];
+        
+    }
+    public function addnewsearch(Request $request){
+        $lab = new Label;
+        $lab->name=$request->val;
+        $lab->user_id=Auth::id();
+        $lab->save();
+
+        $task = Todo::find($request->taskid);
+        $task->labels()->attach($lab);  
+
+    }
+    
+    public function relexists(Request $request){
+        $task = Todo::find($request->taskid);
+        if($task->hasLabel($request->labid))
+          return 'yes';
+        }
 }
