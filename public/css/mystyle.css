@@ -247,11 +247,12 @@ body{
     padding: 5px;
     top: 7px;
     left: 5px;
+   
 }
 .aside span{
     letter-spacing: 1px;
 }
-.aside div{
+.aside .sideBarHeader{
     background:linear-gradient(#F76266,rgb(243, 114, 114));
     width: 100%;
     margin-bottom: 15px;
@@ -463,6 +464,7 @@ body{
     pointer-events: auto;
 }
 
+  
 .modal{
     position:absolute;
     top:25%;

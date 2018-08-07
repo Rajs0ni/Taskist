@@ -458,8 +458,9 @@ class TodosController extends Controller
                         ->where('trashed','=','1')
                         ->orderBy('created_at','desc')
                         ->get();
-        $todoview = Todo::where('view',0)->get();                
-        return view('todo.trash',compact('todos','todoview'));
+        $todoview = Todo::where('view',0)->get();    
+        $message = "!! Tasks Not Found !!";            
+        return view('todo.trash',compact('todos','todoview','message'));
     }
 
     public function addcollab(Request $request)
@@ -567,8 +568,18 @@ class TodosController extends Controller
 
     public function getreminder(){
         date_default_timezone_set("Asia/Kolkata");
+        $notifications=[];
+        $c=0;
      $notification =DB::table('reminders')->where('user_id',Auth::id())->where('remdate','<=',date('d-m-Y'))->where('remtime','<=',date('h:i:sa'))->where('noti',1)->get();
-     echo $notification;
+     
+     if(sizeof($notification)>0){
+         for($ct=0;$ct<sizeof($notification);$ct++){
+                 if(Todo::find($notification[$ct]->taskid)->trashed ==0) 
+                    $notifications[$c++]=$notification[$ct];
+             
+         }
+     }
+      echo json_encode($notifications);
       
  }
   

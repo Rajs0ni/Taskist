@@ -30,7 +30,9 @@
   
     <link rel="stylesheet" type="text/css" href=/css/mystyle.css >
     <link rel="stylesheet" type="text/css" href=/css/offcanvas.css >
+    <link rel="stylesheet" type="text/css" href=/css/deleteModal.css >
     <link rel="stylesheet" type="text/scss" href=/css/offcanvas.scss >
+   
     <script src="/js/todo.js"></script>
   
  </head>
