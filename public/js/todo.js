@@ -182,6 +182,7 @@ $.ajax({
     },
     
     success:function(data){
+        $(".umm").text("");
         res='<div class="umm">';
         if(data[1]=="no"){
             res+="No Collaborators yet!! Add some!</div>";
@@ -232,7 +233,7 @@ $("body").on('click',".remove",function(){
                 },
                 
                 success:function(data){
-                    
+                    $(".umm").text("");
                     res="<div class='umm'>";
                     if(data[1]=="no"){
                         res+="No Collaborators yet!! Add some!</div>"
@@ -313,7 +314,7 @@ $("#addCollaborator").click(function(){
                 },
                 
                 success:function(data){
-                    
+                    $(".umm").text("");
                     res="<div class='umm'>";
                     if(data[1]=="no"){
                         res+="No Collaborators yet!! Add some!</div>"
