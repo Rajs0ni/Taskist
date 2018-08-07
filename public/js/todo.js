@@ -590,6 +590,7 @@ $('#tasklabel').click(function(){
       url: '/getlabels',
       method:'get',
       success(response){
+          console.log(response);
         if(response.length>0){
             $("#alllabelstask").css({'display':'block'});
         for(var i=0;i<response.length;i++){
