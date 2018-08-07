@@ -203,7 +203,7 @@ class TodosController extends Controller
         $todo = Todo::where('user_id','=',auth()->user()->id)
                         ->findOrFail($id);
         $todo->update($request->all());
-        $rem = Reminder::where('taskid',$id)->get()->all();
+        $rem = Reminder::where('taskid',$id)->get()[0];
         $rem->title=$request->title;
         $rem->save();
         return redirect()->action('TodosController@show',$todo->id);;

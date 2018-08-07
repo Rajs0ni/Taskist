@@ -38,7 +38,7 @@
         </div>  
 
 
-        <div class="circle"></div><span id="span1"><?php if($count<=9)echo "0".$count; ?></span>
+        <div class="circle"></div><span id="span1"><?php if($count<=9)echo "0".$count; else echo $count++;?></span>
         <div class="wrapper">
                 <h3><a href="/todo/{{$todo->id}}/show">{{$todo->title}}</a></h3> 
                 <span id="span2" >&#x25cf; {{$todo->completion_date}}</span>
