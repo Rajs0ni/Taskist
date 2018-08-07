@@ -65,7 +65,8 @@
                                 @endif
                         @endif        
                 @endforeach      
-        @endif  
+        @endif 
+<!-- end others task-->      
         @if(count($accepted))
                 <h4>Collaborated tasks</h4>  
                 <?php $count = 1; ?>
@@ -80,8 +81,7 @@
                                 @endif
                         @endif        
                 @endforeach      
-        @endif  
-<!-- end others task-->          
+        @endif      
 @else
     <!-- check if search variable is set -->
     @if(isset($search)) 

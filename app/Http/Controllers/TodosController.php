@@ -60,6 +60,7 @@ class TodosController extends Controller
                     where('archive',0)->where('pin',0)->get();
         $message = "!!  Tasks Not Found !!";
         $todoview = Todo::where('view',0)->get();
+        
         if(count($todoview))
         {
             return view('todo.gridview',compact('todos','pinned','unpinned'));
@@ -78,12 +79,10 @@ class TodosController extends Controller
         ->get();
         $pinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->
                   where('trashed','=','0')->
-                //   where('archive',0)->
-                  where('pin',1)->get();
+                  where('pin',1)->where('archive',0)->get();
         $unpinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->
                     where('trashed','=','0')->
-                    // where('archive',0)->
-                    where('pin',0)->get();
+                    where('pin',0)->where('archive',0)->get();
         $message = "!!Tasks Not Found !!";
         $accepted = auth()->user()->todos()->where('status','A')->get();
         $archive = DB::table('todos')->where('user_id','=',auth()->user()->id)->where('trashed','=','0')->where('archive',1)->get();
@@ -94,7 +93,7 @@ class TodosController extends Controller
         }
         else
         {
-            return view('todo.alltasks',compact('todos','pinned','unpinned','accepted','message'));
+            return view('todo.alltasks',compact('todos','pinned','unpinned','accepted','message','archive'));
 
         }      
     }
@@ -599,6 +598,16 @@ class TodosController extends Controller
     public function  removereminder(Request $request){
         $rem = Reminder::where('taskid',$request->id)->get()[0];
         $rem->delete();
-  }    
-       
+  } 
+  
+  public function color(Request $request)
+  {
+      $color = $request->color;
+      $id = $request->id;
+      $todo = Todo::findOrFail($id);
+      $todo->taskColor = $color;
+      $todo->save();
+      return $color;
+  }   
+      
 }

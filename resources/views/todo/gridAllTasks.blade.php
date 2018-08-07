@@ -35,7 +35,7 @@
         <?php $count = 1; ?>
         @foreach($todos as $todo) 
             @if($todo->pin == 1 && $todo->archive == 0)
-                <div class="grid">                  <!-- first div-->
+                <div class="grid" style="background:{{$todo->taskColor}};">                  <!-- first div-->
                     <div class="grid_count_title">  <!-- second div-->
                         <div class="count"></div>
                         <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
@@ -58,7 +58,8 @@
                         @else   
                             <a href="#" id="unarchive" title="Unarchive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="unarchive" style="color:rgb(244, 152, 66)"></i></a>
                         @endif 
-                        <i class="fa fa-palette"></i>
+                            <button id="color_btn"><i class="fa fa-palette"></i></button>
+                            <input type="color" id="grid_color"/>
                             <a href="#" id="addcollab" class="addcollab" title="Collaborator" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i></a>
                             <a  href="#"  id="trash"  title="Trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i></a>
                     </div>                         <!-- end third div-->
@@ -73,7 +74,7 @@
         <?php $count = 1; ?>
         @foreach($todos as $todo) 
             @if($todo->archive == 1)
-                <div class="grid">
+                <div class="grid" style="background:{{$todo->taskColor}};">
                         <div class="grid_count_title">
                             <div class="count"></div>
                             <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
@@ -96,7 +97,8 @@
                             @else   
                                 <a href="#" id="unarchive" title="Unarchive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="unarchive" style="color:rgb(244, 152, 66)"></i></a>
                             @endif 
-                                <i class="fa fa-palette"></i>
+                                <button id="color_btn"><i class="fa fa-palette"></i></button>
+                                <input type="color" id="grid_color"/>
                                 <a class="addcollab" href="#"   id="addcollab"  title="Collaborator" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i></a>
                                 <a  href="#" id="trash" title="Trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i></a>
                         </div>
@@ -106,14 +108,14 @@
     @endif<!-- check for archivetask end-->
     <br><br>
     @if(count($unpinned))<!-- check for unpinned tasks-->
-            @if(count($pinned))
+            @if(count($pinned) || count($archive))
             <h4>Others</h4><hr> 
             @else
             @endif  
         <?php $count = 1; ?>
         @foreach($todos as $todo) 
             @if($todo->pin == 0 && $todo->archive == 0)
-                <div class="grid">
+                <div class="grid" style="background:{{$todo->taskColor}};">
                     <div class="grid_count_title">
                         <div class="count"></div>
                         <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
@@ -136,7 +138,8 @@
                         @else   
                             <a href="#" id="unarchive" title="Unarchive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="unarchive" style="color:rgb(244, 152, 66)"></i></a>
                         @endif 
-                        <i class="fa fa-palette"></i>
+                            <button id="color_btn"><i class="fa fa-palette"></i></button>
+                            <input type="color" id="grid_color"/>
                             <a class="addcollab" href="#"   id="addcollab"  title="Collaborator" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i></a>
                             <a  href="#" id="trash" title="Trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i></a>
                     </div>
