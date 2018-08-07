@@ -35,13 +35,13 @@
         <?php $count = 1; ?>
         @foreach($todos as $todo) 
             @if($todo->pin == 1 && $todo->archive == 0)
-                <div class="grid" style="background:{{$todo->taskColor}};">                  <!-- first div-->
+                <div class="grid">                  <!-- first div-->
                     <div class="grid_count_title">  <!-- second div-->
                         <div class="count"></div>
                         <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
                         <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
                     </div>                          <!-- end second div-->
-                    <div class="gridtask"><textarea >{{ $todo->task}}</textarea></div>
+                    <div class="gridtask"><textarea style="background:{{$todo->taskColor}};">{{ $todo->task}}</textarea></div>
                     <div class="gridbtn">           <!--third div -->
                                     <input type='hidden' value={{$todo->id}} id='task_id'>
                                     <input type='hidden' value={{$todo->title}} id='task_title'>
@@ -74,13 +74,13 @@
         <?php $count = 1; ?>
         @foreach($todos as $todo) 
             @if($todo->archive == 1)
-                <div class="grid" style="background:{{$todo->taskColor}};">
+                <div class="grid">
                         <div class="grid_count_title">
                             <div class="count"></div>
                             <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
                             <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
                         </div>
-                        <div class="gridtask"><textarea >{{ $todo->date_created}}</textarea></div>
+                        <div class="gridtask"><textarea style="background:{{$todo->taskColor}};">{{ $todo->date_created}}</textarea></div>
                         <div class="gridbtn">
                                         <input type='hidden' value={{$todo->id}} id='task_id'>
                                         <input type='hidden' value={{$todo->title}} id='task_title'>
@@ -115,13 +115,13 @@
         <?php $count = 1; ?>
         @foreach($todos as $todo) 
             @if($todo->pin == 0 && $todo->archive == 0)
-                <div class="grid" style="background:{{$todo->taskColor}};">
+                <div class="grid">
                     <div class="grid_count_title">
                         <div class="count"></div>
                         <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
                         <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
                     </div>
-                    <div class="gridtask"><textarea >{{ $todo->date_created}}</textarea></div>
+                    <div class="gridtask"><textarea style="background:{{$todo->taskColor}};">{{ $todo->date_created}}</textarea></div>
                     <div class="gridbtn">
                                     <input type='hidden' value={{$todo->id}} id='task_id'>
                                     <input type='hidden' value={{$todo->title}} id='task_title'>

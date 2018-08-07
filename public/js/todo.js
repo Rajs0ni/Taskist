@@ -12,35 +12,35 @@ $('document').ready(function(){
 
 $('body').on('click',"#colorpicker",function()
 {
-    $('body').on('input',"#colorpicker",function()
-    {
-        color = $(this).val();
-        id = $(this).parents('.color').children().text();
-        x = $(this).parents('.panel');
-        x.css('background',color);
+$('body').on('input',"#colorpicker",function()
+{
+color = $(this).val();
+id = $(this).parents('.color').children().text();
+x = $(this).parents('.panel');
+//gr = linear-gradient(color,rgb(239, 240, 240));
+x.css('background',color);
 
-        $.ajax
-        ({
-            type: "GET",
-            url: "/todo/color",
-            data: { 
-            _token : $('meta[name="csrf-token"]').attr('content'), 
-                'color': color,
-                'id' : id 
-            }, 
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            },       
-            success:function(response)
-            {
-            
-            },
-            error:function(response)
-            {
-                alert('ERROR');
-            }
-        });
-    });
+$.ajax
+({
+type: "GET",
+url: "/todo/color",
+data: { 
+_token : $('meta[name="csrf-token"]').attr('content'), 
+'color': color,
+'id' : id 
+}, 
+headers: {
+'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+}, 
+success:function(response)
+{
+},
+error:function(response)
+{
+alert('ERROR');
+}
+});
+});
 });
 // end color picker for list
 
@@ -48,37 +48,35 @@ $('body').on('click',"#colorpicker",function()
 
 $('body').on('click',"#grid_color",function()
 {
-   $('body').on('input',"#grid_color",function()
-   {
-   
-        color = $(this).val();
-        x = $(this).parents('.grid');
-        x.css('background',color);
-        id = $(this).parents('.gridbtn').children().val();
-        $.ajax
-        ({
-            type: "GET",
-            url: "/todo/color",
-            data: { 
-                _token : $('meta[name="csrf-token"]').attr('content'), 
-                'color': color,
-                'id' : id 
-            }, 
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            },       
-            success:function(response)
-            {
-            
-            },
-            error:function(response)
-            {
-                alert('ERROR');
-            }
-        });    
+$('body').on('input',"#grid_color",function()
+{
+color = $(this).val();
+x = $(this).parents('.gridbtn').prev().children();
+// alert(x);
+x.css('background',color);
+id = $(this).parents('.gridbtn').children().val();
+$.ajax
+({
+type: "GET",
+url: "/todo/color",
+data: { 
+_token : $('meta[name="csrf-token"]').attr('content'), 
+'color': color,
+'id' : id 
+}, 
+headers: {
+'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+}, 
+success:function(response)
+{
+},
+error:function(response)
+{
+alert('ERROR');
+}
+}); 
 
-   });
-   
+});
 });
 //color picker for grid end
 $("body").on('click',".accept",function(){
