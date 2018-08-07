@@ -25,44 +25,8 @@
                        {{ session()->forget('flash')}}
                 </div>
         @endif
-
-@if(count($unaccepted))
-    Unaccepted
-    <?php $count = 1; ?>
-        @foreach($unaccepted as $todo) 
-                
-            <div class="row">
-                <div class='panel container'> 
-                    <div class="dropdown" >
-                        <div class="btn-group">
-                            <button type="button" class="btn" data-toggle="dropdown" style="background:none;border:none; outline:none">
-                                <i class="fa fa-ellipsis-v"></i>
-                            </button>
-                                                
-                            <div class="dropdown-menu">
-                                    <a class="dropdown-item accept" href="#" id="accept" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-check-circle"></i> Accept</a>
-                                    <a class="dropdown-item reject" href="#"  id="decline"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-times-circle"  ></i> Decline</a>
-
-                            </div>
-                        </div>       
-                    </div>  
-
-
-                    <div class="circle"></div><span id="span1"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
-                        <div class="wrapper">
-                            <h3>{{$todo->title}}</h3> 
-                            <span id="span2" >&#x25cf; {{$todo->completion_date}}</span>
-                        </div>
-                                
-                    </div><!-- End of Panel -->
-                        
-                </div><!-- End of Row  -->
-                
-        @endforeach
-@endif
 @if(count($accepted))
     <?php $count = 1; ?>
-    Accepted
         @foreach($accepted as $todo) 
                 
             <div class="row">
