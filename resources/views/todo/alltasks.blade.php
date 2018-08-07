@@ -99,17 +99,22 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Add Collaborator</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Collaborators</h4>
+          <button type="button" class="close modalclose" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
-
-          <p>Add email </p>
-          <input type="email" id="collab">
+           
+          <hr>
+<br>
+          <h5 >Add Collaborators</h5>
+          <label for="" id="collabLabel">Email:</label>
+          <input type="email" class="email" id="collab">
+          <button type="button" class="btn" id="addCollaborator">Add</button>
+          </p>
           <input  id="val" value="" hidden>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" id="addCollaborator">Add</button>
+          <button type="button" class="btn"  data-dismiss="modal" id="modaldone">Done</button>
         </div>
       </div>
       

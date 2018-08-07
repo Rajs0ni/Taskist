@@ -17,11 +17,23 @@ body{
 }
 .modal{
     position: absolute;
-    top:30%;
+    top:10%;
     left:4%;
 }
 .modal.fade, .modal.fade .modal-dialog {
     transition: none;
+}
+.collabusers{
+    display:inline-block ;
+    background-color:rgba(230,230,250,0.5);
+    padding: 5px 8px;
+    border-radius:5px;
+    margin : 10px;
+}
+.remove{
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 5px;
 }
 .panel
 {
@@ -315,6 +327,19 @@ body{
     text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3); 
     color: #fff;
 }
+.hidden{
+    display: none;
+}
+
+#notify{
+    border: rgb(243, 114, 114);
+    background-color:lavenderblush;
+    position: absolute;
+    z-index: 2;
+    width: 300px;
+    height:300px;
+    margin-left: 20px;
+}
 .viewWrapper ul{
     display: inline-block;
 }
@@ -433,4 +458,45 @@ body{
 }
 .enabled{
     pointer-events: auto;
+}
+#collab{
+    width:70%;
+    border:none;
+    border-bottom:1px solid rgba(0,0,0,.1);
+    outline:none;
+    font-size:20px;
+    padding-left:4px;
+}
+#collab:focus{
+    border-bottom:1px solid rgba(0,0,0,.5);
+}
+#collabLabel{
+    font-size:18px;
+}
+#addCollaborator{
+
+    width:15%; 
+    height:35px;
+    color:white;
+    background:green;
+    font-size:16px;
+    margin-left:5px;
+   }
+   #modaldone
+   {
+       margin-right:5px;
+       width:15%;
+        color:white;
+        background:#F76266;
+      font-size:16px;
+   }
+   #modaldone:hover{
+       box-shadow:1px 2px 5px  rgba(0,0,0,0.3);
+   }
+   #myModal h5{
+    font-size:22px;
+    margin-bottom:25px;
+}
+#myModal h4{
+    font-size:28px;
 }

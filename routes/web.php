@@ -12,7 +12,9 @@
 */
 
 Route::get('/', 'TodosController@index');
-
+Route::get('/wel', function(){
+    return view('welcome');
+});
 Route::get('/todo', 'TodosController@index');
 Route::get('/todo/all', 'TodosController@all');
 Route::get('/todo/create', 'TodosController@create');
@@ -31,11 +33,13 @@ Route::get('/todo/archive/{todo}','TodosController@archiveTask');
 Route::get('/todo/archive','TodosController@archived');
 Route::get('/todo/unarchive/{todo}','TodosController@unarchive');
 Route::get('/todo/search','TodosController@search');
+Route::get('/suggestcollab','TodosController@suggest');
 Route::post('/todo/find','TodosController@find');
 Route::get('/todo/clearall','TodosController@clearall');
 Route::get('todo/getcompleted','TodosController@getCompleted');
 Route::get('todo/getProcessing','TodosController@getProcessing');
 Route::get('todo/getPending','TodosController@getPending');
+Route::get('/getrequest','TodosController@getrequest');
 Route::get('todo/help','TodosController@help');
 Route::get('todo/gridview','TodosController@gridview');
 Route::get('/todo/myorder','TodosController@myorder');
@@ -44,6 +48,8 @@ Route::get('/todo/changeorder',function(){
                         ->get();
     return view('todo.changeorder',compact('todos'));
 });
+Route::get('/getcollaborator','TodosController@getcollab');
+Route::get('/removecollaborator','TodosController@removecollab');
 Route::get('/addcollaborator','TodosController@addcollab');
 Route::get('/collab','TodosController@collab');
 Route::post('/todo/changeorder','TodosController@order');

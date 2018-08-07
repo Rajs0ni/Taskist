@@ -9,7 +9,6 @@ $('document').ready(function(){
 
 $("body").on('click',".accept",function(){
     id = $(this).children().text();
-
     $.ajax({
         type:'GET',
         url:"/acceptcollab",
@@ -49,7 +48,9 @@ $("body").on('click',".accept",function(){
     });
  });
 
-
+$("#modaldone,.modalclose").click(function(){
+    location.reload(true);
+});
  $("body").on('click',".reject",function(){
     id = $(this).children().text();
 
@@ -96,10 +97,122 @@ $("body").on('click',".accept",function(){
 $(".addcollab").click(function(){
 val = $(this).children().text();
 $(".modal-body #val").val( val );
+
+$.ajax({
+    type:'GET',
+    url:"/getcollaborator",
+    data: { 
+        _token : $('meta[name="csrf-token"]').attr('content'), 
+        'id': val
+    },
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+    },
+    
+    success:function(data){
+        res='<div class="umm">';
+        if(data[1]=="no"){
+            res+="No Collaborators yet!! Add some!</div>";
+            $(".modal-body").prepend(res);
+        }
+        else{
+            for (i in data["msg"]){
+                res += '<div class="collabusers" >'+data.msg[i].name+'<span hidden>'+data.msg[i].id+'</span><span class="remove hidden"> &times;</span>&nbsp;&nbsp;</div>';
+            }
+            res+='</div>';
+            $(".modal-body").prepend(res);
+        }
+    }
+
 });
+});
+
+$("body").on('click',".remove",function(){
+    user=$(this).prev().text();
+    task=$(this).parents(".modal-body").children().last().val();
+    $.ajax({
+        type:'GET',
+        url:"/removecollaborator",
+        data: { 
+            _token : $('meta[name="csrf-token"]').attr('content'), 
+            'task': task,
+            'user':user
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        },
+        
+        success:function(data){
+           if(data[1]=="no"){
+               alert("You are not the owner! Hece can't remove collaborations!!")
+           }
+           else{
+            $(".umm").html("");
+            $.ajax({
+                type:'GET',
+                url:"/getcollaborator",
+                data: { 
+                    _token : $('meta[name="csrf-token"]').attr('content'), 
+                    'id': val
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                
+                success:function(data){
+                    
+                    res="<div class='umm'>";
+                    if(data[1]=="no"){
+                        res+="No Collaborators yet!! Add some!</div>"
+                        $(".modal-body").prepend(res);
+                }
+                    else{
+                        for (i in data["msg"]){
+                            res += '<div class="collabusers" >'+data.msg[i].name+'<span hidden>'+data.msg[i].id+'</span><span class="remove hidden"> &times;</span>&nbsp;&nbsp;</div>';
+                        }
+                        res+="</div>";
+                        $(".modal-body").prepend(res);
+                    }
+                }
+            
+            });
+           }
+        }
+    
+    });
+});
+
+// $("body").on('keyup','.email',function(){
+//     str=$(this).val();
+//     $.ajax({
+//         type:'GET',
+//         url:"/suggestcollab",
+//         data: { 
+//             _token : $('meta[name="csrf-token"]').attr('content'), 
+//             'q': str 
+//         },
+//         headers: {
+//             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+//         },
+        
+//         success:function(data){
+
+//         }
+    
+//     });
+// });
+
+$("body").on('mouseenter',".collabusers",function(){
+    $(this).children().last().removeClass("hidden");
+})
+$("body").on('mouseleave',".collabusers",function(){
+    $(this).children().last().addClass("hidden");
+})
+
 
 $("#addCollaborator").click(function(){
    id = $("#val").val();
+  
    email = $("#collab").val();
    $.ajax({
     type:'GET',
@@ -115,52 +228,78 @@ $("#addCollaborator").click(function(){
     
     success:function(data){
         if(data[1]=='success'){
-        $.ajax({
-            url: "/setsession",
-            data: { 
-                _token : $('meta[name="csrf-token"]').attr('content'), 
-                type : "success",
-             message : "Invitation sent successfully"
-            }
-       }); 
+            $(".umm").html("");
+            $.ajax({
+                type:'GET',
+                url:"/getcollaborator",
+                data: { 
+                    _token : $('meta[name="csrf-token"]').attr('content'), 
+                    'id': val
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                
+                success:function(data){
+                    
+                    res="<div class='umm'>";
+                    if(data[1]=="no"){
+                        res+="No Collaborators yet!! Add some!</div>"
+                        $(".modal-body").prepend(res);}
+                    else{
+                        for (i in data["msg"]){
+                            res += '<div class="collabusers" >'+data.msg[i].name+'<span hidden>'+data.msg[i].id+'</span><span class="remove hidden"> &times;</span>&nbsp;&nbsp;</div>';
+                        }
+                        res+="</div>";
+                        $(".modal-body").prepend(res);
+                        $("#collab").val("");
+                    }
+                }
+            
+            });
     }
     else if(data[1]=='duplicate'){
-        $.ajax({
-            url: "/setsession",
-            data: { 
-                _token : $('meta[name="csrf-token"]').attr('content'), 
-                type : "duplicate",
-             message : "Collaborator already added!!"
-            }
-       }); 
+    //     $.ajax({
+    //         url: "/setsession",
+    //         data: { 
+    //             _token : $('meta[name="csrf-token"]').attr('content'), 
+    //             type : "duplicate",
+    //          message : "Collaborator already added!!"
+    //         }
+    //    }); 
+    alert("Already added");
+    $("#collab").val("");
     }
     else{
-        $.ajax({
-            url: "/setsession",
-            data: { 
-                _token : $('meta[name="csrf-token"]').attr('content'), 
-                type : "yourself",
-             message : "You are the owner!!Can't collaborate yourself!!"
-            }
-       });
+    //     $.ajax({
+    //         url: "/setsession",
+    //         data: { 
+    //             _token : $('meta[name="csrf-token"]').attr('content'), 
+    //             type : "yourself",
+    //          message : "You are the owner!!Can't collaborate yourself!!"
+    //         }
+    //    });
+    alert("You are the owner yourself!");
+    $("#collab").val("");
     }
-    //     $(this).parent().prev().append("Collaborator added successfully");
+    // $(this).parent().prev().append("Collaborator added successfully");
     //     console.log(data);
-        location.reload(true);
+        //location.reload(true);
     },
     error:function(){
         
         // $(this).parent().prev().append("Unable to add");
-        $.ajax({
-            _token : $('meta[name="csrf-token"]').attr('content'), 
-            url: "/setsession",
-            data: { 
-                type :"alert",
-                message : "Unable to add"
-             }
+    //     $.ajax({
+    //         _token : $('meta[name="csrf-token"]').attr('content'), 
+    //         url: "/setsession",
+    //         data: { 
+    //             type :"alert",
+    //             message : "Unable to add"
+    //          }
             
-       }); 
-       location.reload(true);
+    //    }); 
+    alert("No such user!! Please check credentials!!");
+    //    location.reload(true);
         // alert("An error has occured !");
     } 
 
@@ -207,6 +346,32 @@ $("#addCollaborator").click(function(){
         else
             window.reload(true);
     })
+    // $("#notify").hide();
+    $("body").on('click','#collabrequest',function(){
+        $("#notify").slideToggle();
+        $("#notify").removeClass("hidden");
+        $("#notify").html("");
+        if ($('#notify').is(':visible')){
+            $.ajax({
+                type:'GET',
+                url:"/getrequest",
+                data: { 
+                    _token : $('meta[name="csrf-token"]').attr('content')
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                
+                success:function(data){
+                    $("#notify").prepend(data[1]);
+                },
+                error:function(){
+                    
+                } 
+            
+            });
+        }
+    });
 
     $("#clearall").click(function(){
         val="";
@@ -219,6 +384,8 @@ $("#addCollaborator").click(function(){
            window.location.assign('/todo/clearall?val='+val);
 
     });
+
+    
 });
 // var colorWell;
 // var defaultColor = "#0000ff";

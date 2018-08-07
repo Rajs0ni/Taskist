@@ -7,10 +7,11 @@
                 <button type="button" class="btn viewtype" title="Grid View" >
                  <i class="fa fa-th-large"></i> </button>
         </a> 
-        <a href="{{action('TodosController@gridview')}}">
-                <button type="button" class="btn viewtype" title="Notification" >
-                 <i class="fa fa-bell"></i></button>
-        </a>
+     
+                <button type="button" class="btn viewtype" id="collabrequest" title="Notification" >
+                 <i class="fa fa-bell" ></i></button>
+                 
+
         <ul class="navbar-nav ml-auto" >
                 <!-- Authentication Links -->
                 @guest
@@ -39,6 +40,10 @@
                         </div>
                         </li>
                 @endguest
-        </ul>        
+        </ul>       
+        
+        <div id="notify" class="hidden">
+                
+        </div>
        
  </div>
