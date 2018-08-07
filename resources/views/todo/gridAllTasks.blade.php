@@ -35,13 +35,13 @@
         <?php $count = 1; ?>
         @foreach($todos as $todo) 
             @if($todo->pin == 1 && $todo->archive == 0)
-                <div class="grid" style="background:{{$todo->taskColor}};">                  <!-- first div-->
+                <div class="grid">                  <!-- first div-->
                     <div class="grid_count_title">  <!-- second div-->
                         <div class="count"></div>
                         <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
                         <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
                     </div>                          <!-- end second div-->
-                    <div class="gridtask"><textarea >{{ $todo->task}}</textarea></div>
+                    <div class="gridtask"><textarea style="background:{{$todo->taskColor}};">{{ $todo->task}}</textarea></div>
                     <div class="gridbtn">           <!--third div -->
                                     <input type='hidden' value={{$todo->id}} id='task_id'>
                                     <input type='hidden' value={{$todo->title}} id='task_title'>
@@ -74,13 +74,13 @@
         <?php $count = 1; ?>
         @foreach($todos as $todo) 
             @if($todo->archive == 1)
-                <div class="grid" style="background:{{$todo->taskColor}};">
+                <div class="grid">
                         <div class="grid_count_title">
                             <div class="count"></div>
                             <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
                             <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
                         </div>
-                        <div class="gridtask"><textarea >{{ $todo->date_created}}</textarea></div>
+                        <div class="gridtask"><textarea style="background:{{$todo->taskColor}};">{{ $todo->date_created}}</textarea></div>
                         <div class="gridbtn">
                                         <input type='hidden' value={{$todo->id}} id='task_id'>
                                         <input type='hidden' value={{$todo->title}} id='task_title'>
@@ -115,13 +115,13 @@
         <?php $count = 1; ?>
         @foreach($todos as $todo) 
             @if($todo->pin == 0 && $todo->archive == 0)
-                <div class="grid" style="background:{{$todo->taskColor}};">
+                <div class="grid">
                     <div class="grid_count_title">
                         <div class="count"></div>
                         <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
                         <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
                     </div>
-                    <div class="gridtask"><textarea >{{ $todo->date_created}}</textarea></div>
+                    <div class="gridtask"><textarea style="background:{{$todo->taskColor}};">{{ $todo->date_created}}</textarea></div>
                     <div class="gridbtn">
                                     <input type='hidden' value={{$todo->id}} id='task_id'>
                                     <input type='hidden' value={{$todo->title}} id='task_title'>
@@ -140,7 +140,7 @@
                         @endif 
                             <button id="color_btn"><i class="fa fa-palette"></i></button>
                             <input type="color" id="grid_color"/>
-                            <a class="addcollab" href="#"   id="addcollab"  title="Collaborator" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i></a>
+                            <a class="addcollab" href="#"   id="addcollab"  title="Collaborator" data-toggle="modal" data-target="#myModal" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i></a>
                             <a  href="#" id="trash" title="Trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i></a>
                     </div>
                 </div>
@@ -148,6 +148,34 @@
         @endforeach
     @endif<!-- check for unpinned task end--> 
             
+    <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Collaborators</h4>
+          <button type="button" class="close modalclose" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+           
+          <hr>
+<br>
+          <h5 >Add Collaborators</h5>
+          <label for="" id="collabLabel">Email:</label>
+          <input type="email" class="email" id="collab">
+          <button type="button" class="btn" id="addCollaborator">Add</button>
+          </p>
+          <input  id="val" value="" hidden>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn"  data-dismiss="modal" id="modaldone">Done</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
 </div><!-- main grid cont. end-->
 <!-- grid view of all tasks end -->
 @include('todo._sideBar')                    <!--include side bar -->       

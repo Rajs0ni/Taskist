@@ -9,6 +9,12 @@
         <!-- <a href="{{action('TodosController@gridview')}}"> -->
                 <button type="button" class="btn viewtype vanishOutline" title="Grid View" ><i class="fa fa-th-large"></i> </button>
         </a> 
+     
+                <button type="button" class="btn viewtype" id="collabrequest" title="Notification" >
+                 <i class="fa fa-bell" ></i></button>
+                 
+
+        <ul class="navbar-nav ml-auto" >
         <button type="button" class="btn viewtype vanishOutline" title="Notifications" id="shownoti">
                  <i class="fa fa-bell"></i></button>
 
@@ -40,7 +46,11 @@
                         </div>
                         </li>
                 @endguest
-        </ul>        
+        </ul>       
+        
+        <div id="notify" class="hidden">
+                
+        </div>
        
     
  </div>
