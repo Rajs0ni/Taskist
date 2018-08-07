@@ -140,7 +140,7 @@
                         @endif 
                             <button id="color_btn"><i class="fa fa-palette"></i></button>
                             <input type="color" id="grid_color"/>
-                            <a class="addcollab" href="#"   id="addcollab"  title="Collaborator" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i></a>
+                            <a class="addcollab" href="#"   id="addcollab"  title="Collaborator" data-toggle="modal" data-target="#myModal" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i></a>
                             <a  href="#" id="trash" title="Trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i></a>
                     </div>
                 </div>
@@ -148,6 +148,34 @@
         @endforeach
     @endif<!-- check for unpinned task end--> 
             
+    <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Collaborators</h4>
+          <button type="button" class="close modalclose" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+           
+          <hr>
+<br>
+          <h5 >Add Collaborators</h5>
+          <label for="" id="collabLabel">Email:</label>
+          <input type="email" class="email" id="collab">
+          <button type="button" class="btn" id="addCollaborator">Add</button>
+          </p>
+          <input  id="val" value="" hidden>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn"  data-dismiss="modal" id="modaldone">Done</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
 </div><!-- main grid cont. end-->
 <!-- grid view of all tasks end -->
 @include('todo._sideBar')                    <!--include side bar -->       

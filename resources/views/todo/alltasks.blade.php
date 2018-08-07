@@ -114,7 +114,7 @@
           <input  id="val" value="" hidden>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn"  data-dismiss="modal" id="modaldone">bjbjbj</button>
+          <button type="button" class="btn"  data-dismiss="modal" id="modaldone">Done</button>
         </div>
       </div>
       
