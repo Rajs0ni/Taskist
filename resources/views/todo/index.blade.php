@@ -7,6 +7,7 @@
         @if (Session::has('flash_message'))
                 <div class="alert alert-success ml-5 {{ Session::has('flash_message_important')? 'alert-important' : ''}}">
                 {{ Session::get('flash_message')}}
+                {{ session()->forget('flash_message')}}
                 </div>
         @endif
         @if (Session::has('alert'))
@@ -28,13 +29,12 @@
                 </div>
         @endif
 
- 
 @if(count($todos)) 
-<!-- condition for pinned tasks --> 
+<!-- Filter pinned tasks --> 
         @if(count($pinned))
           <h4>Pinned</h4><hr>      
                 <?php $count = 1; ?>
-                @foreach($todos as $todo) 
+                @foreach($pinned as $todo) 
                         @if($todo->pin == 1)
                                 @if($todo->archive ==1)
                                         @include('todo._archivedPartial') 
@@ -46,8 +46,8 @@
                         @endif        
                 @endforeach       
         @endif         
-<!--condition for others tasks -->
-        @if(count($unpinned))
+<!--Filter others tasks -->
+@if(count($unpinned))
                 @if(count($pinned))
                   <h4>Others</h4><hr> 
                 @else
@@ -55,16 +55,15 @@
                 <?php $count = 1; ?>
                 @foreach($todos as $todo) 
                         @if($todo->pin == 0) 
-                                @if($todo->archive == 0)  
-                                        @include('todo._archivePartial') 
+                               @if($todo->archive == 0)   
+                                        @include('todo._archivePartial')
                                         <?php $count++; ?>
                                 @else
                                         @include('todo._archivedPartial') 
                                         <?php $count++; ?>
                                 @endif
                         @endif        
-                @endforeach
-        @else        
+                @endforeach      
         @endif  
 <!-- end others task-->          
 @else
@@ -107,5 +106,24 @@
   </div>
 
 @include('todo._sideBar')
+@include('todo.remindermodalbox')
+                <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal" id="add_reminder">DONE</button>
+                        </div>
+                        
+                    </div>
+                    </div>
+                </div>
+
+
+     @include('todo.remindermodalbox')
+                         <div class="modal-footer">
+                        <button type="button" class="btn btn-success" id="addremm" data-dismiss="modal">DONE</button>
+                        </div>
+                        
+                    </div>
+                    </div>
+                </div>
+
 
 @endsection

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTaskColorToTodos extends Migration
+class CreateLabelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class AddTaskColorToTodos extends Migration
      */
     public function up()
     {
-        //
-        Schema::table('todos', function (Blueprint $table) {
-            $table->string('taskColor')->default(' #F37272')->change();
-        });
-    
+        Schema::create('labels', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');  
+            $table->integer('user_id');
+            $table->timestamps();
+         });
     }
 
     /**
@@ -27,8 +28,6 @@ class AddTaskColorToTodos extends Migration
      */
     public function down()
     {
-        //
-        Schema::table('todos', function (Blueprint $table) {
-        });
+        Schema::dropIfExists('labels');
     }
 }

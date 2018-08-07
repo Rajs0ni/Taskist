@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTaskColorToTodos extends Migration
+class AddViewToTodos extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,9 @@ class AddTaskColorToTodos extends Migration
     public function up()
     {
         //
-        Schema::table('todos', function (Blueprint $table) {
-            $table->string('taskColor')->default(' #F37272')->change();
+        Schema::table('todos', function (Blueprint $table)
+        {
+            $table->boolean('view')->default(false);
         });
     
     }
@@ -28,7 +29,9 @@ class AddTaskColorToTodos extends Migration
     public function down()
     {
         //
-        Schema::table('todos', function (Blueprint $table) {
+        Schema::table('todos', function (Blueprint $table) 
+        {
+            
         });
     }
 }
