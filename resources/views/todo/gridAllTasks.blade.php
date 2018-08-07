@@ -37,7 +37,7 @@
             @if($todo->pin == 1 && $todo->archive == 0)
                 <div class="grid">                  <!-- first div-->
                     <div class="grid_count_title">  <!-- second div-->
-                        <div class="count"></div>
+                        <div class="count" style="border:5px solid {{$todo->taskColor}};"></div>
                         <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
                         <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
                     </div>                          <!-- end second div-->
@@ -76,7 +76,7 @@
             @if($todo->archive == 1)
                 <div class="grid">
                         <div class="grid_count_title">
-                            <div class="count"></div>
+                            <div class="count" style="border:5px solid {{$todo->taskColor}};"></div>
                             <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
                             <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
                         </div>
@@ -117,7 +117,7 @@
             @if($todo->pin == 0 && $todo->archive == 0)
                 <div class="grid">
                     <div class="grid_count_title">
-                        <div class="count"></div>
+                        <div class="count" style="border:5px solid {{$todo->taskColor}};"></div>
                         <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
                         <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
                     </div>
