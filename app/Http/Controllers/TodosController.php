@@ -116,7 +116,20 @@ class TodosController extends Controller
     {
         $accepted = auth()->user()->todos()->where('status','A')->get();
         $unaccepted = auth()->user()->todos()->where('status','I')->get();
-        return view('todo.collab',compact('accepted','unaccepted'));
+        return view('todo.collab',compact('accepted'));
+    }
+
+    public function getrequest()
+    {
+        $unaccepted = auth()->user()->todos()->where('status','I')->get();
+        $q="";
+        foreach($unaccepted as $u){
+            $owner = User::find($u->user_id);
+            $q.='<div id="req">'.$owner->name.' has invited you for '.$u->title.'<br><a class="accept" href="#" id="accept" ><div hidden style="display:inline-block">'.$u->id.'</div><i class="fa fa-check-circle"></i> Accept</a>
+            <a class="reject" href="#"  id="decline"><div hidden style="display:inline-block">'.$u->id.'</div><i class="fa fa-times-circle"  ></i> Decline</a>
+</div>';
+        }
+        return response()->json(array("msg",$q),200);
     }
     // Create New Task
     public function create()
@@ -167,16 +180,28 @@ class TodosController extends Controller
     // Show a particular task
     public function show($id)
     {
-        $todo = Todo::where('user_id','=',auth()->user()->id)->findOrFail($id);
-        $rem = Reminder::where('taskid',$id)->get();
+       
+        $todo = Todo::find($id);
+        if($todo->users()->where('id',auth()->user()->id)->exists()||$todo->user_id==auth()->user()->id)
+            {
+                $rem = Reminder::where('taskid',$id)->get();
         if(sizeof($rem)>0){
             $rem = Reminder::where('taskid',$id)->get()[0];
             return view('todo.show',compact('todo','rem'));    
         }
         else
         return view('todo.show',compact('todo'));
-    }
+            }
+        else{
+            $todo=null;
+            return view('todo.show',compact('todo'));
+    }}
     // Grid Show
+    // public function suggest()
+    // {
+    //     auth()->user()->friends();    
+    // }
+
     public function gridshow($id)
     {
         $todo = Todo::where('user_id','=',auth()->user()->id)
@@ -186,9 +211,13 @@ class TodosController extends Controller
     // Edit task
     public function edit($id)
     {
-        $todo = Todo::where('user_id','=',auth()->user()->id)
-                        ->findOrFail($id);
-        return view('todo.edit',compact('todo')); 
+        $todo = Todo::find($id);
+        if($todo->users()->where('id',auth()->user()->id)->exists()||$todo->user_id==auth()->user()->id)
+            return view('todo.edit',compact('todo'));
+        else{
+            $todo=null;
+            return view('todo.edit',compact('todo'));
+    }
     }
     // Update task
     public function update($id, Request $request)
@@ -200,13 +229,19 @@ class TodosController extends Controller
             'completion_date' => 'required|date|after_or_equal:today'
         ]);
 
-        $todo = Todo::where('user_id','=',auth()->user()->id)
-                        ->findOrFail($id);
-        $todo->update($request->all());
-        $rem = Reminder::where('taskid',$id)->get()->all();
+        $todo = Todo::find($id);
+        if($todo->users()->where('id',auth()->user()->id)->exists()||$todo->user_id==auth()->user()->id)
+        {$todo->update($request->all());
+            $rem = Reminder::where('taskid',$id)->get()->all();
         $rem->title=$request->title;
-        $rem->save();
-        return redirect()->action('TodosController@show',$todo->id);;
+        $rem->save();}
+        else{
+            $todo=null;
+            return view('todo.show',compact('todo'));
+    }
+        
+       
+        return redirect()->action('TodosController@show',$todo->id);
     }
     // Delete a particular task
     public function deleteTask($id)
@@ -463,6 +498,32 @@ class TodosController extends Controller
         return view('todo.trash',compact('todos','todoview','message'));
     }
 
+    public function getcollab(Request $request)
+    {
+        $todo = Todo::where('id','=',request('id'))->first();
+        $users=$todo->users()->get();
+        if(count($users)){
+            return response()->json(array('msg'=> $users), 200);
+        }
+        else{
+            return response()->json(array("msg","no"),200);
+        }
+    }
+
+    public function removecollab(Request $request)
+    {
+        $task = request('task');
+        $user = request('user');
+        $todo=Todo::find($task);
+        if(auth()->user()->id == $todo->user_id){
+            $todo->users()->detach($user);
+            return response()->json(array("msg","success"),200);
+        }
+        else{
+            return response()->json(array("msg","no"),200);
+        }
+    }
+
     public function addcollab(Request $request)
     {
         $user2 = User::where('email','=',request('email'))->first();
@@ -473,6 +534,7 @@ class TodosController extends Controller
         }
         else if(! $task->users()->where('id',$user2->id)->exists()){
             $task->users()->save($user2);
+            //auth()->user()->friends()->attach($user2->id);
             return response()->json(array("msg","success"),200);
         }
         else{

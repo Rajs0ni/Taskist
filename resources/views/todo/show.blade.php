@@ -122,7 +122,8 @@
    </div>
         
 </div>
-   
+@else
+    You don't have access to it!
 @endif
         @include('todo.remindermodalbox')
                          <div class="modal-footer">

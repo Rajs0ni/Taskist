@@ -5,10 +5,10 @@ use App\Todo;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable 
 {
     use Notifiable;
-
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -30,4 +30,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Todo::class);
     }   
+
+    public function friends()
+	{
+		return $this->belongsToMany('User', 'friends_users', 'user_id', 'friend_id');
+	}
 }
