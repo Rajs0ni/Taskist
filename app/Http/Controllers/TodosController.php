@@ -169,10 +169,18 @@ class TodosController extends Controller
     {
         $todo = Todo::where('user_id','=',auth()->user()->id)->findOrFail($id);
         $rem = Reminder::where('taskid',$id)->get();
+        $labels=$todo->labels;
         
-        if(sizeof($rem)>0){
+        if(sizeof($rem)>0 && sizeof($labels)>0){
+            $rem = Reminder::where('taskid',$id)->get()[0];
+            return view('todo.show',compact('todo','rem','labels'));    
+        }
+        if(sizeof($rem)>0 && sizeof($labels)==0){
             $rem = Reminder::where('taskid',$id)->get()[0];
             return view('todo.show',compact('todo','rem'));    
+        }
+        if(sizeof($rem) == 0 && sizeof($labels)>0){
+            return view('todo.show',compact('todo','labels'));    
         }
         else
         return view('todo.show',compact('todo'));

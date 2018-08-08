@@ -99,4 +99,29 @@ class LabelController extends Controller
         if($task->hasLabel($request->labid))
           return 'yes';
         }
+
+    public function getlabelstasks($labelid){
+        $label = Label::find($labelid);
+        $todos = $label->todos;
+        $pinned = $todos->where('pin',1);
+        $unpinned =  $todos->where('pin',0);
+        $todoview = Todo::where('view',0)->get();
+       
+
+     if(count($todoview))
+        {
+            return view('todo.gridview',compact('todos','pinned','unpinned'));
+            
+        }
+        else
+        {
+                $message = "NO TASKS ON THIS LABEL!!!"; 
+                return view('todo.index',compact('todos','pinned','unpinned','message'));
+            
+        }     
+            
+    }
+    
 }
+
+

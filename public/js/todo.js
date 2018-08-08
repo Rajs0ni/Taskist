@@ -1,8 +1,7 @@
 (function ( $ ) {
     var taskid,id,title,oldval,editevent="",thishtml,canedit="",addlab=""; 
 $('document').ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();    
-  $('.row').mouseover(function(){
+   $('.row').mouseover(function(){
     $(this).find(".outersubmenu").css({'display':'block'});  
   });
   $('.row').mouseout(function(){
@@ -957,8 +956,40 @@ $('body').on('click','#tasklabel',function(){
 
     })
  })
+
+ $('#labelsavail').click(function(){
+    $('#alllabelsavail').empty();
+    $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({                       
+      url: '/getlabels',
+      method:'get',
+      success(response){
+        if(response.length>0){
+            for(var i=0;i<response.length;i++){
+            var div=$("<div class='dropdown-item labelsreltasks'></div>").css({'border':'1px solid lavender','margin':'3px','padding':'3px'}).text(response[i].name);  ;
+            var ip=$('<input type="hidden" id="tasksrellab">').val(response[i].id);
+            div.append(ip);
+            $("#alllabelsavail").append(div);
+        }
+    }
+    else{
+        var div=$("<div class='dropdown-item'></div>").css({'border':'1px solid lavender','margin':'3px','padding':'3px'}).text('No Labels')  ;
+        $("#alllabelsavail").append(div); 
+       }
+    }
+    });
+ })
+
+
+ $('body').on('click','.labelsreltasks',function(){
+    var labelid =$(this).find('#tasksrellab').val();
+    window.location.assign('/getlabelstasks/'+labelid);
+    
+ })
 });
-
-
 
 }( jQuery ));

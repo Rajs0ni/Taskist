@@ -54,7 +54,7 @@ Route::get('/removecollaborator','TodosController@removecollab');
 Route::get('/addcollaborator','TodosController@addcollab');
 Route::get('/collab','TodosController@collab');
 Route::post('/todo/changeorder','TodosController@order');
-Route::get('todo/sort/by/title/{var}','TodosController@sortByTitle');
+Route::get('todo/sort/by/title/','TodosController@sortByTitle');
 Route::get('/setsession','TodosController@setsession');
 Route::get('todo/sort/by/date','TodosController@sortByDate');
 Route::get('/acceptcollab','TodosController@acceptcollab');
@@ -81,5 +81,6 @@ Route::post('/dellabelrel','LabelController@dellabelrel');
 Route::get('/getlabelstask','LabelController@getlabelstask');
 Route::get('/addnewsearch','LabelController@addnewsearch');
 Route::get('/relexists','LabelController@relexists');
+Route::get('/getlabelstasks/{labelid}','LabelController@getlabelstasks');
 
 
