@@ -374,7 +374,11 @@ body{
     border-top-left-radius:30px;
     border-bottom-right-radius:30px;
     border:1px solid rgb(27, 74, 91);
+<<<<<<< HEAD
    
+=======
+    
+>>>>>>> 8439ae0de3aa6fdb0b43513b5e983ad3c63fefbf
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
 }
 .grid_count_title{
@@ -464,18 +468,23 @@ body{
 }
 .gridbtn{
     position: relative;
-    padding: 8px;
-    padding-left: 12px;
-    
+    padding:5px 8px 8px 10px;
 }
 .gridbtn a{
-    padding: 2px;
+    padding: 1px;
 } 
 .gridbtn .fa{
     font-size: 16px;
     color: rgb(27, 74, 91,0.5);
 }
-.gridbtn .fa:hover{
+#tasklabel{
+    display:inline-block;
+    width:initial;
+    color: rgb(27, 74, 91,0.5);
+    height:20px;
+    border:none;
+}
+.gridbtn .fa:hover,#tasklabel:hover, .fa-palette:hover{
     color: rgb(27, 74, 91,1);
 }
 #gridEye{
@@ -532,8 +541,6 @@ body{
 #myModal h4{
     font-size:28px;
 }
-  
-
 .vanishOutline{
     border:none !important;
     outline:none !important;
@@ -545,7 +552,8 @@ body{
 #ellipsis{
     background: none !important;
 }
- .notis{
+
+.notis{
     position:absolute;
     right:15%;
     width:500px;
@@ -612,13 +620,8 @@ body{
 .fa-clock:hover, .fa-caret-down:hover{
     color:#F76266;
 }
-#grid_color
-{
-    opacity:0;
-    width:14%;
-    position:absolute;
-    right:65px;
-    cursor:pointer;
+.Noti-title{
+    text-transform:capitalize;
 }
 .no-notifications-bell{
 
@@ -641,18 +644,20 @@ body{
 }
 #grid_color
 {
-opacity:0;
-width:14%;
-position:absolute;
-right:65px;
-cursor:pointer;
+    opacity:0;
+    width:10%;
+    position:absolute;
+    right:90px;
+    cursor:pointer;
 }
 #color_btn
 {
-width:16%;
-height:24px;
-background:transparent;
-border:transparent;
+    width:10%;
+    height:22px;
+    margin-left:0;
+    background:transparent;
+    border:transparent;
+    padding:0;
 }
 #list_btn
 {

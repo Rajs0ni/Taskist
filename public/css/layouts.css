@@ -1,13 +1,71 @@
-body{
-    background: #EFEFF0;
+html, body {
+    background: linear-gradient(0deg,rgba(243, 114, 114,0.3)10%,rgb(239, 240, 240));
+    color: #636b6f;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 100;
+    height: 100vh;
+    margin: 0;
 }
-.navbar{
-    background: rgb(243, 114, 114);
-}
-.navbar-brand{
+.card-header{
+    background: rgba(243, 114, 114,0.8);
     color: #fff;
+   font-weight: bold;
+}
+.vanishOutline{
+    border:none ;
+    outline:none ;
+}
+.vanishOutline:focus, .vanishOutline:active{
+    outline: none ;
+    box-shadow: none ;
+   
 }
 .hover:focus{   
-    border-color: rgba(243, 114, 114,0.8);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgb(247, 98, 102, 0.6);
+    border-color: rgba(247, 98, 102, 0.8);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgb(247, 98, 102, 0.8);
+}
+label{
+    font-weight: bolder;
+}
+
+.full-height {
+    height: 100vh;
+}
+
+.flex-center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.position-ref {
+    position: relative;
+}
+
+.top-right {
+    position: absolute;
+    right: 10px;
+    top: 18px;
+}
+
+.content {
+    text-align: center;
+}
+
+.title {
+    font-size: 84px;
+}
+
+.links > a {
+    color: #636b6f;
+    padding: 0 25px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.m-b-md {
+    margin-bottom: 30px;
 }
