@@ -18,7 +18,8 @@ class TodosController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth',['except' => ['help']]);
+       
     }
     public function index1($x)
     {
@@ -30,7 +31,7 @@ class TodosController extends Controller
                  $t->view = 0;
                  $t->save();
              }
-             return redirect('/'); 
+             return redirect('todo/gridview'); 
         }
         else
         {
@@ -39,7 +40,7 @@ class TodosController extends Controller
                  $t->view = 1;
                  $t->save();
              }
-             return redirect('/'); 
+             return redirect('/todo'); 
         }
     }
     public function index()
@@ -159,7 +160,7 @@ class TodosController extends Controller
                 }
         // testing end
         $todo->save();
-        return redirect('/')->with([
+        return redirect('/todo')->with([
             'flash_message' => 'Task has been created!'
         ]);
 
@@ -209,9 +210,9 @@ class TodosController extends Controller
             'completion_date' => 'required|date|after_or_equal:today'
         ]);
 
-        $todo = Todo::where('user_id','=',auth()->user()->id)
-                        ->findOrFail($id);
-        $todo->update($request->all());
+        $todo = Todo::find($id);
+        if($todo->users()->where('id',auth()->user()->id)->exists()||$todo->user_id==auth()->user()->id)
+        {$todo->update($request->all());}
         $rem = Reminder::where('taskid',$id)->get()[0];
         $rem->title=$request->title;
         $rem->save();
@@ -294,14 +295,14 @@ class TodosController extends Controller
                 $todo->trashed=1;
                 $todo->save();
             }
-            return redirect('/')->with('alert','All the tasks have been trashed!');
+            return redirect('/todo')->with('alert','All the tasks have been trashed!');
         }
         $todos = Todo::where('user_id','=',auth()->user()->id)->get();
         foreach($todos as $todo)
         {
             $todo->delete();
         }
-        return redirect('/')->with('alert','All the tasks have been deleted!');
+        return redirect('/todo')->with('alert','All the tasks have been deleted!');
     }
     // Get completed tasks
     public function getCompleted()

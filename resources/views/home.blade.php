@@ -15,6 +15,7 @@
                     @endif
 
                     You are logged in!
+                    <a href="{{ action('TodosController@index') }}">Goto Home</a>
                 </div>
             </div>
         </div>

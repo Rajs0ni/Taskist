@@ -1,10 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+
+
+       
+
+<div class="container mt-5">
     <div class="row justify-content-center">
+        <div class="top-right links"><a href="{{ url('/')}}">Home</a></div>
         <div class="col-md-8">
-            <div class="card">
+            <div class="card" style="background:rgba(255,255,255,1)">
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
@@ -66,6 +71,10 @@
                                 <button type="submit" class="btn btn-primary"  style="background:rgb(243, 114, 114); color:white; font-weight:bold; border:none;">
                                     {{ __('Register') }}
                                 </button>
+                                <span style="padding:0; font-size:13px;">&nbsp;&nbsp;Already have an account?</span>
+                                <a class="btn btn-link" href="{{route('login') }}" style="padding:0; font-size:12px;">
+                                Login Instead
+                                </a>
                             </div>
                         </div>
                     </form>

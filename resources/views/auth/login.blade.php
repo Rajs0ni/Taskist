@@ -1,10 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+
+<div class="container mt-5">
     <div class="row justify-content-center">
+    <div class="top-right links"><a href="{{ url('/')}}">Home</a></div>
         <div class="col-md-8">
-            <div class="card">
+            <div class="card" style="background:rgba(255,255,255,1)">
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
@@ -15,7 +17,7 @@
                             <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }} hover" name="email" value="{{ old('email') }}" required autofocus>
+                                <input id="email" type="email" class=" form-control{{ $errors->has('email') ? ' is-invalid' : '' }} hover" name="email" value="{{ old('email') }}" required autofocus>
 
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
@@ -29,7 +31,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }} hover" name="password" required>
+                                <input id="password" type="password" class=" form-control{{ $errors->has('password') ? ' is-invalid' : '' }} hover" name="password" required>
 
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback" role="alert">
@@ -56,7 +58,10 @@
                                 </button>
 
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
+                                {{ __('Forgot Your Password?') }}
+                                </a>
+                                <a class="btn btn-link" href="{{route('register') }}">
+                                Register?
                                 </a>
                             </div>
                         </div>

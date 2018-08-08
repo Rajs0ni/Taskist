@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/', 'TodosController@index');
-Route::get('/wel', function(){
+// Route::get('/', 'TodosController@index');
+Route::get('/', function(){
     return view('welcome');
 });
 Route::get('/todo/view/{todo}', 'TodosController@index1');
@@ -64,8 +64,7 @@ Route::get('/todo/color','TodosController@color');
 Route::resource('todo','TodosController');
 Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/home', 'HomeController@index');
+Route::get('/', 'HomeController@index');
 Route::get('/home', 'TodosController@index')->name('home');
 Route::post('/addreminder','TodosController@addreminder');
 Route::get('/getreminder','TodosController@getreminder');
