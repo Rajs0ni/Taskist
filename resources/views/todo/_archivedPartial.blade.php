@@ -29,8 +29,8 @@
 
                                 <a class="dropdown-item addcollab" href="#" data-toggle="modal" data-target="#myModal"   id="addcollab" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i>Collaborators</a>
                                 <a class="dropdown-item"><div hidden style="display:inline-block">{{$todo->id}}</div>
-                                <button id="list_btn" style=";"><i class="fa fa-palette"></i>&ensp;Change Color</button>        
-                                <input type="color" style="" id="colorpicker">
+                                <button id="list_btn" ><i class="fa fa-palette"></i>&ensp;Change Color</button>        
+                                <input type="color"  id="colorpicker">
                                 </a>
                                 <a class="dropdown-item" id="tasklabel" data-toggle="modal" data-target="#tasklab"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fas fa-tags"></i> Labels</a>
                                 <a class="dropdown-item" href="#"  id="trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i> Delete</a>
