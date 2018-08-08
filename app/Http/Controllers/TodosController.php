@@ -22,7 +22,7 @@ class TodosController extends Controller
     }
     public function index1($x)
     {
-        $todo = Todo::get();
+        $todo = Todo::where('user_id','=',auth()->user()->id)->get();
         if($x == 1)
         {  
              foreach($todo as $t)
@@ -59,7 +59,7 @@ class TodosController extends Controller
                     where('trashed','=','0')->
                     where('archive',0)->where('pin',0)->get();
         $message = "!!  Tasks Not Found !!";
-        $todoview = Todo::where('view',0)->get();
+        $todoview = Todo::where('user_id','=',auth()->user()->id)->where('view',0)->get();
         
         if(count($todoview))
         {
@@ -86,7 +86,7 @@ class TodosController extends Controller
         $message = "!!Tasks Not Found !!";
         $accepted = auth()->user()->todos()->where('status','A')->get();
         $archive = DB::table('todos')->where('user_id','=',auth()->user()->id)->where('trashed','=','0')->where('archive',1)->get();
-        $todoview = Todo::where('view',0)->get();
+        $todoview = Todo::where('user_id','=',auth()->user()->id)->where('view',0)->get();
         if(count($todoview))
         {
             return view('todo.gridAllTasks',compact('todos','pinned','unpinned','archive'));
@@ -169,9 +169,18 @@ class TodosController extends Controller
     {
         $todo = Todo::where('user_id','=',auth()->user()->id)->findOrFail($id);
         $rem = Reminder::where('taskid',$id)->get();
-        if(sizeof($rem)>0){
+        $labels=$todo->labels;
+        
+        if(sizeof($rem)>0 && sizeof($labels)>0){
+            $rem = Reminder::where('taskid',$id)->get()[0];
+            return view('todo.show',compact('todo','rem','labels'));    
+        }
+        if(sizeof($rem)>0 && sizeof($labels)==0){
             $rem = Reminder::where('taskid',$id)->get()[0];
             return view('todo.show',compact('todo','rem'));    
+        }
+        if(sizeof($rem) == 0 && sizeof($labels)>0){
+            return view('todo.show',compact('todo','labels'));    
         }
         else
         return view('todo.show',compact('todo'));
@@ -264,7 +273,7 @@ class TodosController extends Controller
         $pinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->where('pin',1)->get();
         $unpinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->where('trashed','=','0')->where('pin',0)->get();
         $message = "!! Not Exist !!"; 
-        $todoview = Todo::where('view',0)->get();
+        $todoview = Todo::where('user_id','=',auth()->user()->id)->where('view',0)->get();
         if(count($todoview))
         {
         return view('todo.gridview',compact('todos','pinned','unpinned','message','search'));
@@ -305,7 +314,7 @@ class TodosController extends Controller
         $unpinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->
         where('trashed',0)->where('pin',0)->get();
         $message = "!! Not Found !!";
-        $todoview = Todo::where('view',0)->get();
+        $todoview = Todo::where('user_id','=',auth()->user()->id)->where('view',0)->get();
         if(count($todoview))
         {
         return view('todo.gridview',compact('todos','pinned','unpinned','message'));
@@ -328,7 +337,7 @@ class TodosController extends Controller
         $unpinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->
                     where('trashed',0)->where('archive',0)->where('pin',0)->get();
         $message = "!! Not Found !!"; 
-        $todoview = Todo::where('view',0)->get(); 
+        $todoview = Todo::where('user_id','=',auth()->user()->id)->where('view',0)->get(); 
         if(count($todoview))
         {
         return view('todo.gridview',compact('todos','pinned','unpinned','message'));
@@ -351,7 +360,7 @@ class TodosController extends Controller
         $unpinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->
                   where('trashed',0)->where('archive',0)->where('pin',0)->get();
         $message = "!! Not Found !!";
-        $todoview = Todo::where('view',0)->get();
+        $todoview = Todo::where('user_id','=',auth()->user()->id)->where('view',0)->get();
         if(count($todoview))
         {
         return view('todo.gridview',compact('todos','pinned','unpinned','message'));
@@ -398,7 +407,7 @@ class TodosController extends Controller
                     where('archive',0)->
                     where('pin',0)->orderBy('title')->get();
         $message = "!! Not Found !!";
-        $todoview = Todo::where('view',0)->get();
+        $todoview = Todo::where('user_id','=',auth()->user()->id)->where('view',0)->get();
         if(count($todoview))
         {
         return view('todo.gridview',compact('todos','pinned','unpinned','message'));
@@ -420,7 +429,7 @@ class TodosController extends Controller
                     where('trashed','=','0')->where('archive',0)->
                     where('pin',0)->orderBy('created_at','DESC')->get();
         $message = "!! Not Found !!";
-        $todoview = Todo::where('view',0)->get();
+        $todoview = Todo::where('user_id','=',auth()->user()->id)->where('view',0)->get();
         if(count($todoview))
         {
         return view('todo.gridview',compact('todos','pinned','unpinned','message'));
@@ -495,7 +504,7 @@ class TodosController extends Controller
                     where('archive',1)->
                     where('pin',0)->get();
         $message = "!! Not Found !!";
-        $todoview = Todo::where('view',0)->get();
+        $todoview = Todo::where('user_id','=',auth()->user()->id)->where('view',0)->get();
         if(count($todoview))
         {
         return view('todo.gridview',compact('todos','pinned','unpinned','message'));
@@ -608,6 +617,16 @@ class TodosController extends Controller
       $todo->taskColor = $color;
       $todo->save();
       return $color;
-  }   
+  }  
+  public function reset()
+  {
+      $todo = Todo::where('user_id','=',auth()->user()->id)->get();
+      foreach($todo as $t)
+      {
+          $t->taskColor = "#F37272";
+          $t->save();
+      }
+      return redirect('/');
+  } 
       
 }

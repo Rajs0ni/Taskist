@@ -18,10 +18,7 @@
                        
                        </div>
                         
-                         <div class="modal-footer">
-                        <button type="button" class="btn btn-success" id="addremm" data-dismiss="modal">DONE</button>
-                        </div>
-                        
+                          
                     </div>
                     </div>
                 </div>

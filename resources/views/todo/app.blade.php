@@ -45,8 +45,8 @@
     </span>
     <ul class="menu_items">
         <li><a href="/"><i class="icon fa fa-home fa-2x"></i>Home</a></li>
-        <li><a href={{action('TodosController@create') }}><i class="icon fa fa-plus-square fa-2x"></i>Create</a></li>
-        <li><a href={{action('TodosController@search') }}><i class="icon fa fa-search fa-2x"></i>Search</a></li>
+        <li><a href={{action('TodosController@archived') }}><i class="icon fa fa-archive fa-2x"></i>Archived</a></li>
+        <li><a href={{action('TodosController@trash') }}><i class="icon fa fa-trash fa-2x"></i>Trash</a></li>
     </ul>
     <main class="content">
         <div class="content_inner">

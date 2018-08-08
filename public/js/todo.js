@@ -1,8 +1,7 @@
 (function ( $ ) {
-    var id,title,oldval,editevent="",thishtml,canedit="",addlab=""; 
+    var taskid,id,title,oldval,editevent="",thishtml,canedit="",addlab=""; 
 $('document').ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();    
-  $('.row').mouseover(function(){
+   $('.row').mouseover(function(){
     $(this).find(".outersubmenu").css({'display':'block'});  
   });
   $('.row').mouseout(function(){
@@ -12,35 +11,35 @@ $('document').ready(function(){
 
 $('body').on('click',"#colorpicker",function()
 {
-    $('body').on('input',"#colorpicker",function()
-    {
-        color = $(this).val();
-        id = $(this).parents('.color').children().text();
-        x = $(this).parents('.panel');
-        x.css('background',color);
+$('body').on('input',"#colorpicker",function()
+{
+color = $(this).val();
+id = $(this).parents('.color').children().text();
+x = $(this).parents('.panel');
+//gr = linear-gradient(color,rgb(239, 240, 240));
+x.css('background',color);
 
-        $.ajax
-        ({
-            type: "GET",
-            url: "/todo/color",
-            data: { 
-            _token : $('meta[name="csrf-token"]').attr('content'), 
-                'color': color,
-                'id' : id 
-            }, 
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            },       
-            success:function(response)
-            {
-            
-            },
-            error:function(response)
-            {
-                alert('ERROR');
-            }
-        });
-    });
+$.ajax
+({
+type: "GET",
+url: "/todo/color",
+data: { 
+_token : $('meta[name="csrf-token"]').attr('content'), 
+'color': color,
+'id' : id 
+}, 
+headers: {
+'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+}, 
+success:function(response)
+{
+},
+error:function(response)
+{
+alert('ERROR');
+}
+});
+});
 });
 // end color picker for list
 
@@ -48,42 +47,39 @@ $('body').on('click',"#colorpicker",function()
 
 $('body').on('click',"#grid_color",function()
 {
-   $('body').on('input',"#grid_color",function()
-   {
-   
-        color = $(this).val();
-        x = $(this).parents('.grid');
-        x.css('background',color);
-        id = $(this).parents('.gridbtn').children().val();
-        $.ajax
-        ({
-            type: "GET",
-            url: "/todo/color",
-            data: { 
-                _token : $('meta[name="csrf-token"]').attr('content'), 
-                'color': color,
-                'id' : id 
-            }, 
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            },       
-            success:function(response)
-            {
-            
-            },
-            error:function(response)
-            {
-                alert('ERROR');
-            }
-        });    
+$('body').on('input',"#grid_color",function()
+{
+color = $(this).val();
+x = $(this).parents('.gridbtn').prev().children();
+// alert(x);
+x.css('background',color);
+id = $(this).parents('.gridbtn').children().val();
+$.ajax
+({
+type: "GET",
+url: "/todo/color",
+data: { 
+_token : $('meta[name="csrf-token"]').attr('content'), 
+'color': color,
+'id' : id 
+}, 
+headers: {
+'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+}, 
+success:function(response)
+{
+},
+error:function(response)
+{
+alert('ERROR');
+}
+}); 
 
-   });
-   
+});
 });
 //color picker for grid end
 $("body").on('click',".accept",function(){
     id = $(this).children().text();
-
     $.ajax({
         type:'GET',
         url:"/acceptcollab",
@@ -123,7 +119,9 @@ $("body").on('click',".accept",function(){
     });
  });
 
-
+$("#modaldone,.modalclose").click(function(){
+    location.reload(true);
+});
  $("body").on('click',".reject",function(){
     id = $(this).children().text();
 
@@ -167,13 +165,127 @@ $("body").on('click',".accept",function(){
  });
 
 
+
 $(".addcollab").click(function(){
 val = $(this).children().text();
 $(".modal-body #val").val( val );
+
+$.ajax({
+    type:'GET',
+    url:"/getcollaborator",
+    data: { 
+        _token : $('meta[name="csrf-token"]').attr('content'), 
+        'id': val
+    },
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+    },
+    
+    success:function(data){
+        $(".umm").text("");
+        res='<div class="umm">';
+        if(data[1]=="no"){
+            res+="No Collaborators yet!! Add some!</div>";
+            $(".modal-body").prepend(res);
+        }
+        else{
+            for (i in data["msg"]){
+                res += '<div class="collabusers" >'+data.msg[i].name+'<span hidden>'+data.msg[i].id+'</span><span class="remove hidden"> &times;</span>&nbsp;&nbsp;</div>';
+            }
+            res+='</div>';
+            $(".modal-body").prepend(res);
+        }
+    }
+
 });
+});
+
+$("body").on('click',".remove",function(){
+    user=$(this).prev().text();
+    task=$(this).parents(".modal-body").children().last().val();
+    $.ajax({
+        type:'GET',
+        url:"/removecollaborator",
+        data: { 
+            _token : $('meta[name="csrf-token"]').attr('content'), 
+            'task': task,
+            'user':user
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        },
+        
+        success:function(data){
+           if(data[1]=="no"){
+               alert("You are not the owner! Hece can't remove collaborations!!")
+           }
+           else{
+            $(".umm").html("");
+            $.ajax({
+                type:'GET',
+                url:"/getcollaborator",
+                data: { 
+                    _token : $('meta[name="csrf-token"]').attr('content'), 
+                    'id': val
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                
+                success:function(data){
+                    $(".umm").text("");
+                    res="<div class='umm'>";
+                    if(data[1]=="no"){
+                        res+="No Collaborators yet!! Add some!</div>"
+                        $(".modal-body").prepend(res);
+                }
+                    else{
+                        for (i in data["msg"]){
+                            res += '<div class="collabusers" >'+data.msg[i].name+'<span hidden>'+data.msg[i].id+'</span><span class="remove hidden"> &times;</span>&nbsp;&nbsp;</div>';
+                        }
+                        res+="</div>";
+                        $(".modal-body").prepend(res);
+                    }
+                }
+            
+            });
+           }
+        }
+    
+    });
+});
+
+// $("body").on('keyup','.email',function(){
+//     str=$(this).val();
+//     $.ajax({
+//         type:'GET',
+//         url:"/suggestcollab",
+//         data: { 
+//             _token : $('meta[name="csrf-token"]').attr('content'), 
+//             'q': str 
+//         },
+//         headers: {
+//             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+//         },
+        
+//         success:function(data){
+
+//         }
+    
+//     });
+// });
+
+$("body").on('mouseenter',".collabusers",function(){
+    $(this).children().last().removeClass("hidden");
+})
+$("body").on('mouseleave',".collabusers",function(){
+    $(this).children().last().addClass("hidden");
+})
+
 
 $("#addCollaborator").click(function(){
    id = $("#val").val();
+  
    email = $("#collab").val();
    $.ajax({
     type:'GET',
@@ -189,52 +301,78 @@ $("#addCollaborator").click(function(){
     
     success:function(data){
         if(data[1]=='success'){
-        $.ajax({
-            url: "/setsession",
-            data: { 
-                _token : $('meta[name="csrf-token"]').attr('content'), 
-                type : "success",
-             message : "Invitation sent successfully"
-            }
-       }); 
+            $(".umm").html("");
+            $.ajax({
+                type:'GET',
+                url:"/getcollaborator",
+                data: { 
+                    _token : $('meta[name="csrf-token"]').attr('content'), 
+                    'id': val
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                
+                success:function(data){
+                    $(".umm").text("");
+                    res="<div class='umm'>";
+                    if(data[1]=="no"){
+                        res+="No Collaborators yet!! Add some!</div>"
+                        $(".modal-body").prepend(res);}
+                    else{
+                        for (i in data["msg"]){
+                            res += '<div class="collabusers" >'+data.msg[i].name+'<span hidden>'+data.msg[i].id+'</span><span class="remove hidden"> &times;</span>&nbsp;&nbsp;</div>';
+                        }
+                        res+="</div>";
+                        $(".modal-body").prepend(res);
+                        $("#collab").val("");
+                    }
+                }
+            
+            });
     }
     else if(data[1]=='duplicate'){
-        $.ajax({
-            url: "/setsession",
-            data: { 
-                _token : $('meta[name="csrf-token"]').attr('content'), 
-                type : "duplicate",
-             message : "Collaborator already added!!"
-            }
-       }); 
+    //     $.ajax({
+    //         url: "/setsession",
+    //         data: { 
+    //             _token : $('meta[name="csrf-token"]').attr('content'), 
+    //             type : "duplicate",
+    //          message : "Collaborator already added!!"
+    //         }
+    //    }); 
+    alert("Already added");
+    $("#collab").val("");
     }
     else{
-        $.ajax({
-            url: "/setsession",
-            data: { 
-                _token : $('meta[name="csrf-token"]').attr('content'), 
-                type : "yourself",
-             message : "You are the owner!!Can't collaborate yourself!!"
-            }
-       });
+    //     $.ajax({
+    //         url: "/setsession",
+    //         data: { 
+    //             _token : $('meta[name="csrf-token"]').attr('content'), 
+    //             type : "yourself",
+    //          message : "You are the owner!!Can't collaborate yourself!!"
+    //         }
+    //    });
+    alert("You are the owner yourself!");
+    $("#collab").val("");
     }
-    //     $(this).parent().prev().append("Collaborator added successfully");
+    // $(this).parent().prev().append("Collaborator added successfully");
     //     console.log(data);
-        location.reload(true);
+        //location.reload(true);
     },
     error:function(){
         
         // $(this).parent().prev().append("Unable to add");
-        $.ajax({
-            _token : $('meta[name="csrf-token"]').attr('content'), 
-            url: "/setsession",
-            data: { 
-                type :"alert",
-                message : "Unable to add"
-             }
+    //     $.ajax({
+    //         _token : $('meta[name="csrf-token"]').attr('content'), 
+    //         url: "/setsession",
+    //         data: { 
+    //             type :"alert",
+    //             message : "Unable to add"
+    //          }
             
-       }); 
-       location.reload(true);
+    //    }); 
+    alert("No such user!! Please check credentials!!");
+    //    location.reload(true);
         // alert("An error has occured !");
     } 
 
@@ -281,6 +419,32 @@ $("#addCollaborator").click(function(){
         else
             window.reload(true);
     })
+    // $("#notify").hide();
+    $("body").on('click','#collabrequest',function(){
+        $("#notify").slideToggle();
+        $("#notify").removeClass("hidden");
+        $("#notify").html("");
+        if ($('#notify').is(':visible')){
+            $.ajax({
+                type:'GET',
+                url:"/getrequest",
+                data: { 
+                    _token : $('meta[name="csrf-token"]').attr('content')
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                
+                success:function(data){
+                    $("#notify").prepend(data[1]);
+                },
+                error:function(){
+                    
+                } 
+            
+            });
+        }
+    });
 
     $("#clearall").click(function(){
         val="";
@@ -579,37 +743,135 @@ function edithandler2(thishtml){
     }   
 }
 
-$('#tasklabel').click(function(){
+$('body').on('click','#tasklabel',function(){
     $("#alllabelstask").empty();  
+    $('#searchlabels').val('');
+    taskid=$(this).find('div').text(); 
+    labelsontask();
+ })
+
+ function labelsontask(){
     $.ajaxSetup({
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
       });
       $.ajax({                       
-      url: '/getlabels',
+      url: '/getlabelstask',
       method:'get',
+      data:{
+        taskid:taskid
+      },
       success(response){
-        if(response.length>0){
-            $("#alllabelstask").css({'display':'block'});
+         if(response.length>0){
+         
+            $("#alllabelstask").css({'display':'block','max-height':'300px','overflow':'auto'});
+              if(typeof response[0] == 'object' &&   response[1]  instanceof Array){
+              
+                   
+                for(var i=0;i<response[1].length;i++){
+                    var ip=$("<input type='checkbox' class='individuallab' id='individuallab'>").css({'margin':'3px'}).prop('checked',true);
+                    var ipp=$("<input type='hidden' class='labelid'>").val(response[1][i].id);
+                    var span=$('<span></span>').text(response[1][i].name);
+                    var div=$('<div class="labelcheck"></div>').append(ipp).append(ip).append(span).css({'border':'1px solid lavender','margin':'3px','padding':'3px'});
+                    $("#alllabelstask").append(div);
+                }
+             
+                for(var prop in response[0]){
+                    var ip=$("<input type='checkbox' class='individuallab' id='individuallab'>").css({'margin':'3px'});
+                    var ipp=$("<input type='hidden' class='labelid'>").val(response[0][prop].id);
+                    var span=$('<span></span>').text(response[0][prop].name);
+                    var div=$('<div class="labelcheck"></div>').append(ipp).append(ip).append(span).css({'border':'1px solid lavender','margin':'3px','padding':'3px'});
+                    $("#alllabelstask").append(div);
+                } 
+                         
+            }
+            else{
+                           
         for(var i=0;i<response.length;i++){
-            var ip=$("<input type='checkbox' class='individuallab'>");
+            var ip=$("<input type='checkbox' class='individuallab' id='individuallab'>").css({'margin':'3px'});
+            var ipp=$("<input type='hidden' class='labelid'>").val(response[i].id);
             var span=$('<span></span>').text(response[i].name);
-            var div=$('<div></div>').append(ip).append(span);
-            var option=$('<option></option>').val(response[i].name).append(div);
-            $("#alllabelstask").append(option);
+            var div=$('<div class="labelcheck"></div>').append(ipp).append(ip).append(span).css({'border':'1px solid lavender','margin':'3px','padding':'3px'});
+            $("#alllabelstask").append(div);
         }
        
+    }
     }
     else{
         $("#alllabelstask").css({'display':'none'});
     }
-    }
+    
+}
     });
- })
+ }
 
- $('#searchlabels').keyup(function(){
+ $('body').on('click',".labelcheck",function(event){
+    var labid=$(this).find('.labelid').val();
+ 
+    if(event.target.id == 'individuallab'){
+            if($(this).find('.individuallab').prop('checked')) 
+               addlabrel(labid);
+            else
+               dellabelrel(labid);
+           return;     
+        }
+                
+     $(this).find('.individuallab').prop('checked', !$(this).find('.individuallab').prop('checked'));
+     if($(this).find('.individuallab').prop('checked')) 
+        addlabrel(labid);
+     else
+       dellabelrel(labid);
+ });
+
+ function addlabrel(labid){
     $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({                       
+      url: '/addlabelrel',
+      method:'post',
+      data:{
+        labid:labid,
+        taskid:taskid
+      }
+    });
+ }
+
+ function dellabelrel(labid){
+
+    $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({                       
+      url: '/dellabelrel',
+      method:'post',
+      data:{
+        labid:labid,
+        taskid:taskid
+      }
+    });
+
+ }
+
+ $('#searchlabels').keyup(function(e){
+       value= $(this).val().toUpperCase();
+       if (e.keyCode == 13) {
+        if($('*').find('.createsearched').css('display')=='block'){
+            $('.createsearched').click();
+        }
+       }
+       if(value == ""){
+        $("#alllabelstask").empty();
+         labelsontask();
+       }
+    else{
+       var search; 
+       $.ajaxSetup({
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
@@ -621,22 +883,113 @@ $('#tasklabel').click(function(){
         val:$(this).val().toUpperCase()
       },
       success(response){
+          search=response;
+          $("#alllabelstask").css('display','block');
         if(response == 'notexists'){
-        //     $("#alllabelstask").css({'display':'none'});
-        // for(var i=0;i<response.length;i++){
-        //     var option=$('<option></option>').val(response[i].name).text(response[i].name);
-        //     $("#alllabelstask").append(option);
-        // }
+            $("#alllabelstask").empty();   
+            var div = $('<div class="createsearched"></div>').text('+ CREATE LABEL '+value).css({'border':'1px solid lavender','margin':'3px','padding':'3px','cursor':'pointer'});
+            $("#alllabelstask").append(div);
+     }
+    else{
+         $("#alllabelstask").empty();   
+         
+        for(var i=0;i<search.length;i++){
+            searchrequest(search[i]);  
+        }
+      
+    }
+  }  
+});
+ }
+ function searchrequest(search){
+    $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({                       
+      url: '/relexists',
+      method:'get',
+      data:{
+        labid:search.id,
+        taskid:taskid
+      },
+      success(res){
+        if(res == 'yes')
+            var ip=$("<input type='checkbox' class='individuallab' id='individuallab'>").css({'margin':'3px'}).prop('checked',true);
+                    
+        else
+            var ip=$("<input type='checkbox' class='individuallab' id='individuallab'>").css({'margin':'3px'});
        
+            var ipp=$("<input type='hidden' class='labelid'>").val(search.id);
+            var span=$('<span></span>').text(search.name);
+            var div=$('<div class="labelcheck"></div>').append(ipp).append(ip).append(span).css({'border':'1px solid lavender','margin':'3px','padding':'3px'});
+            $("#alllabelstask").append(div);         
+
+      }
+    });
+
+ }
+    $('body').on('click','.createsearched',function(event){
+            $("#alllabelstask").empty();
+            var i=$("<input type='checkbox' class='individuallab' id='individuallab'>").css({'margin':'3px'}).prop('checked',true);
+            var spann=$('<span></span>').text($('#searchlabels').val().toUpperCase());
+            var divv=$('<div class="labelcheck"></div>').append(i).append(spann).css({'border':'1px solid lavender','margin':'3px','padding':'3px'});
+            labelsontask();
+            $("#alllabelstask").prepend(divv);
+            
+            $.ajaxSetup({
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+              });
+              $.ajax({                       
+              url: '/addnewsearch',
+              method:'get',
+              data:{
+                val:$('#searchlabels').val().toUpperCase(),
+                taskid:taskid
+              }
+            });
+            $('#searchlabels').val('');        
+            event.stopImmediatePropagation();
+
+    })
+ })
+
+ $('#labelsavail').click(function(){
+    $('#alllabelsavail').empty();
+    $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({                       
+      url: '/getlabels',
+      method:'get',
+      success(response){
+        if(response.length>0){
+            for(var i=0;i<response.length;i++){
+            var div=$("<div class='dropdown-item labelsreltasks'></div>").css({'border':'1px solid lavender','margin':'3px','padding':'3px'}).text(response[i].name);  ;
+            var ip=$('<input type="hidden" id="tasksrellab">').val(response[i].id);
+            div.append(ip);
+            $("#alllabelsavail").append(div);
+        }
     }
     else{
-        $("#alllabelstask").css({'display':'none'});
-    }
+        var div=$("<div class='dropdown-item'></div>").css({'border':'1px solid lavender','margin':'3px','padding':'3px'}).text('No Labels')  ;
+        $("#alllabelsavail").append(div); 
+       }
     }
     });
  })
+
+
+ $('body').on('click','.labelsreltasks',function(){
+    var labelid =$(this).find('#tasksrellab').val();
+    window.location.assign('/getlabelstasks/'+labelid);
+    
+ })
 });
-
-
 
 }( jQuery ));
