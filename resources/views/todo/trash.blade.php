@@ -50,7 +50,7 @@
         @if(count($todos)) 
                 <?php $count = 1; ?>
                 @foreach($todos as $todo) 
-                        <div class="grid" style="background:linear-gradient(90deg,rgb(165, 165, 165)10%,rgb(225, 222, 222)); pointer-events:none;">
+                        <div class="grid" style="background:linear-gradient(90deg,rgb(165, 165, 165)10%,rgb(225, 222, 222));">
                                 <div class="grid_count_title">
                                         <div class="count"></div>
                                         <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>

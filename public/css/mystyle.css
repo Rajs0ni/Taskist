@@ -461,18 +461,23 @@ body{
 }
 .gridbtn{
     position: relative;
-    padding: 8px;
-    padding-left: 12px;
-    
+    padding:5px 8px 8px 10px;
 }
 .gridbtn a{
-    padding: 2px;
+    padding: 1px;
 } 
 .gridbtn .fa{
     font-size: 16px;
     color: rgb(27, 74, 91,0.5);
 }
-.gridbtn .fa:hover{
+#tasklabel{
+    display:inline-block;
+    width:initial;
+    color: rgb(27, 74, 91,0.5);
+    height:20px;
+    border:none;
+}
+.gridbtn .fa:hover,#tasklabel:hover, .fa-palette:hover{
     color: rgb(27, 74, 91,1);
 }
 #gridEye{
@@ -529,8 +534,6 @@ body{
 #myModal h4{
     font-size:28px;
 }
-  
-
 .vanishOutline{
     border:none !important;
     outline:none !important;
@@ -635,18 +638,19 @@ body{
 #grid_color
 {
     opacity:0;
-    width:14%;
+    width:10%;
     position:absolute;
-    right:65px;
+    right:90px;
     cursor:pointer;
 }
-
 #color_btn
 {
-    width:16%;
-    height:24px;
+    width:10%;
+    height:22px;
+    margin-left:0;
     background:transparent;
     border:transparent;
+    padding:0;
 }
 #list_btn
 {

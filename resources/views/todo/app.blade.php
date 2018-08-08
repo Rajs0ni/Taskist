@@ -44,7 +44,7 @@
         <i class="menu_close fa fa-times fa-lg"></i>
     </span>
     <ul class="menu_items">
-        <li><a href="/"><i class="icon fa fa-home fa-2x"></i>Home</a></li>
+        <li><a href="/todo"><i class="icon fa fa-home fa-2x"></i>Home</a></li>
         <li><a href={{action('TodosController@archived') }}><i class="icon fa fa-archive fa-2x"></i>Archive</a></li>
         <li><a href={{action('TodosController@trash') }}><i class="icon fa fa-trash fa-2x"></i>Trash</a></li>
     </ul>

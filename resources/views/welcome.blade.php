@@ -13,7 +13,7 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
+                background: linear-gradient(0deg,rgba(243, 114, 114,0.3)10%,rgb(239, 240, 240));
                 color: #636b6f;
                 font-family: 'Raleway', sans-serif;
                 font-weight: 100;
@@ -52,7 +52,7 @@
             .links > a {
                 color: #636b6f;
                 padding: 0 25px;
-                font-size: 12px;
+                font-size: 14px;
                 font-weight: 600;
                 letter-spacing: .1rem;
                 text-decoration: none;
@@ -66,16 +66,17 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-        @if (Route::has('login'))
+        <!-- @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/')}}">Home</a>
+                        <a href="{{ url('/welcome')}}">Home</a>
+                
                     @else
                         <a href="{{ route('login') }}">Login</a>
                         <a href="{{ route('register') }}">Register</a>
                     @endauth
                 </div>
-            @endif
+            @endif -->
 
             <div class="content">
                 <div class="title m-b-md">
@@ -83,11 +84,11 @@
                 </div>
 
                 <div class="links">
-                    <a href="{{ url('/home') }}">Home</a>
+                    <a href="{{ url('/') }}">Home</a>
                     <a href="{{ route('login') }}">Login</a>
                     <a href="{{ route('register') }}">Register</a>
                     <a href="#">About</a>
-                    <a href="#">Help</a>
+                    <a href="{{ action('TodosController@help') }}">Help</a>
                 </div>
             </div>
         </div>

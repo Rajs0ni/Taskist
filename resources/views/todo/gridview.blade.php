@@ -55,12 +55,11 @@
                     @else   
                         <a href="#" id="unarchive" title="Unarchive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="unarchive" style="color:rgb(244, 152, 66)"></i></a>
                     @endif 
-                       <button id="color_btn"><i class="fa fa-palette"></i></button>
-                       <input type="color" id="grid_color"/>
-                       <a class="dropdown-item" id="tasklabel" data-toggle="modal" data-target="#tasklab"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fas fa-tags"></i></a>
-
-                        <a href="#" id="addcollab" class="addcollab" title="Collaborator" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i></a>
-                        <a  href="#"  id="trash"  title="Trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i></a>
+                    <button id="color_btn" title="Color"><i title="Color" class="fa fa-palette"></i></button>
+                    <input hidden type="color" id="grid_color"/>
+                    <a class="dropdown-item" id="tasklabel" title="Labels" data-toggle="modal" data-target="#tasklab"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-tags"></i></a>
+                    <a href="#" id="addcollab" class="addcollab" title="Collaborator" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i></a>
+                    <a  href="#"  id="trash"  title="Trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i></a>
                 </div>
             </div><!-- End of Grid -->
           @endif

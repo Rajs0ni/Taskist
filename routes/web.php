@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/', 'TodosController@index');
-Route::get('/wel', function(){
+// Route::get('/', 'TodosController@index');
+Route::get('/', function(){
     return view('welcome');
 });
 Route::get('/todo/view/{todo}', 'TodosController@index1');
@@ -54,7 +54,7 @@ Route::get('/removecollaborator','TodosController@removecollab');
 Route::get('/addcollaborator','TodosController@addcollab');
 Route::get('/collab','TodosController@collab');
 Route::post('/todo/changeorder','TodosController@order');
-Route::get('todo/sort/by/title/{var}','TodosController@sortByTitle');
+Route::get('todo/sort/by/title/','TodosController@sortByTitle');
 Route::get('/setsession','TodosController@setsession');
 Route::get('todo/sort/by/date','TodosController@sortByDate');
 Route::get('/acceptcollab','TodosController@acceptcollab');
@@ -63,8 +63,7 @@ Route::get('/todo/color','TodosController@color');
 Route::resource('todo','TodosController');
 Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/home', 'HomeController@index');
+Route::get('/', 'HomeController@index');
 Route::get('/home', 'TodosController@index')->name('home');
 Route::post('/addreminder','TodosController@addreminder');
 Route::get('/getreminder','TodosController@getreminder');
