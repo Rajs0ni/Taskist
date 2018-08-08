@@ -213,9 +213,13 @@ class TodosController extends Controller
         $todo = Todo::find($id);
         if($todo->users()->where('id',auth()->user()->id)->exists()||$todo->user_id==auth()->user()->id)
         {$todo->update($request->all());}
-        $rem = Reminder::where('taskid',$id)->get()[0];
-        $rem->title=$request->title;
-        $rem->save();
+        $rem = Reminder::where('taskid',$id)->get();
+        if(sizeof($rem)>0){
+            $rem = Reminder::where('taskid',$id)->get()[0];
+            $rem->title=$request->title;
+            $rem->save();
+                
+        }
         return redirect()->action('TodosController@show',$todo->id);;
     }
     // Delete a particular task
