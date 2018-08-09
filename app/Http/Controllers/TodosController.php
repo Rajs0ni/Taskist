@@ -123,18 +123,7 @@ class TodosController extends Controller
         return view('todo.collab',compact('accepted','user'));
     }
 
-    public function getrequest()
-    {
-        $unaccepted = auth()->user()->todos()->where('status','I')->get();
-        $q="";
-        foreach($unaccepted as $u){
-            $owner = User::find($u->user_id);
-            $q.='<div id="req">'.$owner->name.' has invited you for '.$u->title.'<br><a class="accept" href="#" id="accept" ><div hidden style="display:inline-block">'.$u->id.'</div><i class="fa fa-check-circle"></i> Accept</a>
-            <a class="reject" href="#"  id="decline"><div hidden style="display:inline-block">'.$u->id.'</div><i class="fa fa-times-circle"  ></i> Decline</a>
-</div>';
-        }
-        return response()->json(array("msg",$q),200);
-    }
+    
     // Create New Task
     public function create()
     {
@@ -204,13 +193,39 @@ class TodosController extends Controller
         if(sizeof($rem) == 0 && sizeof($labels)>0){
             return view('todo.show',compact('todo','labels'));    
         }
+        // else
+        // {
+        // return view('todo.show',compact('todo','user'));
+        // }
         else
-        return view('todo.show',compact('todo','user'));
-            }
-        else{
+        {
             $todo=null;
             return view('todo.show',compact('todo','user'));
-    }}
+        }
+    }
+
+    public function getcollab(Request $request){
+        $todo = Todo::where('id','=',request('id'))->first();
+        $users=$todo->users()->get();
+        if(count($users))
+            return response()->json(array('msg'=>$users),200);
+        else
+        return response()->json(array('msg',"no"),200);
+        
+    }
+
+    public function getrequest()
+    {
+        $unaccepted = auth()->user()->todos()->where('status','I')->get();
+        $q="";
+        foreach($unaccepted as $u){
+            $owner = User::find($u->user_id);
+            $q.='<div id="req">'.$owner->name.' has invited you for '.$u->title.'<br><a class="accept" href="#" id="accept" ><div hidden style="display:inline-block">'.$u->id.'</div><i class="fa fa-check-circle"></i> Accept</a>
+            <a class="reject" href="#"  id="decline"><div hidden style="display:inline-block">'.$u->id.'</div><i class="fa fa-times-circle"  ></i> Decline</a>
+</div>';
+        }
+        return response()->json(array("msg",$q),200);
+    }   
     // Grid Show
     public function gridshow($id)
     {

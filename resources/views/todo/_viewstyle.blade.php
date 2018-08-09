@@ -13,6 +13,8 @@
         </a> 
         <ul class="navbar-nav ml-auto" >
         <button type="button" class="btn viewtype vanishOutline" title="Notifications" id="shownoti" style="background:<?php echo $color; ?>;"><i class="fa fa-bell"></i></button>       
+             <button type="button" class="btn viewtype" id="collabrequest" >
+             <i class="fa fa-bell"></i></button>     
                   <ul class="navbar-nav ml-3 " >
                 <!-- Authentication Links -->
                 @guest
