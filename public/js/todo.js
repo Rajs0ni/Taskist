@@ -421,10 +421,15 @@ $("#addCollaborator").click(function(){
     })
     // $("#notify").hide();
     $("body").on('click','#collabrequest',function(){
-        $("#notify").slideToggle();
-        $("#notify").removeClass("hidden");
+        $("#collabnotific").css({'display':'block'});
+      
         $("#notify").html("");
-        if ($('#notify').is(':visible')){
+        // var divNotificationHeader = '<div class="Notification-header"></div>';
+        // divNotificationHeader.append('Collaboration Requests').append('<button type="button" class="close mr-2 mt-1" data-dismiss="modal" >&times;</button>');
+        // $("#notify").append(divNotificationHeader);
+        // var divNotificationContainer = '<div class="Notification-content"></div>';
+        // $("#notify").append(divNotificationContainer);
+       
             $.ajax({
                 type:'GET',
                 url:"/getrequest",
@@ -436,14 +441,24 @@ $("#addCollaborator").click(function(){
                 },
                 
                 success:function(data){
+                    if(data[1]==""){
+                        var span=$('<span class="no-notifications-msg"></span>').text('No Notifications');
+                            $("#notify").append('<i class="fa fa-bell no-notifications-bell"></i>').append(span).append('<p class="noti_MSG">You have no new Notifications.</p>');
+                    }
+                    else 
                     $("#notify").prepend(data[1]);
+                    // console.log(data[1])
                 },
                 error:function(){
                     
                 } 
             
             });
-        }
+        
+        // else{
+        //     var span=$('<span class="no-notifications-msg"></span>').text('No Notifications');
+        //     $("#notify").append('<i class="fa fa-bell no-notifications-bell"></i>').append(span).append('<p class="noti_MSG">You have no new Notifications.</p>');
+        // }
     });
 
     $("#clearall").click(function(){
@@ -553,7 +568,7 @@ $('#timepicker').val('');
             var span1=$('<span class="labelvalue"></span>').text(response[i].name);
             var ii=$('<i class="fa fa-trash pr-3" ></i>');
             span.append(ii);
-            var div=$("<div class='newlabel pl-3'></div>").css({'border':'1px solid lavender','margin':'3px','padding':'3px'});
+            var div=$("<div class='newlabel'></div>");
             div.append(span1).append(span);
             $("#alllabels").append(div);
         }
@@ -593,15 +608,15 @@ function addlabels(){
         },success(response){
           if(response == 'exists'){
               $("#addlabels").val('');
-              $("#addlabels").attr("placeholder",'ALREADY EXISTS');
+              $("#addlabels").attr("placeholder",'Already Exists');
           }
           else{
               $("#addlabels").attr("placeholder",'create new label');
-              var span=$('<span class="dellabel"></span>').css({'display':'none','float':'right'});
-              var span1=$('<span class="labelvalue"></span>').text(value);
-              var i=$('<i class="fa fa-trash pr-3" ></i>');
+              var span=$('<span class="dellabel" ></span>').css({'display':'none','float':'right'});
+              var span1=$('<span class="labelvalue" ></span>').text(value);
+              var i=$('<i class="fa fa-trash pr-3 " ></i>');
               span.append(i);
-              var div=$("<div class='newlabel pl-3'></div>").css({'border':'1px solid lavender','margin':'3px','padding':'3px'}); 
+              var div=$("<div class='newlabel'></div>"); 
               div.append(span1).append(span);
               $("#alllabels").append(div);
               $("#addlabels").val('');
@@ -773,7 +788,7 @@ $('body').on('click','#tasklabel',function(){
                     var ip=$("<input type='checkbox' class='individuallab' id='individuallab'>").css({'margin':'3px'}).prop('checked',true);
                     var ipp=$("<input type='hidden' class='labelid'>").val(response[1][i].id);
                     var span=$('<span></span>').text(response[1][i].name);
-                    var div=$('<div class="labelcheck"></div>').append(ipp).append(ip).append(span).css({'border':'1px solid lavender','margin':'3px','padding':'3px'});
+                    var div=$('<div class="labelcheck"></div>').append(ipp).append(ip).append(span);
                     $("#alllabelstask").append(div);
                 }
              
@@ -781,7 +796,7 @@ $('body').on('click','#tasklabel',function(){
                     var ip=$("<input type='checkbox' class='individuallab' id='individuallab'>").css({'margin':'3px'});
                     var ipp=$("<input type='hidden' class='labelid'>").val(response[0][prop].id);
                     var span=$('<span></span>').text(response[0][prop].name);
-                    var div=$('<div class="labelcheck"></div>').append(ipp).append(ip).append(span).css({'border':'1px solid lavender','margin':'3px','padding':'3px'});
+                    var div=$('<div class="labelcheck"></div>').append(ipp).append(ip).append(span);
                     $("#alllabelstask").append(div);
                 } 
                          
@@ -792,7 +807,7 @@ $('body').on('click','#tasklabel',function(){
             var ip=$("<input type='checkbox' class='individuallab' id='individuallab'>").css({'margin':'3px'});
             var ipp=$("<input type='hidden' class='labelid'>").val(response[i].id);
             var span=$('<span></span>').text(response[i].name);
-            var div=$('<div class="labelcheck"></div>').append(ipp).append(ip).append(span).css({'border':'1px solid lavender','margin':'3px','padding':'3px'});
+            var div=$('<div class="labelcheck"></div>').append(ipp).append(ip).append(span);
             $("#alllabelstask").append(div);
         }
        
@@ -970,14 +985,14 @@ $('body').on('click','#tasklabel',function(){
       success(response){
         if(response.length>0){
             for(var i=0;i<response.length;i++){
-            var div=$("<div class='dropdown-item labelsreltasks'></div>").css({'border':'1px solid lavender','margin':'3px','padding':'3px'}).text(response[i].name);  ;
+            var div=$("<div class='dropdown-item labelsreltasks'></div>").text(response[i].name);  ;
             var ip=$('<input type="hidden" id="tasksrellab">').val(response[i].id);
             div.append(ip);
             $("#alllabelsavail").append(div);
         }
     }
     else{
-        var div=$("<div class='dropdown-item'></div>").css({'border':'1px solid lavender','margin':'3px','padding':'3px'}).text('No Labels')  ;
+        var div=$("<div class='dropdown-item'></div>").text('No Labels')  ;
         $("#alllabelsavail").append(div); 
        }
     }

@@ -592,7 +592,35 @@ class TodosController extends Controller
       echo json_encode($notifications);
       
  }
-  
+ public function getcollab(Request $request)
+    {
+        $todo = Todo::where('id','=',request('id'))->first();
+        $users=$todo->users()->get();
+        if(count($users)){
+        return response()->json(array('msg'=> $users), 200);
+        }
+        else{
+        return response()->json(array("msg","no"),200);
+        }
+    }
+ public function getrequest()
+ {
+ $unaccepted = auth()->user()->todos()->where('status','I')->get();
+ $q="";
+ foreach($unaccepted as $u){
+ $owner = User::find($u->user_id);
+ $q.='<div id="req">
+        <p class="collabHeaderMSG">
+                <span class="collab-Notifi-Important">'.$owner->name.'</span>
+                has invited you to collaborate on the task
+                <span class="collab-Notifi-Important">'.$u->title.'.</span>
+        </p><p class="collabFooterMSG">(You can accept or decline this invitation).</p><br />
+        <a class="accept" href="#" id="accept" ><div hidden style="display:inline-block">'.$u->id.'</div>Accept</a>
+        <a class="reject" href="#" id="decline"><div hidden style="display:inline-block">'.$u->id.'</div>trashDecline</a>
+    </div>';
+ }
+ return response()->json(array("msg",$q),200);
+ }
     public function removeremindernoti(Request $request){
         $rem = Reminder::findOrFail($request->id);
         $rem->noti=0;

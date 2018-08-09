@@ -5,7 +5,7 @@
                  <a href="{{ action('TodosController@create') }}"><i class="fa fa-plus"></i> Quick Add</a>
                  <a href="{{ action('TodosController@search') }}"><i class="fa fa-search "></i> Quick Find</a>
                  <a href="#" id="clearall"><i class="fa fa-trash" ></i> Quick Clear</a>
-                 <a href="#" id='labels_add' data-toggle="modal" data-target="#addlabelsmodal"><i class="fas fa-tags"></i> Add labels</a><span data-toggle="dropdown" id='labelsavail'>..</span>
+                 <a href="#" id='labels_add' class="vanishOutline" data-toggle="modal" data-target="#addlabelsmodal"><i class="fas fa-tags"></i> Labels</a><span data-toggle="dropdown" id='labelsavail'><i class="fa fa-caret-down" style="font-size:20px;cursor:pointer;"></i></span>
                   <div class="dropdown-menu" id='alllabelsavail' style='max-height:500px;overflow:auto'>
                                 
                   </div>
@@ -28,7 +28,7 @@
                         <div class="dropdown">
                                 <div class="btn-group">
                                         <button type="button" class="dropdown-toggle" data-toggle="dropdown"  id="theme_btn">
-                                        <i class="fa fa-palette">&ensp;Theme</i>
+                                        <i class="fa fa-palette"> Theme</i>
                                         </button>
                                         <div class="dropdown-menu">
                                         <a href="#">Change Theme</a>

@@ -10,8 +10,8 @@
                 <button type="button" class="btn viewtype vanishOutline" title="Grid View" ><i class="fa fa-th-large"></i> </button>
         </a> 
      
-                <button type="button" class="btn viewtype" id="collabrequest" title="Notification" >
-                 <i class="fa fa-bell" ></i></button>
+        <button type="button" class="btn viewtype vanishOutline" title="Collaboration Request"  id="collabrequest">
+       <i class="fa fa-user-friends" ></i></button>
                  
 
         <ul class="navbar-nav ml-auto" >
@@ -48,18 +48,24 @@
                 @endguest
         </ul>       
         
-        <div id="notify" class="hidden">
-                
-        </div>
        
-    
  </div>
-  <div class="notis" id="notific">
-  <div class="Notification-header">
-    Notifications
-    <button type="button" class="close mr-2 mt-1" data-dismiss="modal" >&times;</button>
-  </div>
-  <div class="Notification-content"></div>
+
+ 
+<div class="notis" id="collabnotific">
+    <div class="Notification-header">
+      Collaboration Requests
+      <button type="button" class="close mr-2 mt-1" data-dismiss="modal" >&times;</button>
+    </div>
+    <div id="notify" ></div>
+</div>
+
+<div class="notis" id="notific">
+    <div class="Notification-header">
+      Notifications
+      <button type="button" class="close mr-2 mt-1" data-dismiss="modal" >&times;</button>
+    </div>
+    <div class="Notification-content"></div>
 </div>
 
  <script>
@@ -120,29 +126,29 @@ $('body').on('mouseleave','.rem',function(){
 })
 
 $('#shownoti').click(function(){
- $('.notis').toggle(); 
+ $('#notific').toggle(); 
 })
 //HOVER 
  {{--  $('#shownoti').mouseenter(function(){
- $('.notis').css('display','block');
+ $('#notific').css('display','block');
  })   
 
 
  $('#shownoti').mouseleave(function(){
  setTimeout(function () {
         if(event2="")
-        $('.notis').css('display','none');
+        $('#notific').css('display','none');
     }, 1000);
 
  }); 
     $('.notis').mouseenter(function(){
       event2="ready";
-    $('.notis').css('display','block');
+    $('#notific').css('display','block');
     })
 
-    $('.notis').mouseleave(function(){
+    $('#notifics').mouseleave(function(){
       event2="";
-    $('.notis').css('display','none');
+    $('#notific').css('display','none');
     })  --}}
 
   
@@ -151,8 +157,8 @@ $('#shownoti').click(function(){
                   return;
             if($(evt.target).closest('#notific').length)
                  return;
-            if($(".notis").css('display')=='block')
-                $(".notis").css('display','none');
+            if($("#notific").css('display')=='block')
+                $("#notific").css('display','none');
         });    --}}
 
 $('body').on('click','.delrem',function(){
