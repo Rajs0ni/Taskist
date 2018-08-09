@@ -1,8 +1,7 @@
 (function ( $ ) {
-    var id,title,oldval,editevent="",thishtml,canedit="",addlab=""; 
+    var taskid,id,title,oldval,editevent="",thishtml,canedit="",addlab=""; 
 $('document').ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();    
-  $('.row').mouseover(function(){
+   $('.row').mouseover(function(){
     $(this).find(".outersubmenu").css({'display':'block'});  
   });
   $('.row').mouseout(function(){
@@ -803,38 +802,135 @@ function edithandler2(thishtml){
     }   
 }
 
-$('#tasklabel').click(function(){
+$('body').on('click','#tasklabel',function(){
     $("#alllabelstask").empty();  
+    $('#searchlabels').val('');
+    taskid=$(this).find('div').text(); 
+    labelsontask();
+ })
+
+ function labelsontask(){
     $.ajaxSetup({
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
       });
       $.ajax({                       
-      url: '/getlabels',
+      url: '/getlabelstask',
       method:'get',
+      data:{
+        taskid:taskid
+      },
       success(response){
-          console.log(response);
-        if(response.length>0){
-            $("#alllabelstask").css({'display':'block'});
+         if(response.length>0){
+         
+            $("#alllabelstask").css({'display':'block','max-height':'300px','overflow':'auto'});
+              if(typeof response[0] == 'object' &&   response[1]  instanceof Array){
+              
+                   
+                for(var i=0;i<response[1].length;i++){
+                    var ip=$("<input type='checkbox' class='individuallab' id='individuallab'>").css({'margin':'3px'}).prop('checked',true);
+                    var ipp=$("<input type='hidden' class='labelid'>").val(response[1][i].id);
+                    var span=$('<span></span>').text(response[1][i].name);
+                    var div=$('<div class="labelcheck"></div>').append(ipp).append(ip).append(span).css({'border':'1px solid lavender','margin':'3px','padding':'3px'});
+                    $("#alllabelstask").append(div);
+                }
+             
+                for(var prop in response[0]){
+                    var ip=$("<input type='checkbox' class='individuallab' id='individuallab'>").css({'margin':'3px'});
+                    var ipp=$("<input type='hidden' class='labelid'>").val(response[0][prop].id);
+                    var span=$('<span></span>').text(response[0][prop].name);
+                    var div=$('<div class="labelcheck"></div>').append(ipp).append(ip).append(span).css({'border':'1px solid lavender','margin':'3px','padding':'3px'});
+                    $("#alllabelstask").append(div);
+                } 
+                         
+            }
+            else{
+                           
         for(var i=0;i<response.length;i++){
-            var ip=$("<input type='checkbox' class='individuallab'>");
+            var ip=$("<input type='checkbox' class='individuallab' id='individuallab'>").css({'margin':'3px'});
+            var ipp=$("<input type='hidden' class='labelid'>").val(response[i].id);
             var span=$('<span></span>').text(response[i].name);
-            var div=$('<div></div>').append(ip).append(span);
-            var option=$('<option></option>').val(response[i].name).append(div);
-            $("#alllabelstask").append(option);
+            var div=$('<div class="labelcheck"></div>').append(ipp).append(ip).append(span).css({'border':'1px solid lavender','margin':'3px','padding':'3px'});
+            $("#alllabelstask").append(div);
         }
        
+    }
     }
     else{
         $("#alllabelstask").css({'display':'none'});
     }
-    }
+    
+}
     });
- })
+ }
 
- $('#searchlabels').keyup(function(){
+ $('body').on('click',".labelcheck",function(event){
+    var labid=$(this).find('.labelid').val();
+ 
+    if(event.target.id == 'individuallab'){
+            if($(this).find('.individuallab').prop('checked')) 
+               addlabrel(labid);
+            else
+               dellabelrel(labid);
+           return;     
+        }
+                
+     $(this).find('.individuallab').prop('checked', !$(this).find('.individuallab').prop('checked'));
+     if($(this).find('.individuallab').prop('checked')) 
+        addlabrel(labid);
+     else
+       dellabelrel(labid);
+ });
+
+ function addlabrel(labid){
     $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({                       
+      url: '/addlabelrel',
+      method:'post',
+      data:{
+        labid:labid,
+        taskid:taskid
+      }
+    });
+ }
+
+ function dellabelrel(labid){
+
+    $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({                       
+      url: '/dellabelrel',
+      method:'post',
+      data:{
+        labid:labid,
+        taskid:taskid
+      }
+    });
+
+ }
+
+ $('#searchlabels').keyup(function(e){
+       value= $(this).val().toUpperCase();
+       if (e.keyCode == 13) {
+        if($('*').find('.createsearched').css('display')=='block'){
+            $('.createsearched').click();
+        }
+       }
+       if(value == ""){
+        $("#alllabelstask").empty();
+         labelsontask();
+       }
+    else{
+       var search; 
+       $.ajaxSetup({
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
@@ -846,22 +942,113 @@ $('#tasklabel').click(function(){
         val:$(this).val().toUpperCase()
       },
       success(response){
+          search=response;
+          $("#alllabelstask").css('display','block');
         if(response == 'notexists'){
-        //     $("#alllabelstask").css({'display':'none'});
-        // for(var i=0;i<response.length;i++){
-        //     var option=$('<option></option>').val(response[i].name).text(response[i].name);
-        //     $("#alllabelstask").append(option);
-        // }
+            $("#alllabelstask").empty();   
+            var div = $('<div class="createsearched"></div>').text('+ CREATE LABEL '+value).css({'border':'1px solid lavender','margin':'3px','padding':'3px','cursor':'pointer'});
+            $("#alllabelstask").append(div);
+     }
+    else{
+         $("#alllabelstask").empty();   
+         
+        for(var i=0;i<search.length;i++){
+            searchrequest(search[i]);  
+        }
+      
+    }
+  }  
+});
+ }
+ function searchrequest(search){
+    $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({                       
+      url: '/relexists',
+      method:'get',
+      data:{
+        labid:search.id,
+        taskid:taskid
+      },
+      success(res){
+        if(res == 'yes')
+            var ip=$("<input type='checkbox' class='individuallab' id='individuallab'>").css({'margin':'3px'}).prop('checked',true);
+                    
+        else
+            var ip=$("<input type='checkbox' class='individuallab' id='individuallab'>").css({'margin':'3px'});
        
+            var ipp=$("<input type='hidden' class='labelid'>").val(search.id);
+            var span=$('<span></span>').text(search.name);
+            var div=$('<div class="labelcheck"></div>').append(ipp).append(ip).append(span).css({'border':'1px solid lavender','margin':'3px','padding':'3px'});
+            $("#alllabelstask").append(div);         
+
+      }
+    });
+
+ }
+    $('body').on('click','.createsearched',function(event){
+            $("#alllabelstask").empty();
+            var i=$("<input type='checkbox' class='individuallab' id='individuallab'>").css({'margin':'3px'}).prop('checked',true);
+            var spann=$('<span></span>').text($('#searchlabels').val().toUpperCase());
+            var divv=$('<div class="labelcheck"></div>').append(i).append(spann).css({'border':'1px solid lavender','margin':'3px','padding':'3px'});
+            labelsontask();
+            $("#alllabelstask").prepend(divv);
+            
+            $.ajaxSetup({
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+              });
+              $.ajax({                       
+              url: '/addnewsearch',
+              method:'get',
+              data:{
+                val:$('#searchlabels').val().toUpperCase(),
+                taskid:taskid
+              }
+            });
+            $('#searchlabels').val('');        
+            event.stopImmediatePropagation();
+
+    })
+ })
+
+ $('#labelsavail').click(function(){
+    $('#alllabelsavail').empty();
+    $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({                       
+      url: '/getlabels',
+      method:'get',
+      success(response){
+        if(response.length>0){
+            for(var i=0;i<response.length;i++){
+            var div=$("<div class='dropdown-item labelsreltasks'></div>").css({'border':'1px solid lavender','margin':'3px','padding':'3px'}).text(response[i].name);  ;
+            var ip=$('<input type="hidden" id="tasksrellab">').val(response[i].id);
+            div.append(ip);
+            $("#alllabelsavail").append(div);
+        }
     }
     else{
-        $("#alllabelstask").css({'display':'none'});
-    }
+        var div=$("<div class='dropdown-item'></div>").css({'border':'1px solid lavender','margin':'3px','padding':'3px'}).text('No Labels')  ;
+        $("#alllabelsavail").append(div); 
+       }
     }
     });
  })
+
+
+ $('body').on('click','.labelsreltasks',function(){
+    var labelid =$(this).find('#tasksrellab').val();
+    window.location.assign('/getlabelstasks/'+labelid);
+    
+ })
 });
-
-
 
 }( jQuery ));

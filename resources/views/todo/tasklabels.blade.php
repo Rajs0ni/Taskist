@@ -14,13 +14,10 @@
                         
                        </div>
   
-                    <select multiple style="display:none" id="alllabelstask">
+                    <div style="display:none" id="alllabelstask" style="max-height:300px;overflow:auto">
 
 
-                    </select>                      
-                         <div class="modal-footer">
-                        <button type="button" class="btn btn-success" id="addlabls" data-dismiss="modal">DONE</button>
-                        </div>
+                    </div>                      
                         
                     </div>
                     </div>

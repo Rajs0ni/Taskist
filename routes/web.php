@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/', 'TodosController@index');
-Route::get('/wel', function(){
+// Route::get('/', 'TodosController@index');
+Route::get('/', function(){
     return view('welcome');
 });
 Route::get('/todo/view/{todo}', 'TodosController@index1');
@@ -65,8 +65,7 @@ Route::get('/todo/themecolor','TodosController@ThemeColor');
 Route::resource('todo','TodosController');
 Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/home', 'HomeController@index');
+Route::get('/', 'HomeController@index');
 Route::get('/home', 'TodosController@index')->name('home');
 Route::post('/addreminder','TodosController@addreminder');
 Route::get('/getreminder','TodosController@getreminder');
@@ -78,5 +77,11 @@ Route::get('/getlabels','LabelController@getlabels');
 Route::get('/dellabel','LabelController@dellabel');
 Route::post('/updatelabel','LabelController@updatelabel');
 Route::get('/searchlabels','LabelController@searchlabels');
+Route::post('/addlabelrel','LabelController@addlabelrel');
+Route::post('/dellabelrel','LabelController@dellabelrel');
+Route::get('/getlabelstask','LabelController@getlabelstask');
+Route::get('/addnewsearch','LabelController@addnewsearch');
+Route::get('/relexists','LabelController@relexists');
+Route::get('/getlabelstasks/{labelid}','LabelController@getlabelstasks');
 
 

@@ -81,7 +81,8 @@
                                 
                                  }
                             });
-                        }( jQuery ));
+
+                    }( jQuery ));
                     </script>
                    
                     @endif
@@ -94,7 +95,14 @@
         <div class="col-12 text-justify">
             <p class="show_content">{{$todo->task}}</p>
             <hr>
-        </div>  
+        </div>
+             @if(isset($labels))
+              <div>
+               @foreach($labels as $label)
+                 <span style="border:solid;margin-right:5px">{{$label->name}} <span class='dellabtask'>X<input type="hidden" value={{$label->id}} id='labtaskid'></span></span>
+              @endforeach  
+              </div>  
+              @endif
       <!-- Action Panel -->
         <div class="col">
          <div class="row">
@@ -125,6 +133,29 @@
    </div>
         
 </div>
+
+<script>
+
+    $('body').on('click','.dellabtask',function(){
+                
+            $.ajaxSetup({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({                       
+            url: '/dellabelrel',
+            method:'post',
+            data:{
+                labid:$(this).find('#labtaskid').val(),
+                taskid:{{$todo->id}}
+            }
+            });
+
+            $(this).parent().remove();
+            })
+
+</script>
 @else
     You don't have access to it!
 @endif

@@ -18,7 +18,8 @@ class TodosController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth',['except' => ['help']]);
+       
     }
     public function index1($x)
     {
@@ -30,7 +31,7 @@ class TodosController extends Controller
                  $t->view = 0;
                  $t->save();
              }
-             return redirect('/'); 
+             return redirect('todo/gridview'); 
         }
         else
         {
@@ -39,7 +40,7 @@ class TodosController extends Controller
                  $t->view = 1;
                  $t->save();
              }
-             return redirect('/'); 
+             return redirect('/todo'); 
         }
     }
     public function index()
@@ -180,7 +181,7 @@ class TodosController extends Controller
             $todo->taskColor = $u->themeColor;
         }
         $todo->save();
-        return redirect('/')->with([
+        return redirect('/todo')->with([
             'flash_message' => 'Task has been created!'
         ]);
 
@@ -188,15 +189,20 @@ class TodosController extends Controller
     // Show a particular task
     public function show($id)
     {
-       
-        $todo = Todo::find($id);
-        $user = User::where('id',auth()->user()->id)->get();
-        if($todo->users()->where('id',auth()->user()->id)->exists()||$todo->user_id==auth()->user()->id)
-            {
-                $rem = Reminder::where('taskid',$id)->get();
-        if(sizeof($rem)>0){
+        $todo = Todo::where('user_id','=',auth()->user()->id)->findOrFail($id);
+        $rem = Reminder::where('taskid',$id)->get();
+        $labels=$todo->labels;
+        
+        if(sizeof($rem)>0 && sizeof($labels)>0){
+            $rem = Reminder::where('taskid',$id)->get()[0];
+            return view('todo.show',compact('todo','rem','labels'));    
+        }
+        if(sizeof($rem)>0 && sizeof($labels)==0){
             $rem = Reminder::where('taskid',$id)->get()[0];
             return view('todo.show',compact('todo','rem','user'));    
+        }
+        if(sizeof($rem) == 0 && sizeof($labels)>0){
+            return view('todo.show',compact('todo','labels'));    
         }
         else
         return view('todo.show',compact('todo','user'));
@@ -206,11 +212,6 @@ class TodosController extends Controller
             return view('todo.show',compact('todo','user'));
     }}
     // Grid Show
-    // public function suggest()
-    // {
-    //     auth()->user()->friends();    
-    // }
-
     public function gridshow($id)
     {
         $todo = Todo::where('user_id','=',auth()->user()->id)
@@ -242,17 +243,15 @@ class TodosController extends Controller
 
         $todo = Todo::find($id);
         if($todo->users()->where('id',auth()->user()->id)->exists()||$todo->user_id==auth()->user()->id)
-        {$todo->update($request->all());
-            $rem = Reminder::where('taskid',$id)->get()->all();
-        $rem->title=$request->title;
-        $rem->save();}
-        else{
-            $todo=null;
-            return view('todo.show',compact('todo'));
-    }
-        
-       
-        return redirect()->action('TodosController@show',$todo->id);
+        {$todo->update($request->all());}
+        $rem = Reminder::where('taskid',$id)->get();
+        if(sizeof($rem)>0){
+            $rem = Reminder::where('taskid',$id)->get()[0];
+            $rem->title=$request->title;
+            $rem->save();
+                
+        }
+        return redirect()->action('TodosController@show',$todo->id);;
     }
     // Delete a particular task
     public function deleteTask($id)
@@ -333,14 +332,14 @@ class TodosController extends Controller
                 $todo->trashed=1;
                 $todo->save();
             }
-            return redirect('/')->with('alert','All the tasks have been trashed!');
+            return redirect('/todo')->with('alert','All the tasks have been trashed!');
         }
         $todos = Todo::where('user_id','=',auth()->user()->id)->get();
         foreach($todos as $todo)
         {
             $todo->delete();
         }
-        return redirect('/')->with('alert','All the tasks have been deleted!');
+        return redirect('/todo')->with('alert','All the tasks have been deleted!');
     }
     // Get completed tasks
     public function getCompleted()
@@ -521,32 +520,6 @@ class TodosController extends Controller
         return view('todo.trash',compact('todos','todoview','message','user'));
     }
 
-    public function getcollab(Request $request)
-    {
-        $todo = Todo::where('id','=',request('id'))->first();
-        $users=$todo->users()->get();
-        if(count($users)){
-            return response()->json(array('msg'=> $users), 200);
-        }
-        else{
-            return response()->json(array("msg","no"),200);
-        }
-    }
-
-    public function removecollab(Request $request)
-    {
-        $task = request('task');
-        $user = request('user');
-        $todo=Todo::find($task);
-        if(auth()->user()->id == $todo->user_id){
-            $todo->users()->detach($user);
-            return response()->json(array("msg","success"),200);
-        }
-        else{
-            return response()->json(array("msg","no"),200);
-        }
-    }
-
     public function addcollab(Request $request)
     {
         $user2 = User::where('email','=',request('email'))->first();
@@ -557,7 +530,6 @@ class TodosController extends Controller
         }
         else if(! $task->users()->where('id',$user2->id)->exists()){
             $task->users()->save($user2);
-            //auth()->user()->friends()->attach($user2->id);
             return response()->json(array("msg","success"),200);
         }
         else{

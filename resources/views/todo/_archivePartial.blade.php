@@ -34,7 +34,6 @@
                                 <button id="list_btn" ><i class="fa fa-palette"></i>&ensp;Change Color</button>        
                                 <input type="color" id="colorpicker"> 
                             </a>
-                            <a class="dropdown-item" id="tasklabel" data-toggle="modal" data-target="#tasklab"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fas fa-tags"></i> Labels</a>
                             <a class="dropdown-item" href="#"  id="trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i> Delete</a>
 
 
@@ -43,7 +42,7 @@
         </div>  
         
 
-        <div class="circle"></div><span id="span1"><?php if($count<=9)echo "0".$count; ?></span>
+        <div class="circle"></div><span id="span1"><?php if($count<=9)echo "0".$count; else echo $count++;?></span>
         <div class="wrapper">
                 <h3><a href="/todo/{{$todo->id}}/show">{{$todo->title}}</a></h3> 
                 <span id="span2" >&#x25cf; {{$todo->completion_date}}</span>
