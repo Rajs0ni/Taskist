@@ -1,7 +1,15 @@
+
+@foreach($user as $u)
+
+    <?php $color = $u->themeColor; ?>
+
+@endforeach
 <div class="sideWrapper">
         <aside class="aside">
-                 <div class="sideBarHeader"><span>Quick Bar</span></div>
-                 <div class="sideBarContainer">
+                 <div class="sideBarHeader" style="background:<?php echo $color; ?>;">
+                    <span>Quick Bar</span>
+                 </div>
+                 <div class="sideBarContainer" >
                  <a href="{{ action('TodosController@create') }}"><i class="fa fa-plus"></i> Quick Add</a>
                  <a href="{{ action('TodosController@search') }}"><i class="fa fa-search "></i> Quick Find</a>
                  <a href="#" id="clearall"><i class="fa fa-trash" ></i> Quick Clear</a>
@@ -11,13 +19,17 @@
                   </div>
                 </div>
                  <hr>
-                 <div class="sideBarHeader"><span>Sort By</span></div>
+                 <div class="sideBarHeader" style="background:<?php echo $color; ?>;">
+                  <span>Sort By</span>
+                 </div>
                  <div class="sideBarContainer">
                  <a href="{{ action('TodosController@sortByTitle') }}" class="sort"><i class="fa fa-sort-alpha-asc"></i> Title</a><br>
                  <a href="{{ action('TodosController@sortByDate') }}"><i class="fa fa-sort-amount-desc"></i> Date</a> 
                  </div>
                  <hr>
-                 <div class="sideBarHeader"><span>Task Categorization</span></div>
+                 <div class="sideBarHeader" style="background:<?php echo $color; ?>;">
+                  <span>Task Categorization</span>
+                 </div>
                  <div class="sideBarContainer"><a href="{{ action('TodosController@getProcessing') }}"><i class="fa fa-sun "></i> Today's Tasks</a>
                  <a href="{{ action('TodosController@collab') }}"><i class="fa fa-users"></i> Collaboration</a>
                  <a href="{{ action('TodosController@getPending') }}"><i class="fa fa-hourglass-end "></i> Pending Tasks</a>
@@ -31,8 +43,13 @@
                                         <i class="fa fa-palette"> Theme</i>
                                         </button>
                                         <div class="dropdown-menu">
-                                        <a href="#">Change Theme</a>
-                                        <a href="/todo/reset">Reset Theme</a>
+                                        <a href="#">
+                                          <button type="button" style="background:transparent;border:solid transparent;text-align:left;">Change Theme</button>
+                                          <input type="color" id="themecolor" style="width:150px;height:32px;position:absolute;top:6px;opacity:0;">
+                                        </a>
+                                        <a href="/todo/reset">
+                                          <button style="background:transparent;border:solid transparent;text-align:left;">Reset Theme</button> 
+                                        </a>
                                         </div>
                                 </div>       
                         </div>
@@ -44,5 +61,4 @@
                  
         </aside>
 </div>
-
 @include('todo.labels')

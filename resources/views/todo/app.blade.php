@@ -39,10 +39,16 @@
     @yield('styles')
 <body>
     <div class="page">
-    <span class="menu_toggle">
+      
+        @foreach($user as $u)
+           <?php $color = $u->themeColor;?>
+        @endforeach
+              <span class="menu_toggle" style="background:<?php echo $color; ?>;">
+    
         <i class="menu_open fa fa-bars fa-lg"></i>
         <i class="menu_close fa fa-times fa-lg"></i>
     </span>
+
     <ul class="menu_items">
         <li><a href="/todo"><i class="icon fa fa-home fa-2x"></i>Home</a></li>
         <li><a href={{action('TodosController@archived') }}><i class="icon fa fa-archive fa-2x"></i>Archive</a></li>
@@ -54,6 +60,7 @@
         </div>
         @yield('footer')
     </main>
+    <div class="container">@yield('theme')</section>
 </div>
 
 <script>

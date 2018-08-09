@@ -199,7 +199,7 @@ body{
     transition-property: font-size,letter-spacing;
     transform-origin: center;
     transition-duration: 0.1s;
-    margin-top: 100px;
+    margin-top: 70px;
     width:200px
 }
 .myButton:hover{
@@ -251,6 +251,7 @@ body{
     height: 100%;
     width: 200px;
     right: 14px;
+    overflow: hidden;
     top:0;
 }
 .aside{
@@ -364,7 +365,6 @@ body{
     border-top-left-radius:30px;
     border-bottom-right-radius:30px;
     border:1px solid rgb(27, 74, 91);
-    
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
 }
 .grid_count_title{
@@ -625,12 +625,12 @@ body{
 }
 #list_btn
 {
-    width:100%;
-    position:relative;
-    right:14px;
-    background:transparent;
-    border:transparent;
-    color:#191919;
+width:100%;
+position:relative;
+right:9px;
+background:transparent;
+border:transparent;
+color:#191919;
 }
 #colorpicker
 {
@@ -744,6 +744,30 @@ body{
     width:18px;
     height:18px;
 }
+.theme-container
+{
+    height:100%;
+    width:100%;
+    border:solid;
+}
 
+.labeledTaskContainer{
+    margin-top:5%; 
+    padding-left:15px;  
+}
 
-
+.labeledTask{
+    background:lavender;
+    padding:10px;
+    border-radius:5px;
+    font-weight:bold;
+    margin-left:3px;
+}
+.dellabtask{
+    font-weight:normal;
+    cursor:pointer;
+}
+.dellabtask:hover{
+    color:red;
+    font-weight:bold;
+}

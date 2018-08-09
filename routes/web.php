@@ -61,6 +61,7 @@ Route::get('todo/sort/by/date','TodosController@sortByDate');
 Route::get('/acceptcollab','TodosController@acceptcollab');
 Route::get('/rejectcollab','TodosController@rejectcollab');
 Route::get('/todo/color','TodosController@color');
+Route::get('/todo/themecolor','TodosController@ThemeColor');
 Route::resource('todo','TodosController');
 Auth::routes();
 

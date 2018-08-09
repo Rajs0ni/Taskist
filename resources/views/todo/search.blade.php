@@ -1,10 +1,16 @@
 @extends('todo.app')
 
 @section('content')
+
 <span id="mainHeading">Todo App</span>
 <div class="form-group">
-    <div class="flag">
-       <span class="flagStyle" id="search">Search</span>
+    <div class="flag">   
+        @foreach($user as $u)
+          <?php $color = $u->themeColor;?>
+        @endforeach
+          <span class="flagStyle" id="search" style="color:<?php echo $color; ?>;">Search</span>
+   
+
     </div>
    {!! Form::open(array('action' => 'TodosController@find')) !!}
         <div class='form-group'>
@@ -13,5 +19,5 @@
         <div class='form-group'>
             {!! Form::submit('Task Search',['class'=>'btn btn-default searchButton form-control']) !!}
         </div>
- {!! Form::close() !!}
+  {!! Form::close() !!}
 @endsection
