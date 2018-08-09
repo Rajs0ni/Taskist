@@ -9,7 +9,10 @@
         <div class="col">
             <div class="row">
                 <div class="col text-left">
-                    <h3 style="color:#F76266;font-weight:bold; text-transform:capitalize;">{{$todo->title}}</a></h3>
+                @foreach($user as $u)
+                            <?php $color = $u->themeColor;?>
+                @endforeach
+                <h3 style="color:<?php echo $color; ?>;font-weight:bold; text-transform:capitalize;">{{$todo->title}}</a></h3>
                 </div>
              
               

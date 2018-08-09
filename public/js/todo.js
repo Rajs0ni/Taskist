@@ -12,35 +12,35 @@ $('document').ready(function(){
 
 $('body').on('click',"#colorpicker",function()
 {
-$('body').on('input',"#colorpicker",function()
-{
-color = $(this).val();
-id = $(this).parents('.color').children().text();
-x = $(this).parents('.panel');
-//gr = linear-gradient(color,rgb(239, 240, 240));
-x.css('background',color);
+    $('body').on('input',"#colorpicker",function()
+    {
+        color = $(this).val();
+        id = $(this).parents('.color').children().text();
+        x = $(this).parents('.panel');
+        //gr = linear-gradient(color,rgb(239, 240, 240));
+        x.css('background',color);
 
-$.ajax
-({
-type: "GET",
-url: "/todo/color",
-data: { 
-_token : $('meta[name="csrf-token"]').attr('content'), 
-'color': color,
-'id' : id 
-}, 
-headers: {
-'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-}, 
-success:function(response)
-{
-},
-error:function(response)
-{
-alert('ERROR');
-}
-});
-});
+        $.ajax
+        ({
+            type: "GET",
+            url: "/todo/color",
+            data: { 
+            _token : $('meta[name="csrf-token"]').attr('content'), 
+            'color': color,
+            'id' : id 
+            }, 
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }, 
+            success:function(response)
+            {
+            },
+            error:function(response)
+            {
+            alert('ERROR');
+            }
+        });
+    });
 });
 // end color picker for list
 
@@ -48,37 +48,96 @@ alert('ERROR');
 
 $('body').on('click',"#grid_color",function()
 {
-$('body').on('input',"#grid_color",function()
-{
-color = $(this).val();
-x = $(this).parents('.gridbtn').prev().children();
-// alert(x);
-x.css('background',color);
-id = $(this).parents('.gridbtn').children().val();
-$.ajax
-({
-type: "GET",
-url: "/todo/color",
-data: { 
-_token : $('meta[name="csrf-token"]').attr('content'), 
-'color': color,
-'id' : id 
-}, 
-headers: {
-'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-}, 
-success:function(response)
-{
-},
-error:function(response)
-{
-alert('ERROR');
-}
-}); 
+    $('body').on('input',"#grid_color",function()
+    {
+        color = $(this).val();
+        x = $(this).parents('.gridbtn').prev().children();
+        y = $(this).parents('.gridbtn').prev().prev().children();
+        $(x,y).each(function(id,element)
+        {
+            switch(id)
+            {
+               case 0: x.css('background',color);
+               case 1: y.css('borderColor', color);
+            }
+        });
+        id = $(this).parents('.gridbtn').children().val();
+        $.ajax
+        ({
+            type: "GET",
+            url: "/todo/color",
+            data: { 
+            _token : $('meta[name="csrf-token"]').attr('content'), 
+            'color': color,
+            'id' : id 
+            }, 
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }, 
+            success:function(response)
+            {
+            },
+            error:function(response)
+            {
+            alert('ERROR');
+            }
+        }); 
 
-});
+    });
 });
 //color picker for grid end
+// color picker for theme
+
+$("body").on('click',"#themecolor",function()
+{
+    $('body').on('input',"#themecolor",function()
+    {
+       color  = $(this).val();
+       p = $('.menu_toggle');
+       q  = $('.sideBarHeader');
+       r = $('.viewtype');
+       s = $('.panel');
+       t = $('.text');
+       u = $('.name');
+       v = $('.count');
+       $(p,q,r,s,t,u).each(function(id,element)
+       {
+          switch(id)
+          {
+            case 0:p.css('background',color);
+            case 1:q.css('background',color);
+            case 2:r.css('background',color);
+            case 3:s.css('background',color);
+            case 4:t.css('background',color);
+            case 5:u.css('color',color);
+            case 6:v.css('borderColor',color);
+          }
+       });
+       $.ajax
+        ({
+            type: "GET",
+            url: "/todo/themecolor",
+            data:
+            { 
+              _token : $('meta[name="csrf-token"]').attr('content'), 
+              'color': color
+            }, 
+            headers: 
+            {
+               'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }, 
+            success:function(response)
+            {
+            },
+            error:function(response)
+            {
+            alert('ERROR');
+            }
+        }); 
+    });
+
+});
+//color picker for theme end
 $("body").on('click',".accept",function(){
     id = $(this).children().text();
     $.ajax({

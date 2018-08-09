@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Todo App</title>
+    <title>RTWT</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" >
      <meta name="csrf-token" content="{{ csrf_token() }}">
  
@@ -39,12 +39,17 @@
     @yield('styles')
 <body>
     <div class="page">
-    <span class="menu_toggle">
+      
+        @foreach($user as $u)
+           <?php $color = $u->themeColor;?>
+        @endforeach
+              <span class="menu_toggle" style="background:<?php echo $color; ?>;">
+    
         <i class="menu_open fa fa-bars fa-lg"></i>
         <i class="menu_close fa fa-times fa-lg"></i>
     </span>
     <ul class="menu_items">
-        <li><a href="/"><i class="icon fa fa-home fa-2x"></i>Home</a></li>
+        <li><a href="/" id="a_home"><i class="icon fa fa-home fa-2x"></i>Home</a></li>
         <li><a href={{action('TodosController@archived') }}><i class="icon fa fa-archive fa-2x"></i>Archived</a></li>
         <li><a href={{action('TodosController@trash') }}><i class="icon fa fa-trash fa-2x"></i>Trash</a></li>
     </ul>
@@ -54,6 +59,7 @@
         </div>
         @yield('footer')
     </main>
+    <div class="container">@yield('theme')</section>
 </div>
 
 <script>

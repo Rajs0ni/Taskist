@@ -1,5 +1,5 @@
 <div class="row">
-    <div class='panel container' style="background:{{$todo->taskColor}};"> 
+    <div class='panel container' style="background:linear-gradient(90deg,{{$todo->taskColor}} 10%,rgb(239, 240, 240));"> 
         <div class="dropdown" >
                 <div class="btn-group">
                         <button type="button" id="ellipsis" class="btn vanishOutline" data-toggle="dropdown" ><i class="fa fa-ellipsis-v"></i>

@@ -34,7 +34,7 @@
                     <div style="display:inline-block;padding-left:15px"><a href="{{ action('TodosController@show', $todo->id ) }}" title="View"><i class="fa fa-eye" id="gridEye"></i></a></div>
                 </div>
                 
-                <div class="gridtask"><textarea style="background:{{$todo->taskColor}};">{{ $todo->task}}</textarea></div>
+                <div class="gridtask"><textarea class="text" style="background:linear-gradient(45deg,{{$todo->taskColor}} 10%,rgb(239, 240, 240));"></textarea></div>
                 <div class="gridbtn">
                                 <input type='hidden' value='{{$todo->id}}' id='task_id'>
                                 <input type='hidden' value='{{$todo->title}}' id='task_title'>
@@ -86,7 +86,8 @@
                     <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
                     <div style="display:inline-block;padding-left:15px"><a href="{{ action('TodosController@show', $todo->id ) }}" title="View"><i class="fa fa-eye" id="gridEye"></i></a></div>
                 </div>
-                <div class="gridtask"><textarea style="background:{{$todo->taskColor}};">{{ $todo->task}}</textarea></div>
+                <div class="gridtask"><textarea class="text" style="background:linear-gradient(45deg,{{$todo->taskColor}} 10%,rgb(239, 240, 240));">{{ $todo->task}}
+                </textarea></div>
                 <div class="gridbtn">
                                 <input type='hidden' value='{{$todo->id}}' id='task_id'>
                                 <input type='hidden' value='{{$todo->title}}' id='task_title'>
