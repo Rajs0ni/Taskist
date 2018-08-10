@@ -223,7 +223,58 @@ $("#modaldone,.modalclose").click(function(){
     });
  });
 
+$("#sort").click(function(){
 
+    $var = window.location.pathname;
+    
+    if($var=='/todo/getProcessing')
+        location.assign('/sort/by/title/'+0);
+    else if($var=='/collab')
+        location.assign('/sort/by/title/'+1);
+    else if($var=='/todo/getPending')
+        location.assign('/sort/by/title/'+2);
+    else if($var=='/todo/getcompleted')
+        location.assign('/sort/by/title/'+3);
+    else if($var=='/todo/all')
+        location.assign('/sort/by/title/'+4);
+    else if($var=='/todo/archive')
+        location.replace('/sort/by/title/'+5);
+    else if($var=='/todo/trash')
+        location.replace('/sort/by/title/'+6);
+    else if($var=='/sort/by/title/0'||$var=='/sort/by/title/1'||$var=='/sort/by/title/2'||$var=='/sort/by/title/3'||$var=='/sort/by/title/4'||$var=='/sort/by/title/5'||$var=='/sort/by/title/6')
+        location.reload(true);
+    else
+        location.replace('/sort/by/title/'+7);
+      
+    
+
+});
+
+$("#date").click(function(){
+    $var = window.location.pathname;
+    
+    if($var=='/todo/getProcessing')
+        location.assign('/sort/by/date/'+0);
+    else if($var=='/collab')
+        location.assign('/sort/by/date/'+1);
+    else if($var=='/todo/getPending')
+        location.assign('/sort/by/date/'+2);
+    else if($var=='/todo/getcompleted')
+        location.assign('/sort/by/date/'+3);
+    else if($var=='/todo/all')
+        location.assign('/sort/by/date/'+4);
+    else if($var=='/todo/archive')
+        location.replace('/sort/by/date/'+5);
+    else if($var=='/todo/trash')
+        location.replace('/sort/by/date/'+6);
+    else if($var=='/sort/by/date/0'||$var=='/sort/by/date/1'||$var=='/sort/by/date/2'||$var=='/sort/by/date/3'||$var=='/sort/by/date/4'||$var=='/sort/by/date/5'||$var=='/sort/by/date/6')
+        location.reload(true);
+    else
+        location.replace('/sort/by/date/'+7);
+      
+    
+
+})
 
 $(".addcollab").click(function(){
 val = $(this).children().text();

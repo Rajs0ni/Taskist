@@ -120,8 +120,9 @@ body {
   margin-top: -32px;
   border-radius: 100%;
   border: 2px solid #f0f0f0;
-  transition: border-color .2s;
+  transition: border-color .2s; 
 }
+
 .menu_items a:hover {
   color: #f0f0f0;
 }

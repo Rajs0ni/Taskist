@@ -50,7 +50,6 @@
 @if(count($unpinned))
                 @if(count($pinned))
                   <h4>Others</h4><hr> 
-                @else
                 @endif    
                 <?php $count = 1; ?>
                 @foreach($todos as $todo) 

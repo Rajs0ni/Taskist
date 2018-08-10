@@ -80,6 +80,9 @@ $('.content').on('click', function(){
 
     <script>
     $('div.alert').not('.alert-important').delay(2000).slideUp(300);
+
+  $(".menu_items a .icon").hover(function()
+  {$(this).css('border','yellow solid').css('padding','10px').css('borderRadius','100%');});
  </script>
 
 @include('todo.remindermodalbox')
