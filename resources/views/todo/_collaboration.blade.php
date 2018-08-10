@@ -5,7 +5,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Collaborators</h4>
-          <button type="button" class="close modalclose" data-dismiss="modal">&times;</button>
+          <button type="button" class="close modalclose vanishOutline" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
            

@@ -12,7 +12,7 @@
                 <button type="button" class="btn viewtype vanishOutline" title="Grid View" style="background:<?php echo $color; ?>;"><i class="fa fa-th-large"></i> </button>
         </a> 
      
-        <button type="button" class="btn viewtype vanishOutline" title="Collaboration Request"  id="collabrequest">
+        <button type="button" class="btn viewtype vanishOutline" title="Collaboration Request"  id="collabrequest" style="background:<?php echo $color; ?>;">
        <i class="fa fa-user-friends" ></i></button>
                  
 

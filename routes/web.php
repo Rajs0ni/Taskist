@@ -43,13 +43,7 @@ Route::get('todo/getPending','TodosController@getPending');
 Route::get('/getrequest','TodosController@getrequest');
 Route::get('todo/help','TodosController@help');
 Route::get('todo/gridview','TodosController@gridview');
-Route::get('/todo/myorder','TodosController@myorder');
 Route::get('/todo/reset','TodosController@reset');
-Route::get('/todo/changeorder',function(){
-    $todos = App\Todo::orderBy('order','ASC')
-                        ->get();
-    return view('todo.changeorder',compact('todos'));
-});
 Route::get('/getcollaborator','TodosController@getcollab');
 Route::get('/removecollaborator','TodosController@removecollab');
 Route::get('/addcollaborator','TodosController@addcollab');

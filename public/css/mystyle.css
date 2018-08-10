@@ -445,7 +445,7 @@ body{
     color: rgb(27, 74, 91,0.5);
     
 }
-.gridbtn .fa:hover, .fa-palette:hover{
+.gridbtn .fa:hover{
     color: rgb(27, 74, 91,1);
 }
 #gridEye{
@@ -643,11 +643,17 @@ color:#191919;
 #theme_btn
 {
     border:transparent;
+    position: relative;
     text-align: left;
     background: transparent;
     width: 170px;
+    left: -20px;
     font-size: 20px;
     color:rgba(27, 74, 91,0.9);
+    cursor: pointer; 
+}
+#theme_btn:hover{
+font-weight: bold;
 }
 #collabrequest{
     margin-left: 10px;
