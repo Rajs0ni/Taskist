@@ -36,7 +36,7 @@ $('body').on('click',"#colorpicker",function()
             },
             error:function(response)
             {
-            alert('ERROR');
+            // alert('ERROR');
             }
         });
     });
@@ -78,7 +78,7 @@ $('body').on('click',"#grid_color",function()
             },
             error:function(response)
             {
-            alert('ERROR');
+            // alert('ERROR');
             }
         }); 
 
@@ -130,7 +130,7 @@ $("body").on('click',"#themecolor",function()
             },
             error:function(response)
             {
-            alert('ERROR');
+            // alert('ERROR');
             }
         }); 
     });

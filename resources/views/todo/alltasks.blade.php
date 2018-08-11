@@ -68,7 +68,7 @@
         @endif 
 <!-- end others task-->      
         @if(count($accepted))
-                <h4>Collaborated tasks</h4>  
+               <br><h4>Collaborated</h4><hr>  
                 <?php $count = 1; ?>
                 @foreach($accepted as $todo) 
                         @if($todo->pin == 0) 

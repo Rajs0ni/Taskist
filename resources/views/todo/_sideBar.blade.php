@@ -61,15 +61,15 @@
                         <div class="dropdown">
                                 <div class="btn-group">
                                         <button type="button" class="dropdown-toggle vanishOutline" data-toggle="dropdown"  id="theme_btn">
-                                        <i class="fa fa-palette"></i> Theme
+                                        <i class="fa fa-palette"> Theme</i>
                                         </button>
                                         <div class="dropdown-menu">
-                                        <a href="#"  class="dropdown-item">
-                                          <button type="button" style="background:transparent;border:none;outline:none; cursor:pointer">Change Theme</button>
+                                        <a href="#">
+                                          <button type="button" style="background:transparent;border:solid transparent;text-align:left;">Change Theme</button>
                                           <input type="color" id="themecolor" style="width:150px;height:32px;position:absolute;top:6px;opacity:0;">
                                         </a>
-                                        <a href="/todo/reset"  class="dropdown-item">
-                                          <button style="background:transparent;border:none;outline:none; cursor:pointer">Reset Theme</button> 
+                                        <a href="/todo/reset">
+                                          <button style="background:transparent;border:solid transparent;text-align:left;">Reset Theme</button> 
                                         </a>
                                         </div>
                                 </div>       

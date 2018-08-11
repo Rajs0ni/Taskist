@@ -175,6 +175,19 @@ class TodosController extends Controller
         ]);
 
     }
+    public function removecollab(Request $request)
+{
+$task = request('task');
+$user = request('user');
+$todo=Todo::find($task);
+if(auth()->user()->id == $todo->user_id){
+$todo->users()->detach($user);
+return response()->json(array("msg","success"),200);
+}
+else{
+return response()->json(array("msg","no"),200);
+}
+}
     // Show a particular task
     public function show($id)
     {
@@ -289,7 +302,7 @@ class TodosController extends Controller
                         ->findOrFail($id);
         $todo->delete();
         Reminder::where('taskid',$id)->delete();
-        return redirect('/')->with('alert','Task Deleted!');
+        return back()->with('alert','Task Deleted!');
     }
     // Search task
     public function search()
