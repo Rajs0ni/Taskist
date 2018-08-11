@@ -44,7 +44,7 @@
         <i class="menu_close fa fa-times fa-lg"></i>
     </span>
     <ul class="menu_items">
-        <li><a href="/"><i class="icon fa fa-home fa-2x"></i>Home</a></li>
+        <li><a href="/" id="a"><i class="icon fa fa-home fa-2x"></i>Home</a></li>
         <li><a href={{action('TodosController@create') }}><i class="icon fa fa-plus-square fa-2x"></i>Create</a></li>
         <li><a href={{action('TodosController@search') }}><i class="icon fa fa-search fa-2x"></i>Search</a></li>
     </ul>
@@ -73,6 +73,9 @@ $('.content').on('click', function(){
 
     <script>
     $('div.alert').not('.alert-important').delay(2000).slideUp(300);
+
+  $(".menu_items a .icon").hover(function()
+  {$(this).css('border','yellow solid').css('padding','10px').css('borderRadius','100%');});
  </script>
 
 @include('todo.remindermodalbox')

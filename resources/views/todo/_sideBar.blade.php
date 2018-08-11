@@ -8,8 +8,8 @@
                  <a href="#" id='labels_add' data-toggle="modal" data-target="#addlabelsmodal"><i class="fas fa-tags"></i> Add labels</a></div>
                  <hr>
                  <div class="sideBarHeader"><span>Sort By</span></div>
-                 <div class="sideBarContainer"><a href="{{ action('TodosController@sortByTitle') }}" class="sort"><i class="fa fa-sort-alpha-asc"></i> Title</a><br>
-                 <a href="{{ action('TodosController@sortByDate') }}"><i class="fa fa-sort-amount-desc"></i> Date</a> </div>
+                 <div class="sideBarContainer"><a href="#" id="sort"><i class="fa fa-sort-alpha-asc"></i> Title</a><br>
+                 <a href="#" id="date"><i class="fa fa-sort-amount-desc"></i> Date</a> </div>
                  <hr>
                  <div class="sideBarHeader"><span>Task Categorization</span></div>
                  <div class="sideBarContainer"><a href="{{ action('TodosController@getProcessing') }}"><i class="fa fa-sun "></i> Today's Tasks</a>
