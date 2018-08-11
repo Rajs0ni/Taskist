@@ -634,4 +634,19 @@ class TodosController extends Controller
       return redirect('/');
   } 
       
+  public function hasnewnoti(){
+    date_default_timezone_set("Asia/Kolkata");
+    $notification =   DB::table('reminders')->where('user_id',Auth::id())->where('remdate','<=',date('d-m-Y'))->where('remtime','<=',date('h:i:sa'))->where('readed',0)->where('noti',1)->get();
+    $notification=$notification->count();
+    echo $notification;
+  }
+
+    public function makeread(Request $request){
+        $no_noti = $request->noti;  
+    foreach($no_noti as $n){
+        $t = Reminder::findOrFail($n['id']);
+        $t->readed = 1;
+        $t->save();
+    }
+    }
 }
