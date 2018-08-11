@@ -44,8 +44,8 @@
                   <span>Sort By</span>
                  </div>
                  <div class="sideBarContainer">
-                 <a href="{{ action('TodosController@sortByTitle') }}" class="sort"><i class="fa fa-sort-alpha-asc"></i> Title</a><br>
-                 <a href="{{ action('TodosController@sortByDate') }}"><i class="fa fa-sort-amount-desc"></i> Date</a> 
+                 <a href="#" class="sort" id="sort"><i class="fa fa-sort-alpha-asc"></i> Title</a><br>
+                 <a href="#" id="date"><i class="fa fa-sort-amount-desc"></i> Date</a> 
                  </div>
                  <hr>
                  <div class="sideBarHeader" style="background:<?php echo $color; ?>;">

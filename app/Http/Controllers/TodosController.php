@@ -117,8 +117,8 @@ class TodosController extends Controller
 
     public function collab()
     {
-        $accepted = auth()->user()->todos()->where('status','A')->get();
-        $unaccepted = auth()->user()->todos()->where('status','I')->get();
+        $accepted = auth()->user()->todos()->where('status','A')->where('trashed',0)->get();
+        $unaccepted = auth()->user()->todos()->where('status','I')->where('trashed',0)->get();
         $user = User::where('id','=',auth()->user()->id)->get();
         return view('todo.collab',compact('accepted','user'));
     }
@@ -178,8 +178,11 @@ class TodosController extends Controller
     // Show a particular task
     public function show($id)
     {
-        $todo = Todo::where('user_id','=',auth()->user()->id)->findOrFail($id);
-        $rem = Reminder::where('taskid',$id)->get();
+        
+        $todo = Todo::find($id);
+        if($todo->users()->where('id',auth()->user()->id)->exists()||$todo->user_id==auth()->user()->id)
+      
+      {  $rem = Reminder::where('taskid',$id)->get();
         $labels=$todo->labels;
         $user = User::where('id',auth()->user()->id)->get();
 
@@ -194,16 +197,17 @@ class TodosController extends Controller
         if(sizeof($rem) == 0 && sizeof($labels)>0){
             return view('todo.show',compact('todo','labels','user'));    
         }
-        // else
-        // {
-        // return view('todo.show',compact('todo','user'));
-        // }
+        
+        return view('todo.show',compact('todo','user'));
+        }
         else
         {
             $todo=null;
             return view('todo.show',compact('todo','user'));
         }
     }
+   
+    
 
    public function getcollab(Request $request)
     {
@@ -276,7 +280,7 @@ class TodosController extends Controller
             $rem->save();
                 
         }
-        return redirect()->action('TodosController@show',$todo->id);;
+        return redirect()->action('TodosController@show',$todo->id);
     }
     // Delete a particular task
     public function deleteTask($id)
