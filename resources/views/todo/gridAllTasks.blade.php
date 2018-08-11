@@ -41,7 +41,9 @@
                         <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
                         <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
                     </div>                          <!-- end second div-->
-                    <div class="gridtask"><textarea style="background:{{$todo->taskColor}};">{{ $todo->task}}</textarea></div>
+                    <div class="gridtask">
+                       <textarea class="text" style="background:linear-gradient(45deg,{{$todo->taskColor}} 10%,rgb(239, 240, 240));">{{ $todo->task}}
+                    </textarea></div>
                     <div class="gridbtn">           <!--third div -->
                                     <input type='hidden' value={{$todo->id}} id='task_id'>
                                     <input type='hidden' value={{$todo->title}} id='task_title'>
@@ -80,7 +82,8 @@
                             <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
                             <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
                         </div>
-                        <div class="gridtask"><textarea style="background:{{$todo->taskColor}};">{{ $todo->date_created}}</textarea></div>
+                        <div class="gridtask">
+                        <textarea class="text" style="background:linear-gradient(45deg,{{$todo->taskColor}} 10%,rgb(239, 240, 240));">{{ $todo->date_created}}</textarea></div>
                         <div class="gridbtn">
                                         <input type='hidden' value={{$todo->id}} id='task_id'>
                                         <input type='hidden' value={{$todo->title}} id='task_title'>
@@ -121,7 +124,8 @@
                         <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
                         <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
                     </div>
-                    <div class="gridtask"><textarea style="background:{{$todo->taskColor}};">{{ $todo->date_created}}</textarea></div>
+                    <div class="gridtask">
+                    <textarea class="text" style="background:linear-gradient(45deg,{{$todo->taskColor}} 10%,rgb(239, 240, 240));">{{ $todo->date_created}}</textarea></div>
                     <div class="gridbtn">
                                     <input type='hidden' value={{$todo->id}} id='task_id'>
                                     <input type='hidden' value={{$todo->title}} id='task_title'>

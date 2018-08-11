@@ -1,23 +1,56 @@
+@foreach($user as $u)
+
+   <?php $color = $u->themeColor; ?>
+
+@endforeach
 <div class="sideWrapper">
-        <aside class="aside">
-                 <div class="sideBarHeader"><span>Quick Bar</span></div>
-                 <div class="sideBarContainer">
-                 <a href="{{ action('TodosController@create') }}"><i class="fa fa-plus"></i> Quick Add</a>
-                 <a href="{{ action('TodosController@search') }}"><i class="fa fa-search "></i> Quick Find</a>
-                 <a href="#" id="clearall"><i class="fa fa-trash" ></i> Quick Clear</a>
-                 <a href="#" id='labels_add' data-toggle="modal" data-target="#addlabelsmodal"><i class="fas fa-tags"></i> Add labels</a><span data-toggle="dropdown" id='labelsavail'>..</span>
-                  <div class="dropdown-menu" id='alllabelsavail' style='max-height:500px;overflow:auto'>
-                                
-                  </div>
+       <aside class="aside">
+                <div class="sideBarHeader" style="background:<?php echo $color; ?>;">
+                   <span>Quick Bar</span>
+                </div>
+                <div class="sideBarContainer" >
+                <a href="{{ action('TodosController@create') }}"><i class="fa fa-plus"></i> Quick Add</a>
+                <a href="{{ action('TodosController@search') }}"><i class="fa fa-search "></i> Quick Find</a>
+                <!-- <a href="#" id="clearall"><i class="fa fa-trash" ></i> Quick Clear</a> -->
+
+                <!-- dropdown  -->
+                </div>
+                     <div class="dropdown">
+                               <div class="btn-group" >
+                                   <button type="button"  class="dropdown-toggle vanishOutline" data-toggle="dropdown"  id="theme_btn" style="font-size:19px;">
+                                       <i class="fa fa-trash" style="font-size:18px;"></i> Quick Clear
+                                   </button>
+                                   <div class="dropdown-menu">
+                                   <a href="#" class="dropdown-item">Trash</a>
+                                   <a href="#" class="dropdown-item">Clear All</a>
+                                   </div>
+     
+                               </div>       
+                       </div>
+                    
+                <!-- end of dropdown -->
+                <div class="sideBarContainer">
+                    <a href="#" id='labels_add' class="vanishOutline" data-toggle="modal" data-target="#addlabelsmodal">
+                       <i class="fa fa-tags" style="font-size:17px;"></i> Labels
+                    </a>
+                    <span data-toggle="dropdown" id='labelsavail'>
+                       <i class="fa fa-caret-down" style="font-size:20px;cursor:pointer;"></i>
+                    </span>
+                    <div class="dropdown-menu" id='alllabelsavail' style='max-height:500px;z-index:1;'>             
+                    </div>
                 </div>
                  <hr>
-                 <div class="sideBarHeader"><span>Sort By</span></div>
+                 <div class="sideBarHeader" style="background:<?php echo $color; ?>;">
+                  <span>Sort By</span>
+                 </div>
                  <div class="sideBarContainer">
-                 <a href="{{ action('TodosController@sortByTitle') }}" class="sort"><i class="fa fa-sort-alpha-asc"></i> Title</a><br>
-                 <a href="{{ action('TodosController@sortByDate') }}"><i class="fa fa-sort-amount-desc"></i> Date</a> 
+                 <a href="#" class="sort" id="sort"><i class="fa fa-sort-alpha-asc"></i> Title</a><br>
+                 <a href="#" id="date"><i class="fa fa-sort-amount-desc"></i> Date</a> 
                  </div>
                  <hr>
-                 <div class="sideBarHeader"><span>Task Categorization</span></div>
+                 <div class="sideBarHeader" style="background:<?php echo $color; ?>;">
+                  <span>Task Categorization</span>
+                 </div>
                  <div class="sideBarContainer"><a href="{{ action('TodosController@getProcessing') }}"><i class="fa fa-sun "></i> Today's Tasks</a>
                  <a href="{{ action('TodosController@collab') }}"><i class="fa fa-users"></i> Collaboration</a>
                  <a href="{{ action('TodosController@getPending') }}"><i class="fa fa-hourglass-end "></i> Pending Tasks</a>
@@ -27,12 +60,17 @@
                  <div class="sideBarContainer">
                         <div class="dropdown">
                                 <div class="btn-group">
-                                        <button type="button" class="dropdown-toggle" data-toggle="dropdown"  id="theme_btn">
-                                        <i class="fa fa-palette">&ensp;Theme</i>
+                                        <button type="button" class="dropdown-toggle vanishOutline" data-toggle="dropdown"  id="theme_btn">
+                                        <i class="fa fa-palette"></i> Theme
                                         </button>
                                         <div class="dropdown-menu">
-                                        <a href="#">Change Theme</a>
-                                        <a href="/todo/reset">Reset Theme</a>
+                                        <a href="#"  class="dropdown-item">
+                                          <button type="button" style="background:transparent;border:none;outline:none; cursor:pointer">Change Theme</button>
+                                          <input type="color" id="themecolor" style="width:150px;height:32px;position:absolute;top:6px;opacity:0;">
+                                        </a>
+                                        <a href="/todo/reset"  class="dropdown-item">
+                                          <button style="background:transparent;border:none;outline:none; cursor:pointer">Reset Theme</button> 
+                                        </a>
                                         </div>
                                 </div>       
                         </div>
@@ -44,5 +82,15 @@
                  
         </aside>
 </div>
-
 @include('todo.labels')
+
+
+
+
+
+
+
+
+
+
+

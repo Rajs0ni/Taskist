@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Label;
 use App\Todo;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 class LabelController extends Controller
 {
@@ -106,17 +107,17 @@ class LabelController extends Controller
         $pinned = $todos->where('pin',1);
         $unpinned =  $todos->where('pin',0);
         $todoview = Todo::where('view',0)->get();
-       
+        $user = User::where('id',auth()->user()->id)->get();
 
      if(count($todoview))
         {
-            return view('todo.gridview',compact('todos','pinned','unpinned'));
+            return view('todo.gridview',compact('todos','pinned','unpinned','message','user'));
             
         }
         else
         {
                 $message = "NO TASKS ON THIS LABEL!!!"; 
-                return view('todo.index',compact('todos','pinned','unpinned','message'));
+                return view('todo.index',compact('todos','pinned','unpinned','message','user'));
             
         }     
             

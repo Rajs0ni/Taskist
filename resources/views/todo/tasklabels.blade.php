@@ -4,13 +4,13 @@
                     <div class="modal-content">
                     
                         <div class="modal-header">
-                        <h4 class="modal-title">Add labels</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h5 class="modal-title">Add Label</h5>
+                        <button type="button" class="close vanishOutline" data-dismiss="modal">&times;</button>
                         </div>
                         
-                        <div class="modal-body" style="max-height:300px">
+                        <div class="modal-body task-Label-Body" style="max-height:300px">
                        
-                      <input type="text" id="searchlabels" style="border:none;border-bottom:1px solid;" placeholder="search label">
+                      <input type="text" id="searchlabels" placeholder="search label">
                         
                        </div>
   

@@ -34,7 +34,7 @@
                     <div style="display:inline-block;padding-left:15px"><a href="{{ action('TodosController@show', $todo->id ) }}" title="View"><i class="fa fa-eye" id="gridEye"></i></a></div>
                 </div>
                 
-                <div class="gridtask"><textarea style="background:{{$todo->taskColor}};">{{ $todo->task}}</textarea></div>
+                <div class="gridtask"><textarea class="text" style="background:linear-gradient(45deg,{{$todo->taskColor}} 10%,rgb(239, 240, 240));"></textarea></div>
                 <div class="gridbtn">
                                 <input type='hidden' value='{{$todo->id}}' id='task_id'>
                                 <input type='hidden' value='{{$todo->title}}' id='task_title'>
@@ -58,8 +58,8 @@
                         <a href="#" id="unarchive" title="Unarchive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="unarchive" style="color:rgb(244, 152, 66)"></i></a>
                     @endif 
                     <button id="color_btn" title="Color"><i title="Color" class="fa fa-palette"></i></button>
-                    <input hidden type="color" id="grid_color"/>
-                    <a class="dropdown-item" id="tasklabel" title="Labels" data-toggle="modal" data-target="#tasklab"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-tags"></i></a>
+                    <input type="color" id="grid_color"/>
+                    <a  href="#" id="tasklabel" title="Labels" data-toggle="modal" data-target="#tasklab"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-tags"></i></a>
                     <a href="#" id="addcollab" class="addcollab" title="Collaborator" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i></a>
                     <a  href="#"  id="trash"  title="Trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i></a>
                 </div>
@@ -85,7 +85,8 @@
                     <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
                     <div style="display:inline-block;padding-left:15px"><a href="{{ action('TodosController@show', $todo->id ) }}" title="View"><i class="fa fa-eye" id="gridEye"></i></a></div>
                 </div>
-                <div class="gridtask"><textarea style="background:{{$todo->taskColor}};">{{ $todo->task}}</textarea></div>
+                <div class="gridtask"><textarea class="text" style="background:linear-gradient(45deg,{{$todo->taskColor}} 10%,rgb(239, 240, 240));">{{ $todo->task}}
+                </textarea></div>
                 <div class="gridbtn">
                                 <input type='hidden' value='{{$todo->id}}' id='task_id'>
                                 <input type='hidden' value='{{$todo->title}}' id='task_title'>
@@ -107,11 +108,11 @@
                     @else   
                         <a href="#" id="unarchive" title="Unarchive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="unarchive" style="color:rgb(244, 152, 66)"></i></a>
                     @endif 
-                        <button id="color_btn"><i class="fa fa-palette"></i></button>
-                        <input type="color" id="grid_color"/>
-                        <a class="dropdown-item" id="tasklabel" data-toggle="modal" data-target="#tasklab"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fas fa-tags"></i></a>
-                        <a class="addcollab" href="#"   id="addcollab"  title="Collaborator"  data-toggle="modal" data-target="#myModal"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i></a>
-                        <a  href="#" id="trash" title="Trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i></a>
+                    <button id="color_btn" title="Color"><i title="Color" class="fa fa-palette"></i></button>
+                    <input type="color" id="grid_color"/>
+                    <a  href="#" id="tasklabel" title="Labels" data-toggle="modal" data-target="#tasklab"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-tags"></i></a>
+                    <a class="addcollab" href="#"   id="addcollab"  title="Collaborator"  data-toggle="modal" data-target="#myModal"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i></a>
+                    <a  href="#" id="trash" title="Trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i></a>
                 </div>
             </div><!-- End of Grid -->
           @endif

@@ -1,24 +1,29 @@
-
 <div class="viewWrapper">
-        
-        <a href="/todo/view/{{0}}">
-        <!-- <a href="/"> -->
-                <button type="button" class="btn viewtype list vanishOutline" title="List View"><i class="fa fa-list-ul"></i> </button>
+
+  @foreach($user as $u)
+           <?php $color = $u->themeColor;?>
+  @endforeach
+<a href="/todo/view/{{0}}">
+                <button type="button" class="btn viewtype list vanishOutline" title="List View" style="background:<?php echo $color; ?>;">
+                  <i class="fa fa-list-ul"></i> 
+                </button>
         </a>
         <a href="/todo/view/{{1}}">
-        <!-- <a href="{{action('TodosController@gridview')}}"> -->
-                <button type="button" class="btn viewtype vanishOutline" title="Grid View" ><i class="fa fa-th-large"></i> </button>
+                <button type="button" class="btn viewtype vanishOutline" title="Grid View" style="background:<?php echo $color; ?>;"><i class="fa fa-th-large"></i> </button>
         </a> 
      
-                <button type="button" class="btn viewtype" id="collabrequest" title="Notification" >
-                 <i class="fa fa-bell" ></i></button>
+        <button type="button" class="btn viewtype vanishOutline" title="Collaboration Request"  id="collabrequest" style="background:<?php echo $color; ?>;">
+       <i class="fa fa-user-friends" ></i></button>
                  
 
         <ul class="navbar-nav ml-auto" >
-        <button type="button" class="btn viewtype vanishOutline"  title="Notifications" id="shownoti">
+    
+    
+        <button type="button" class="btn viewtype vanishOutline"  title="Notifications" id="shownoti" style="background:<?php echo $color; ?>;">
                  <i class="fa fa-bell notibell"  id="shownoti" ></i></button>
 
-                  <ul class="navbar-nav ml-3 " >
+      
+          <ul class="navbar-nav ml-3 " >
                 <!-- Authentication Links -->
                 @guest
                         <li class="nav-item">
@@ -29,9 +34,15 @@
                         </li>
                 @else
                         <li class="nav-item dropdown">
-                        <a style="color:rgb(243, 114, 114);font-weight:bold;" id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                  
+                  
+                            @foreach($user as $u)
+                              <?php $color = $u->themeColor;?>
+                            @endforeach
+                                <a style="color:<?php echo $color; ?>;font-weight:bold;" id="navbarDropdown" class="nav-link dropdown-toggle name" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }} <span class="caret"></span>
-                        </a>
+                                </a>
+                      
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('logout') }}"
@@ -48,11 +59,7 @@
                 @endguest
         </ul>       
         
-        <div id="notify" class="hidden">
-                
-        </div>
        
-    
  </div>
   <div class="notis" id="notific">
   <div class="Notification-header">
@@ -60,8 +67,23 @@
     <button type="button" class="close mr-2 mt-1 closenotific">&times;</button>
   </div>
   <div class="Notification-content" style="overflow-y:scroll;"></div>
+
+ 
+<div class="notis" id="collabnotific">
+    <div class="Notification-header">
+      Collaboration Requests
+      <button type="button" class="close mr-2 mt-1" data-dismiss="modal" >&times;</button>
+    </div>
+    <div id="notify" ></div>
 </div>
 
+<div class="notis" id="notific">
+    <div class="Notification-header">
+      Notifications
+      <button type="button" class="close mr-2 mt-1" data-dismiss="modal" >&times;</button>
+    </div>
+    <div class="Notification-content"></div>
+</div>
  <script>
  
  

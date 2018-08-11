@@ -9,7 +9,10 @@
         <div class="col">
             <div class="row">
                 <div class="col text-left">
-                    <h3 style="color:#F76266;font-weight:bold; text-transform:capitalize;">{{$todo->title}}</a></h3>
+                @foreach($user as $u)
+                            <?php $color = $u->themeColor;?>
+                @endforeach
+                <h3 style="color:<?php echo $color; ?>;font-weight:bold; text-transform:capitalize;">{{$todo->title}}</a></h3>
                 </div>
              
               
@@ -94,9 +97,9 @@
             <hr>
         </div>
              @if(isset($labels))
-              <div>
+              <div class="labeledTaskContainer col-12 text-justify">
                @foreach($labels as $label)
-                 <span style="border:solid;margin-right:5px">{{$label->name}} <span class='dellabtask'>X<input type="hidden" value={{$label->id}} id='labtaskid'></span></span>
+                 <span class="labeledTask">{{$label->name}} <span class='dellabtask' title="Delete">&times;<input type="hidden" value={{$label->id}} id='labtaskid'></span></span>
               @endforeach  
               </div>  
               @endif

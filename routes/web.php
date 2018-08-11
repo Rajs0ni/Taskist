@@ -43,24 +43,19 @@ Route::get('todo/getPending','TodosController@getPending');
 Route::get('/getrequest','TodosController@getrequest');
 Route::get('todo/help','TodosController@help');
 Route::get('todo/gridview','TodosController@gridview');
-Route::get('/todo/myorder','TodosController@myorder');
 Route::get('/todo/reset','TodosController@reset');
-Route::get('/todo/changeorder',function(){
-    $todos = App\Todo::orderBy('order','ASC')
-                        ->get();
-    return view('todo.changeorder',compact('todos'));
-});
 Route::get('/getcollaborator','TodosController@getcollab');
 Route::get('/removecollaborator','TodosController@removecollab');
 Route::get('/addcollaborator','TodosController@addcollab');
 Route::get('/collab','TodosController@collab');
 Route::post('/todo/changeorder','TodosController@order');
-Route::get('todo/sort/by/title','TodosController@sortByTitle');
+Route::get('/sort/by/title/{var}','TodosController@sortByTitle');
 Route::get('/setsession','TodosController@setsession');
-Route::get('todo/sort/by/date','TodosController@sortByDate');
+Route::get('/sort/by/date/{var}','TodosController@sortByDate');
 Route::get('/acceptcollab','TodosController@acceptcollab');
 Route::get('/rejectcollab','TodosController@rejectcollab');
 Route::get('/todo/color','TodosController@color');
+Route::get('/todo/themecolor','TodosController@ThemeColor');
 Route::resource('todo','TodosController');
 Auth::routes();
 

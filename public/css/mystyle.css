@@ -199,7 +199,7 @@ body{
     transition-property: font-size,letter-spacing;
     transform-origin: center;
     transition-duration: 0.1s;
-    margin-top: 100px;
+    margin-top: 70px;
     width:200px
 }
 .myButton:hover{
@@ -251,7 +251,7 @@ body{
     height: 100%;
     width: 200px;
     right: 14px;
-    overflow: scroll;
+    overflow: hidden;
     top:0;
 }
 .aside{
@@ -337,16 +337,6 @@ body{
 .hidden{
     display: none;
 }
-
-#notify{
-    border: rgb(243, 114, 114);
-    background-color:lavenderblush;
-    position: absolute;
-    z-index: 2;
-    width: 300px;
-    height:300px;
-    margin-left: 20px;
-}
 .viewWrapper ul{
     display: inline-block;
 }
@@ -368,9 +358,10 @@ body{
     height: 200px;
     position: relative;
     background: #fff;
-    /* overflow: hidden; */
+    margin-bottom: 5px;
     display: inline-block;
-    margin: 1px;
+    margin: 2px;
+    margin-bottom: 5px;
     border-top-left-radius:30px;
     border-bottom-right-radius:30px;
     border:1px solid rgb(27, 74, 91);
@@ -442,26 +433,7 @@ body{
     pointer-events: none;
     box-shadow: 0px 0px 1px 1px  rgba(0,0,0,.3);
 }
-.griddate input{
-    background: none;
-    padding:3px;
-    padding-left:10px;
-    border:none;
-    outline: none;
-    font-weight: bold;
-    max-width: 110px;
-    pointer-events: none;
-}
-.griddate input{
-    background: none;
-    padding:3px;
-    padding-left:10px;
-    border:none;
-    outline: none;
-    font-weight: bold;
-    max-width: 110px;
-    pointer-events: none;
-}
+
 .gridbtn{
     position: relative;
     padding:5px 8px 8px 10px;
@@ -472,15 +444,9 @@ body{
 .gridbtn .fa{
     font-size: 16px;
     color: rgb(27, 74, 91,0.5);
+    
 }
-#tasklabel{
-    display:inline-block;
-    width:initial;
-    color: rgb(27, 74, 91,0.5);
-    height:20px;
-    border:none;
-}
-.gridbtn .fa:hover,#tasklabel:hover, .fa-palette:hover{
+.gridbtn .fa:hover{
     color: rgb(27, 74, 91,1);
 }
 #gridEye{
@@ -551,7 +517,7 @@ body{
 
 .notis{
     position:absolute;
-    right:15%;
+    right:14.8%;
     width:500px;
     height:600px;
     border-radius:5px;
@@ -581,14 +547,17 @@ body{
     font-size: 130%;
     color: #000;
  }
-.rem{
+.rem,#req{
      margin-top:.75%;
      padding:1.75%;
      border:1px solid lavender;
      border-radius:2px;
  }
- .rem:hover{
+ .rem:hover,#req:hover{
     background:rgba(239,239,240,0.7);
+}
+#req{
+    padding-bottom: 0;
 }
  .delrem{
      display:none;
@@ -658,27 +627,151 @@ body{
 {
 width:100%;
 position:relative;
-right:14px;
+right:9px;
 background:transparent;
 border:transparent;
 color:#191919;
 }
 #colorpicker
 {
-opacity:0;
-width:100%;
-height:12%;
-position:absolute;
-right:0px;
+    opacity:0;
+    width:100%;
+    height:12%;
+    position:absolute;
+    right:0px;
 }
 #theme_btn
 {
     border:transparent;
+    position: relative;
     text-align: left;
     background: transparent;
     width: 170px;
+    left: -20px;
     font-size: 20px;
     color:rgba(27, 74, 91,0.9);
+    cursor: pointer; 
+}
+#theme_btn:hover{
+font-weight: bold;
+}
+#collabrequest{
+    margin-left: 10px;
+}
+#notify{
+
+        margin:4px;
+}
+#req p{
+    margin:0;
+    padding:0; 
+    display:inline;
+}
+#req a{
+    display:inline-block;
+    text-decoration:none;  
+    color:#fff;
+    padding:3px 8px;
+    position:relative;
+    right:-67%;
+    top:-5px;
+    margin-left:5px;
+    border-radius:3px;
+    font-weight:bold;
+    text-shadow:0 2px 5px rgba(0,0,0,0.5);
+}
+#accept{
+  
+    background:green;
+}
+#accept:hover{
+    background:transparent;
+    border:1px solid green;
+    color:green;
+     text-shadow:0 2px 5px rgba(0,0,0,0.3);
+}
+#decline{
+    background:rgba(0,0,0,0.5);
+}
+#decline:hover{
+    background:transparent;
+    border:1px solid rgba(0,0,0,0.5);
+    color:rgba(0,0,0,0.5);
+     text-shadow:0 2px 5px rgba(0,0,0,0.3);
+}
+.collabHeaderMSG{
+    font-size:18px;
+}
+.collabFooterMSG{
+    font-size: 14px;
+}
+.collab-Notifi-Important
+{
+    font-weight:bold;
+    text-transform:capitalize; 
+}
+.create-Label-Body, .task-Label-Body{
+    padding:4%;
+}
+.create-Label-Body input, .task-Label-Body input{
+    width:100%;
+    text-transform:capitalize;
+    border:none;
+    outline:none;
+    border-bottom:1px solid rgba(0,0,0,0.1);
+}
+.create-Label-Body input:focus, .task-Label-Body input:focus{
+     border-bottom:1px solid rgba(0,0,0,0.5);
+}
+.task-Label-Body{
+    border-bottom: 1px solid  rgba(0,0,0,0.1);
+}
+#alllabels{
+    border:1px solid lavender;
+    max-height:300px;
+    overflow:auto;
+}
+.newlabel, .labelcheck{
+    padding:5px; 
+    padding-left:1em;
+    border-bottom:1px solid rgba(0,0,0,0.1);  
+    text-transform:capitalize;
+  }
+  .labelcheck{
+    padding-top: 6px;
+    font-size: 18px;
+  }
+  .dellabel:hover{
+    cursor:pointer;
+    color:red; 
+ }
+
+#individuallab{
+    width:18px;
+    height:18px;
+}
+.theme-container
+{
+    height:100%;
+    width:100%;
+    border:solid;
+}
+
+.labeledTaskContainer{
+    margin-top:5%; 
+    padding-left:15px;  
+}
+
+.labeledTask{
+    background:lavender;
+    padding:10px;
+    border-radius:5px;
+    font-weight:bold;
+    margin-left:3px;
+}
+.dellabtask{
+    font-weight:normal;
+    cursor:pointer;
 }
 
 @keyframes swinging{

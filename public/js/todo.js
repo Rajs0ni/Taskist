@@ -11,35 +11,35 @@ $('document').ready(function(){
 
 $('body').on('click',"#colorpicker",function()
 {
-$('body').on('input',"#colorpicker",function()
-{
-color = $(this).val();
-id = $(this).parents('.color').children().text();
-x = $(this).parents('.panel');
-//gr = linear-gradient(color,rgb(239, 240, 240));
-x.css('background',color);
+    $('body').on('input',"#colorpicker",function()
+    {
+        color = $(this).val();
+        id = $(this).parents('.color').children().text();
+        x = $(this).parents('.panel');
+        //gr = linear-gradient(color,rgb(239, 240, 240));
+        x.css('background',color);
 
-$.ajax
-({
-type: "GET",
-url: "/todo/color",
-data: { 
-_token : $('meta[name="csrf-token"]').attr('content'), 
-'color': color,
-'id' : id 
-}, 
-headers: {
-'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-}, 
-success:function(response)
-{
-},
-error:function(response)
-{
-// alert('ERROR');
-}
-});
-});
+        $.ajax
+        ({
+            type: "GET",
+            url: "/todo/color",
+            data: { 
+            _token : $('meta[name="csrf-token"]').attr('content'), 
+            'color': color,
+            'id' : id 
+            }, 
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }, 
+            success:function(response)
+            {
+            },
+            error:function(response)
+            {
+            alert('ERROR');
+            }
+        });
+    });
 });
 // end color picker for list
 
@@ -47,37 +47,96 @@ error:function(response)
 
 $('body').on('click',"#grid_color",function()
 {
-$('body').on('input',"#grid_color",function()
-{
-color = $(this).val();
-x = $(this).parents('.gridbtn').prev().children();
-// alert(x);
-x.css('background',color);
-id = $(this).parents('.gridbtn').children().val();
-$.ajax
-({
-type: "GET",
-url: "/todo/color",
-data: { 
-_token : $('meta[name="csrf-token"]').attr('content'), 
-'color': color,
-'id' : id 
-}, 
-headers: {
-'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-}, 
-success:function(response)
-{
-},
-error:function(response)
-{
-alert('ERROR');
-}
-}); 
+    $('body').on('input',"#grid_color",function()
+    {
+        color = $(this).val();
+        x = $(this).parents('.gridbtn').prev().children();
+        y = $(this).parents('.gridbtn').prev().prev().children();
+        $(x,y).each(function(id,element)
+        {
+            switch(id)
+            {
+               case 0: x.css('background',color);
+               case 1: y.css('borderColor', color);
+            }
+        });
+        id = $(this).parents('.gridbtn').children().val();
+        $.ajax
+        ({
+            type: "GET",
+            url: "/todo/color",
+            data: { 
+            _token : $('meta[name="csrf-token"]').attr('content'), 
+            'color': color,
+            'id' : id 
+            }, 
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }, 
+            success:function(response)
+            {
+            },
+            error:function(response)
+            {
+            alert('ERROR');
+            }
+        }); 
 
-});
+    });
 });
 //color picker for grid end
+// color picker for theme
+
+$("body").on('click',"#themecolor",function()
+{
+    $('body').on('input',"#themecolor",function()
+    {
+       color  = $(this).val();
+       p = $('.menu_toggle');
+       q  = $('.sideBarHeader');
+       r = $('.viewtype');
+       s = $('.panel');
+       t = $('.text');
+       u = $('.name');
+       v = $('.count');
+       $(p,q,r,s,t,u).each(function(id,element)
+       {
+          switch(id)
+          {
+            case 0:p.css('background',color);
+            case 1:q.css('background',color);
+            case 2:r.css('background',color);
+            case 3:s.css('background',color);
+            case 4:t.css('background',color);
+            case 5:u.css('color',color);
+            case 6:v.css('borderColor',color);
+          }
+       });
+       $.ajax
+        ({
+            type: "GET",
+            url: "/todo/themecolor",
+            data:
+            { 
+              _token : $('meta[name="csrf-token"]').attr('content'), 
+              'color': color
+            }, 
+            headers: 
+            {
+               'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }, 
+            success:function(response)
+            {
+            },
+            error:function(response)
+            {
+            alert('ERROR');
+            }
+        }); 
+    });
+
+});
+//color picker for theme end
 $("body").on('click',".accept",function(){
     id = $(this).children().text();
     $.ajax({
@@ -164,7 +223,58 @@ $("#modaldone,.modalclose").click(function(){
     });
  });
 
+$("#sort").click(function(){
 
+    $var = window.location.pathname;
+    
+    if($var=='/todo/getProcessing')
+        location.assign('/sort/by/title/'+0);
+    else if($var=='/collab')
+        location.assign('/sort/by/title/'+1);
+    else if($var=='/todo/getPending')
+        location.assign('/sort/by/title/'+2);
+    else if($var=='/todo/getcompleted')
+        location.assign('/sort/by/title/'+3);
+    else if($var=='/todo/all')
+        location.assign('/sort/by/title/'+4);
+    else if($var=='/todo/archive')
+        location.replace('/sort/by/title/'+5);
+    else if($var=='/todo/trash')
+        location.replace('/sort/by/title/'+6);
+    else if($var=='/sort/by/title/0'||$var=='/sort/by/title/1'||$var=='/sort/by/title/2'||$var=='/sort/by/title/3'||$var=='/sort/by/title/4'||$var=='/sort/by/title/5'||$var=='/sort/by/title/6')
+        location.reload(true);
+    else
+        location.replace('/sort/by/title/'+7);
+      
+    
+
+});
+
+$("#date").click(function(){
+    $var = window.location.pathname;
+    
+    if($var=='/todo/getProcessing')
+        location.assign('/sort/by/date/'+0);
+    else if($var=='/collab')
+        location.assign('/sort/by/date/'+1);
+    else if($var=='/todo/getPending')
+        location.assign('/sort/by/date/'+2);
+    else if($var=='/todo/getcompleted')
+        location.assign('/sort/by/date/'+3);
+    else if($var=='/todo/all')
+        location.assign('/sort/by/date/'+4);
+    else if($var=='/todo/archive')
+        location.replace('/sort/by/date/'+5);
+    else if($var=='/todo/trash')
+        location.replace('/sort/by/date/'+6);
+    else if($var=='/sort/by/date/0'||$var=='/sort/by/date/1'||$var=='/sort/by/date/2'||$var=='/sort/by/date/3'||$var=='/sort/by/date/4'||$var=='/sort/by/date/5'||$var=='/sort/by/date/6')
+        location.reload(true);
+    else
+        location.replace('/sort/by/date/'+7);
+      
+    
+
+})
 
 $(".addcollab").click(function(){
 val = $(this).children().text();
@@ -421,10 +531,15 @@ $("#addCollaborator").click(function(){
     })
     // $("#notify").hide();
     $("body").on('click','#collabrequest',function(){
-        $("#notify").slideToggle();
-        $("#notify").removeClass("hidden");
+        $("#collabnotific").css({'display':'block'});
+      
         $("#notify").html("");
-        if ($('#notify').is(':visible')){
+        // var divNotificationHeader = '<div class="Notification-header"></div>';
+        // divNotificationHeader.append('Collaboration Requests').append('<button type="button" class="close mr-2 mt-1" data-dismiss="modal" >&times;</button>');
+        // $("#notify").append(divNotificationHeader);
+        // var divNotificationContainer = '<div class="Notification-content"></div>';
+        // $("#notify").append(divNotificationContainer);
+       
             $.ajax({
                 type:'GET',
                 url:"/getrequest",
@@ -436,14 +551,24 @@ $("#addCollaborator").click(function(){
                 },
                 
                 success:function(data){
+                    if(data[1]==""){
+                        var span=$('<span class="no-notifications-msg"></span>').text('No Notifications');
+                            $("#notify").append('<i class="fa fa-bell no-notifications-bell"></i>').append(span).append('<p class="noti_MSG">You have no new Notifications.</p>');
+                    }
+                    else 
                     $("#notify").prepend(data[1]);
+                    // console.log(data[1])
                 },
                 error:function(){
                     
                 } 
             
             });
-        }
+        
+        // else{
+        //     var span=$('<span class="no-notifications-msg"></span>').text('No Notifications');
+        //     $("#notify").append('<i class="fa fa-bell no-notifications-bell"></i>').append(span).append('<p class="noti_MSG">You have no new Notifications.</p>');
+        // }
     });
 
     $("#clearall").click(function(){
@@ -555,7 +680,7 @@ $('#timepicker').val('');
             var span1=$('<span class="labelvalue"></span>').text(response[i].name);
             var ii=$('<i class="fa fa-trash pr-3" ></i>');
             span.append(ii);
-            var div=$("<div class='newlabel pl-3'></div>").css({'border':'1px solid lavender','margin':'3px','padding':'3px'});
+            var div=$("<div class='newlabel'></div>");
             div.append(span1).append(span);
             $("#alllabels").append(div);
         }
@@ -595,15 +720,15 @@ function addlabels(){
         },success(response){
           if(response == 'exists'){
               $("#addlabels").val('');
-              $("#addlabels").attr("placeholder",'ALREADY EXISTS');
+              $("#addlabels").attr("placeholder",'Already Exists');
           }
           else{
               $("#addlabels").attr("placeholder",'create new label');
-              var span=$('<span class="dellabel"></span>').css({'display':'none','float':'right'});
-              var span1=$('<span class="labelvalue"></span>').text(value);
-              var i=$('<i class="fa fa-trash pr-3" ></i>');
+              var span=$('<span class="dellabel" ></span>').css({'display':'none','float':'right'});
+              var span1=$('<span class="labelvalue" ></span>').text(value);
+              var i=$('<i class="fa fa-trash pr-3 " ></i>');
               span.append(i);
-              var div=$("<div class='newlabel pl-3'></div>").css({'border':'1px solid lavender','margin':'3px','padding':'3px'}); 
+              var div=$("<div class='newlabel'></div>"); 
               div.append(span1).append(span);
               $("#alllabels").append(div);
               $("#addlabels").val('');
@@ -775,7 +900,7 @@ $('body').on('click','#tasklabel',function(){
                     var ip=$("<input type='checkbox' class='individuallab' id='individuallab'>").css({'margin':'3px'}).prop('checked',true);
                     var ipp=$("<input type='hidden' class='labelid'>").val(response[1][i].id);
                     var span=$('<span></span>').text(response[1][i].name);
-                    var div=$('<div class="labelcheck"></div>').append(ipp).append(ip).append(span).css({'border':'1px solid lavender','margin':'3px','padding':'3px'});
+                    var div=$('<div class="labelcheck"></div>').append(ipp).append(ip).append(span);
                     $("#alllabelstask").append(div);
                 }
              
@@ -783,7 +908,7 @@ $('body').on('click','#tasklabel',function(){
                     var ip=$("<input type='checkbox' class='individuallab' id='individuallab'>").css({'margin':'3px'});
                     var ipp=$("<input type='hidden' class='labelid'>").val(response[0][prop].id);
                     var span=$('<span></span>').text(response[0][prop].name);
-                    var div=$('<div class="labelcheck"></div>').append(ipp).append(ip).append(span).css({'border':'1px solid lavender','margin':'3px','padding':'3px'});
+                    var div=$('<div class="labelcheck"></div>').append(ipp).append(ip).append(span);
                     $("#alllabelstask").append(div);
                 } 
                          
@@ -794,7 +919,7 @@ $('body').on('click','#tasklabel',function(){
             var ip=$("<input type='checkbox' class='individuallab' id='individuallab'>").css({'margin':'3px'});
             var ipp=$("<input type='hidden' class='labelid'>").val(response[i].id);
             var span=$('<span></span>').text(response[i].name);
-            var div=$('<div class="labelcheck"></div>').append(ipp).append(ip).append(span).css({'border':'1px solid lavender','margin':'3px','padding':'3px'});
+            var div=$('<div class="labelcheck"></div>').append(ipp).append(ip).append(span);
             $("#alllabelstask").append(div);
         }
        
@@ -972,14 +1097,14 @@ $('body').on('click','#tasklabel',function(){
       success(response){
         if(response.length>0){
             for(var i=0;i<response.length;i++){
-            var div=$("<div class='dropdown-item labelsreltasks'></div>").css({'border':'1px solid lavender','margin':'3px','padding':'3px'}).text(response[i].name);  ;
+            var div=$("<div class='dropdown-item labelsreltasks'></div>").text(response[i].name);  ;
             var ip=$('<input type="hidden" id="tasksrellab">').val(response[i].id);
             div.append(ip);
             $("#alllabelsavail").append(div);
         }
     }
     else{
-        var div=$("<div class='dropdown-item'></div>").css({'border':'1px solid lavender','margin':'3px','padding':'3px'}).text('No Labels')  ;
+        var div=$("<div class='dropdown-item'></div>").text('No Labels')  ;
         $("#alllabelsavail").append(div); 
        }
     }
