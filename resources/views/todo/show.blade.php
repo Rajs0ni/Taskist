@@ -9,7 +9,10 @@
         <div class="col">
             <div class="row">
                 <div class="col text-left">
-                    <h3 style="color:#F76266;font-weight:bold; text-transform:capitalize;">{{$todo->title}}</a></h3>
+                @foreach($user as $u)
+                            <?php $color = $u->themeColor;?>
+                @endforeach
+                <h3 style="color:<?php echo $color; ?>;font-weight:bold; text-transform:capitalize;">{{$todo->title}}</a></h3>
                 </div>
              
               
@@ -78,7 +81,8 @@
                                 
                                  }
                             });
-                        }( jQuery ));
+
+                    }( jQuery ));
                     </script>
                    
                     @endif
@@ -91,7 +95,14 @@
         <div class="col-12 text-justify">
             <p class="show_content">{{$todo->task}}</p>
             <hr>
-        </div>  
+        </div>
+             @if(isset($labels))
+              <div class="labeledTaskContainer col-12 text-justify">
+               @foreach($labels as $label)
+                 <span class="labeledTask">{{$label->name}} <span class='dellabtask' title="Delete">&times;<input type="hidden" value={{$label->id}} id='labtaskid'></span></span>
+              @endforeach  
+              </div>  
+              @endif
       <!-- Action Panel -->
         <div class="col">
          <div class="row">
@@ -122,6 +133,29 @@
    </div>
         
 </div>
+
+<script>
+
+    $('body').on('click','.dellabtask',function(){
+                
+            $.ajaxSetup({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({                       
+            url: '/dellabelrel',
+            method:'post',
+            data:{
+                labid:$(this).find('#labtaskid').val(),
+                taskid:{{$todo->id}}
+            }
+            });
+
+            $(this).parent().remove();
+            })
+
+</script>
 @else
     You don't have access to it!
 @endif

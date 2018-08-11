@@ -46,11 +46,11 @@
                 <h4 id="notFoundAlert">{{ $message }}</h4>
         @endif
 @else    <!-- for grid trash-->
-<div class="container gridContainer">
+<div class="container gridContainer"  >
         @if(count($todos)) 
                 <?php $count = 1; ?>
                 @foreach($todos as $todo) 
-                        <div class="grid">
+                        <div class="grid" style="background:linear-gradient(90deg,rgb(165, 165, 165)10%,rgb(225, 222, 222));">
                                 <div class="grid_count_title">
                                         <div class="count"></div>
                                         <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>

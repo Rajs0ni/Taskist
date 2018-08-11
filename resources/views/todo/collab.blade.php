@@ -33,7 +33,7 @@
                 <div class='panel container'> 
                     <div class="dropdown" >
                         <div class="btn-group">
-                            <button type="button" class="btn" data-toggle="dropdown" style="background:none;border:none; outline:none">
+                            <button type="button" class="btn vanishOutline" data-toggle="dropdown" style="background:none;border:none; outline:none">
                                 <i class="fa fa-ellipsis-v"></i>
                             </button>
                                                 

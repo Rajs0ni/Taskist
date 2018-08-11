@@ -126,9 +126,9 @@ body {
 .menu_items a:hover {
   color: #f0f0f0;
 }
-/* .menu_items a:hover .icon:after {
-  border-color: #F37272;
-} */
+.menu_items a:hover .icon:after {
+  /* border-color: yellow; */
+}
 .menu_items a:active .icon {
   color: #F37272;
 }
