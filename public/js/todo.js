@@ -662,6 +662,8 @@ $('#timepicker').val('');
   });
 
   $('#labels_add').click(function(){
+    $("#addlabels").attr("placeholder",'create new label');
+
     $("#alllabels").empty();  
     $.ajaxSetup({
         headers: {
