@@ -17,7 +17,9 @@
                  
 
         <ul class="navbar-nav ml-auto" >
-    <button type="button" class="btn viewtype vanishOutline" title="Notifications" id="shownoti" style="background:<?php echo $color; ?>;"><i class="fa fa-bell notibell"  id="shownoti" ></i></button>
+    <button type="button" class="btn viewtype vanishOutline" title="Notifications" id="shownoti" style="background:<?php echo $color; ?>;"><i class="fa fa-bell notibell"  id="shownoti" ></i></button> 
+     <div class="rmCount"></div> 
+       
           <ul class="navbar-nav ml-3 " >
                 <!-- Authentication Links -->
                 @guest
@@ -84,18 +86,25 @@ $('.rem').mouseenter(function(){
     bellswing = setInterval(function(){ 
             notii()  ;
    
-           if(newnoti=='yes')
+           if(newnoti=='yes'){
+                   $('.rmCount').css('display','inline-block');
                    $('.notibell').addClass('swingimage');
-            }, 3000);
+   
+           }
+            }, 1000);
 };
 
 $('.closenotific').click(function(){
     $('.notis').css('display','none');
              notii()  ;
-           if(newnoti=='yes')
-                   $('.notibell').addClass('swingimage');
-           else
-            $('.notibell').removeClass('swingimage');                 
+           if(newnoti=='yes'){
+                  $('.notibell').addClass('swingimage');      
+           }
+           else{
+            $('.notibell').removeClass('swingimage');            
+            $('.rmCount').css('display','none');
+           }
+            
       $('#shownoti').off('click');              
    $('#shownoti').click(down);
         
@@ -111,10 +120,15 @@ function notii(){
       url: '/hasnewnoti',
       method:'get',
       success(response){    
-             if(response>0)
+             if(response>0){
                newnoti='yes';
-           else
-               newnoti='';            
+               $('.rmCount').css('display','inline-block');
+               $('.rmCount').text(response);
+             }
+           else{
+               newnoti='';
+               $('.rmCount').css('display','none');
+           }            
       }
       }); 
     
@@ -212,6 +226,7 @@ function down(){
    $('#shownoti').off('click');             
    $('.Notification-content').empty();
    noti();
+   $('.rmCount').css('display','none');
    newnoti='';             
    $('.notibell').removeClass('swingimage');
    $('.notis').css('display','block');
@@ -221,10 +236,14 @@ function down(){
 
 function up(){
      notii()  ;
-           if(newnoti=='yes')
-                   $('.notibell').addClass('swingimage');
-           else
-            $('.notibell').removeClass('swingimage');
+           if(newnoti=='yes'){
+                  $('.rmCount').css('display','inline-block');
+                  $('.notibell').addClass('swingimage');      
+           }
+           else{
+            $('.notibell').removeClass('swingimage');            
+            $('.rmCount').css('display','none');
+           }
    $('.notis').css('display','none');
    $('#shownoti').off('click');      
    $('#shownoti').click(down);
@@ -244,10 +263,14 @@ $('body').click(function(evt){
                  
                 $(".notis").css('display','none');
               notii()  ;
-           if(newnoti=='yes')
-                   $('.notibell').addClass('swingimage');
-           else
-            $('.notibell').removeClass('swingimage');
+           if(newnoti=='yes'){
+                  $('.rmCount').css('display','inline-block');
+                  $('.notibell').addClass('swingimage');      
+           }
+           else{
+            $('.notibell').removeClass('swingimage');            
+            $('.rmCount').css('display','none');
+           }
                $('#shownoti').off('click');             
                   $('#shownoti').click(down);
           } 

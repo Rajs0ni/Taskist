@@ -814,3 +814,19 @@ font-weight: bold;
     -webkit-animation: swinging 1.5s ease-in-out forwards infinite;
     animation: swinging 1.5s ease-in-out forwards infinite;
 }
+ 
+.rmCount{
+    display:none;
+    position:relative;
+    padding:0;
+    background:green;
+    width:25px;
+    height:25px;
+    top :-10px;
+    left :-15px;
+    text-align:center;
+    border-radius:50%;
+    color:#fff;
+    border:2px solid #EFEFF0;
+    font-weight:bold;
+}
