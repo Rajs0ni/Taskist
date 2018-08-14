@@ -557,6 +557,8 @@ if(v!='0'){
     $("#collabrequest").click(function(){
         $("#collabnotific").toggle();
     });
+
+    
     $("body").on('click','#delete',function(){
         todo = $(this).children().text();
       
