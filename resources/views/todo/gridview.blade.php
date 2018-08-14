@@ -124,7 +124,7 @@
             <a href="/create/{{$search}}">Create it</a></h4>
         <!-- if search var is not set -->
     @else
-            <h4 id="notFoundAlert">Not Found</h4>  
+            <br><br><br><br><br><br><br><br><h4 id="notFoundAlert">!! Task Not Found !!</h4>  
     @endif  
 @endif
 

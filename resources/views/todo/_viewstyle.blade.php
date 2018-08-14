@@ -13,15 +13,11 @@
         </a> 
      
         <button type="button" class="btn viewtype vanishOutline" title="Collaboration Request"  id="collabrequest" style="background:<?php echo $color; ?>;">
-       <i class="fa fa-user-friends" ></i></button>
+       <i class="fa fa-user-friends" ></i></button><div class="CRCount">{{session('hasRequests')?session('hasRequests'):0}}</div>
                  
 
         <ul class="navbar-nav ml-auto" >
-    
-    
-        <button type="button" class="btn viewtype vanishOutline"  title="Notifications" id="shownoti" style="background:<?php echo $color; ?>;">
-                 <i class="fa fa-bell notibell"  id="shownoti" ></i></button>
-
+        <button type="button" class="btn viewtype vanishOutline" title="Notifications" id="shownoti" style="background:<?php echo $color; ?>;"><i class="fa fa-bell"></i></button>       
       
           <ul class="navbar-nav ml-3 " >
                 <!-- Authentication Links -->
@@ -61,12 +57,6 @@
         
        
  </div>
-  <div class="notis" id="notific">
-  <div class="Notification-header">
-    Notifications
-    <button type="button" class="close mr-2 mt-1 closenotific">&times;</button>
-  </div>
-  <div class="Notification-content" style="overflow-y:scroll;"></div>
 
  
 <div class="notis" id="collabnotific">
@@ -85,57 +75,15 @@
     <div class="Notification-content"></div>
 </div>
  <script>
- 
- 
-
 $('.rem').mouseenter(function(){
  $('.delrem').css('display','block');
  });
 
- var event2="",notievent='',notifications,bellswing,newnoti='';
+ var event2="";
  window.onload = function() { 
     $('.Notification-content').empty();
-    bellswing = setInterval(function(){ 
-            notii()  ;
-   
-           if(newnoti=='yes')
-                   $('.notibell').addClass('swingimage');
-            }, 3000);
+    noti();
 };
-
-$('.closenotific').click(function(){
-    $('.notis').css('display','none');
-             notii()  ;
-           if(newnoti=='yes')
-                   $('.notibell').addClass('swingimage');
-           else
-            $('.notibell').removeClass('swingimage');                 
-      $('#shownoti').off('click');              
-   $('#shownoti').click(down);
-        
- })
-
-function notii(){
-  $.ajaxSetup({
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-      });
-      $.ajax({                       
-      url: '/hasnewnoti',
-      method:'get',
-      success(response){    
-             if(response>0)
-               newnoti='yes';
-           else
-               newnoti='';            
-      }
-      }); 
-    
-}
-
-
-
 
 function noti(){
   $.ajaxSetup({
@@ -149,58 +97,24 @@ function noti(){
       success(response){
        response=JSON.parse(response);
       if(response.length>0){
-        notifications=response;
-                  $.ajaxSetup({
-              headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-              }
-            });
-            $.ajax({             
-            url: "/makeread",
-            method:'post',
-            dataType: "json",
-            data:{
-              noti:notifications,
-            }
-              
-            });
-  
       for(var i=0;i<response.length;i++){
-             if(response[i].readed == 0 && response[i].noti == 1){
-               var div=$("<div class='rem' id='remm'></div>");
-              var ip=$('<input type="hidden" class="taskid">').val(response[i].id );
-              var divv=$("<div class='nooo'></div>");
-              var a=$('<a class="Noti-title"></a>').text(response[i].title).attr({'href':"/todo/"+response[i].taskid+"/show"});
-              var div1 = $("<div class='no'></div>").css({'display':'inline-block','max-width':'50%','overflow':'hidden','text-overflow':'ellipsis','white-space':'nowrap'}).append(a);
-              var span=$("<span class='delrem' id='dell'></span>").css({'float':'right','cursor':'pointer','font-weight':'bold','margin-right':'2.5%'}).html('&times;');
-              divv.append(div1).append(span);
-              var span2 =$("<span class='remdatetime'></span>").text(response[i].remdate + " " + response[i].remtime);
-              div.append(ip);
-              div.append(divv);
-              div.append(span2);
-              var span3 =$("<span class='newreminder'></span>").text('NEW').css('float','right');
-              div.append(span3); 
-               $(".Notification-content").prepend(div);
-            }
-           else{
             var div=$("<div class='rem' id='remm'></div>");
             var ip=$('<input type="hidden" class="taskid">').val(response[i].id );
-            var divv=$("<div class='nooo'></div>");
+            var divv=$("<div></div>");
             var a=$('<a class="Noti-title"></a>').text(response[i].title).attr({'href':"/todo/"+response[i].taskid+"/show"});
-            var div1 = $("<div class='no'></div>").css({'display':'inline-block','max-width':'50%','overflow':'hidden','text-overflow':'ellipsis','white-space':'nowrap'}).append(a);
+            var div1 = $("<div></div>").css({'display':'inline-block','max-width':'50%','overflow':'hidden','text-overflow':'ellipsis','white-space':'nowrap'}).append(a);
             var span=$("<span class='delrem' id='dell'></span>").css({'float':'right','cursor':'pointer','font-weight':'bold','margin-right':'2.5%'}).html('&times;');
             divv.append(div1).append(span);
-            var span2 =$("<span class='remdatetime'></span>").text(response[i].remdate + " " + response[i].remtime);
+            var span2 =$("<span></span>").text(response[i].remdate + " " + response[i].remtime);
             div.append(ip);
             div.append(divv);
             div.append(span2);
-           
             $(".Notification-content").append(div);
-           }
+
       }
     }
     else{
-             var span=$('<span class="no-notifications-msg"></span>').text('No Notifications');
+           var span=$('<span class="no-notifications-msg"></span>').text('No Notifications');
            $(".Notification-content").append('<i class="fa fa-bell no-notifications-bell"></i>').append(span).append('<p class="noti_MSG">You have no new Notifications.</p>');
     }
           }
@@ -217,62 +131,41 @@ $('body').on('mouseleave','.rem',function(){
    $(this).find('.delrem').css('display','none');
 })
 
-$('body').on('click','.nooo',function(evt){
-       if(evt.target.id == "dell" )
-          return;
-  
-   var a=$(this).find('.Noti-title').attr('href');
-   window.location.assign(a);
+$('#shownoti').click(function(){
+ $('#notific').toggle(); 
 })
+//HOVER 
+ {{--  $('#shownoti').mouseenter(function(){
+ $('#notific').css('display','block');
+ })   
 
 
+ $('#shownoti').mouseleave(function(){
+ setTimeout(function () {
+        if(event2="")
+        $('#notific').css('display','none');
+    }, 1000);
 
-function down(){
-   $('#shownoti').off('click');             
-   $('.Notification-content').empty();
-   noti();
-   newnoti='';             
-   $('.notibell').removeClass('swingimage');
-   $('.notis').css('display','block');
-   $('#shownoti').click(up);
-   
-}
+ }); 
+    $('.notis').mouseenter(function(){
+      event2="ready";
+    $('#notific').css('display','block');
+    })
 
-function up(){
-     notii()  ;
-           if(newnoti=='yes')
-                   $('.notibell').addClass('swingimage');
-           else
-            $('.notibell').removeClass('swingimage');
-   $('.notis').css('display','none');
-   $('#shownoti').off('click');      
-   $('#shownoti').click(down);
-}
+    $('#notifics').mouseleave(function(){
+      event2="";
+    $('#notific').css('display','none');
+    })  --}}
 
-$('#shownoti').one('click',down);
-
-$('body').click(function(evt){   
-       if(evt.target.id == "notific" || evt.target.id =='shownoti' || evt.target.id =='dell' )
-          return;
-   
-       if($(evt.target).closest('#notific').length)
-            return;             
-
-            
-          if($(".notis").css('display')=='block'){
-                 
-                $(".notis").css('display','none');
-              notii()  ;
-           if(newnoti=='yes')
-                   $('.notibell').addClass('swingimage');
-           else
-            $('.notibell').removeClass('swingimage');
-               $('#shownoti').off('click');             
-                  $('#shownoti').click(down);
-          } 
-     
-});
-
+  
+  {{--  $('html').on('click',function(evt){
+            if(evt.target.id == "notific" || evt.target.id =="shownoti" || evt.target.id =="remm" || evt.target.id =="dell")
+                  return;
+            if($(evt.target).closest('#notific').length)
+                 return;
+            if($("#notific").css('display')=='block')
+                $("#notific").css('display','none');
+        });    --}}
 
 $('body').on('click','.delrem',function(){
     var id=$(this).parents('.rem').find('.taskid').val();
@@ -288,10 +181,7 @@ $('body').on('click','.delrem',function(){
           id:id
       }
       });
-      $(this).parents('.rem').find('.remdatetime').css('display','none');
-       $(this).parents('.rem').find('.newreminder').css('display','none');
-    $(this).parents('.rem').animate({width: "0px"},function(){
-        $(this).remove();
-    });
+    $(this).parents('.rem').remove();
+   
 })
  </script>

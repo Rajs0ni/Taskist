@@ -103,6 +103,18 @@
               @endforeach  
               </div>  
               @endif
+
+              @if(count($collab))
+                    <br>
+                    @foreach($collab as $coll)
+                        <!-- {{$coll->name}} -->
+                        @if($coll->name==auth()->user()->name)
+                            You
+                        @else
+                            {{$coll->name}}
+                        @endif
+                    @endforeach
+              @endif
       <!-- Action Panel -->
         <div class="col">
          <div class="row">
@@ -121,11 +133,11 @@
                 </a>
            </div>
           <div class="col-4">
-            <form action="{{ action('TodosController@deleteTask', $todo->id )}}" onSubmit="if(!confirm('Are you sure you want to permanently delete this task?')){return false;}" > 
-                <button id="delete" type="submit" class="btn btn-danger myButton vanishOutline">
+            
+                <button id="delete" type="submit" class="btn btn-danger myButton vanishOutline"><span hidden>{{$todo->id}}</span>
                         <i class="fa fa-trash"></i> Delete
                  </button>
-            </form>
+            
           </div>
          
          </div>

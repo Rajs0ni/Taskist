@@ -310,6 +310,27 @@ $.ajax({
 });
 });
 
+$("body").on('click',"#uncollab",function(){
+    if(confirm("Are you sure you want to uncollaborate?")){
+        task=$(this).children().text();
+        $.ajax({
+            type:'GET',
+            url:"/uncollab",
+            data: { 
+                _token : $('meta[name="csrf-token"]').attr('content'), 
+                'task': task
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            },
+            
+            success:function(data){
+                window.location.assign("/collab");
+            }
+        }); 
+    }
+});
+
 $("body").on('click',".remove",function(){
     user=$(this).prev().text();
     task=$(this).parents(".modal-body").children().last().val();
@@ -488,6 +509,14 @@ $("#addCollaborator").click(function(){
 
 });
 })
+v=$(".CRCount").text();
+if(v=='0'){
+    $(".CRCount").hide();
+}
+if(v!='0'){
+    $(".CRCount").show();
+}
+
     $("body").on('click','#pin',function(){
         todo = $(this).parent().text();
         
@@ -523,7 +552,8 @@ $("#addCollaborator").click(function(){
     })
 
     $("body").on('click','#delete',function(){
-        todo = $(this).parent().text();
+        todo = $(this).children().text();
+      
         if(confirm("Are you sure you want to delete the task permanently?"))
             window.location.replace("/todo/"+todo+"/deleteTask");
         else
@@ -571,17 +601,17 @@ $("#addCollaborator").click(function(){
         // }
     });
 
-    $("#clearall").click(function(){
-        val="";
-        while(1){
-            val=prompt(" Enter\n 1 : simply trash all the tasks \n 2 : permanently delete all the tasks ");
-                if(val==1||val==2||val==null)
-                    break;
-        }
-        if (val!=null)
-           window.location.assign('/todo/clearall?val='+val);
+    // $("#clearall").click(function(){
+    //     val="";
+    //     while(1){
+    //         val=prompt(" Enter\n 1 : simply trash all the tasks \n 2 : permanently delete all the tasks ");
+    //             if(val==1||val==2||val==null)
+    //                 break;
+    //     }
+    //     if (val!=null)
+    //        window.location.assign('/todo/clearall?val='+val);
 
-    });
+    // });
 
     $('body').on('click','#reminder',function(){
         $("#datepicker").datetimepicker({
@@ -662,8 +692,6 @@ $('#timepicker').val('');
   });
 
   $('#labels_add').click(function(){
-    $("#addlabels").attr("placeholder",'create new label');
-
     $("#alllabels").empty();  
     $.ajaxSetup({
         headers: {

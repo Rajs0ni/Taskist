@@ -79,6 +79,14 @@
                                         @include('todo._archivedPartial') 
                                         <?php $count++; ?>
                                 @endif
+                        @else
+                                @if($todo->archive == 0)  
+                                        @include('todo._archivePartial') 
+                                        <?php $count++; ?>
+                                @else
+                                        @include('todo._archivedPartial') 
+                                        <?php $count++; ?>
+                                @endif 
                         @endif        
                 @endforeach      
         @endif      

@@ -48,6 +48,7 @@ Route::get('/getcollaborator','TodosController@getcollab');
 Route::get('/removecollaborator','TodosController@removecollab');
 Route::get('/addcollaborator','TodosController@addcollab');
 Route::get('/collab','TodosController@collab');
+Route::get('/uncollab','TodosController@uncollab');
 Route::post('/todo/changeorder','TodosController@order');
 Route::get('/sort/by/title/{var}','TodosController@sortByTitle');
 Route::get('/setsession','TodosController@setsession');
@@ -77,6 +78,5 @@ Route::get('/getlabelstask','LabelController@getlabelstask');
 Route::get('/addnewsearch','LabelController@addnewsearch');
 Route::get('/relexists','LabelController@relexists');
 Route::get('/getlabelstasks/{labelid}','LabelController@getlabelstasks');
-Route::get('/hasnewnoti','TodosController@hasnewnoti');
-Route::post('/makeread','TodosController@makeread');
+
 

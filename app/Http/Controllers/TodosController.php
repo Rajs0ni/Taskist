@@ -45,7 +45,8 @@ class TodosController extends Controller
     }
     public function index()
     {
-        
+        $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $todos = Todo::where('user_id','=',auth()->user()->id)
                     ->where('trashed','=','0')
                     ->where('archive',0)
@@ -86,7 +87,7 @@ class TodosController extends Controller
                     where('trashed','=','0')->
                     where('pin',0)->where('archive',0)->get();
         $message = "!!Tasks Not Found !!";
-        $accepted = auth()->user()->todos()->where('status','A')->get();
+        $accepted = auth()->user()->todos()->where('status','A')->where('trashed','0')->get();
         $archive = DB::table('todos')->where('user_id','=',auth()->user()->id)->where('trashed','=','0')->where('archive',1)->get();
         $todoview = Todo::where('user_id','=',auth()->user()->id)->where('view',0)->get();
         $user = User::where('id','=',auth()->user()->id)->get();
@@ -120,7 +121,8 @@ class TodosController extends Controller
         $accepted = auth()->user()->todos()->where('status','A')->where('trashed',0)->get();
         $unaccepted = auth()->user()->todos()->where('status','I')->where('trashed',0)->get();
         $user = User::where('id','=',auth()->user()->id)->get();
-        return view('todo.collab',compact('accepted','user'));
+        $message = "!! No Collaborated Task !!";
+        return view('todo.collab',compact('accepted','user','message'));
     }
 
     
@@ -188,6 +190,17 @@ else{
 return response()->json(array("msg","no"),200);
 }
 }
+
+public function uncollab(Request $request)
+{
+$task = request('task');
+$user = auth()->user();
+$todo=Todo::find($task);
+
+$todo->users()->detach($user);
+return response()->json(array("msg","success"),200);
+
+}
     // Show a particular task
     public function show($id)
     {
@@ -198,20 +211,20 @@ return response()->json(array("msg","no"),200);
       {  $rem = Reminder::where('taskid',$id)->get();
         $labels=$todo->labels;
         $user = User::where('id',auth()->user()->id)->get();
-
+        $collab =$todo->users()->get();
         if(sizeof($rem)>0 && sizeof($labels)>0){
             $rem = Reminder::where('taskid',$id)->get()[0];
-            return view('todo.show',compact('todo','rem','labels','user'));    
+            return view('todo.show',compact('todo','rem','labels','user','collab'));    
         }
         if(sizeof($rem)>0 && sizeof($labels)==0){
             $rem = Reminder::where('taskid',$id)->get()[0];
-            return view('todo.show',compact('todo','rem','user'));    
+            return view('todo.show',compact('todo','rem','user','collab'));    
         }
         if(sizeof($rem) == 0 && sizeof($labels)>0){
-            return view('todo.show',compact('todo','labels','user'));    
+            return view('todo.show',compact('todo','labels','user','collab'));    
         }
         
-        return view('todo.show',compact('todo','user'));
+        return view('todo.show',compact('todo','user','collab'));
         }
         else
         {
@@ -302,7 +315,7 @@ return response()->json(array("msg","no"),200);
                         ->findOrFail($id);
         $todo->delete();
         Reminder::where('taskid',$id)->delete();
-        return back()->with('alert','Task Deleted!');
+        return redirect('todo')->with('alert','Task Deleted!');
     }
     // Search task
     public function search()
@@ -351,7 +364,7 @@ return response()->json(array("msg","no"),200);
         $search = Input::get('keyword');               
         $pinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->where('pin',1)->get();
         $unpinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->where('trashed','=','0')->where('pin',0)->get();
-        $message = "!! Not Exist !!"; 
+        $message = "Not Exists !!"; 
         $user = User::where('id','=',auth()->user()->id)->get();
         $todoview = Todo::where('user_id','=',auth()->user()->id)->where('view',0)->get();
         if(count($todoview))
@@ -393,7 +406,7 @@ return response()->json(array("msg","no"),200);
         where('trashed',0)->where('pin',1)->get();
         $unpinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->
         where('trashed',0)->where('pin',0)->get();
-        $message = "!! Not Found !!";
+        $message = "!! No Completed Task !!";
         $user = User::where('id','=',auth()->user()->id)->get();
         $todoview = Todo::where('user_id','=',auth()->user()->id)->where('view',0)->get();
         if(count($todoview))
@@ -417,7 +430,7 @@ return response()->json(array("msg","no"),200);
                   where('trashed',0)->where('archive',0)->where('pin',1)->get();
         $unpinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->
                     where('trashed',0)->where('archive',0)->where('pin',0)->get();
-        $message = "!! Not Found !!"; 
+        $message = "!! No Task For Today !!"; 
         $user = User::where('id','=',auth()->user()->id)->get();
         $todoview = Todo::where('user_id','=',auth()->user()->id)->where('view',0)->get(); 
         if(count($todoview))
@@ -441,7 +454,7 @@ return response()->json(array("msg","no"),200);
                   where('trashed',0)->where('archive',0)->where('pin',1)->get();
         $unpinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->
                   where('trashed',0)->where('archive',0)->where('pin',0)->get();
-        $message = "!! Not Found !!";
+        $message = "!! No Pending Task !!";
                 $user = User::where('id','=',auth()->user()->id)->get();
         $todoview = Todo::where('id','=',auth()->user()->id)->where('view',0)->get();
         if(count($todoview))
@@ -491,10 +504,12 @@ return response()->json(array("msg","no"),200);
                 where('trashed',0)->where('archive',0)->where('pin',1)->orderBy('title')->get();
             $unpinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->
                     where('trashed',0)->where('archive',0)->where('pin',0)->orderBy('title')->get();
+            $user = User::where('id','=',auth()->user()->id)->get();   
         }
         else if($var==1){
             $accepted = auth()->user()->todos()->where('status','A')->orderBy('title')->get();
-            return view('todo.collab',compact('accepted'));   
+            $user = User::where('id','=',auth()->user()->id)->get();
+            return view('todo.collab',compact('accepted','user'));   
         }
         else if($var==2){
             $todos = Todo::where('user_id','=',auth()->user()->id)
@@ -505,6 +520,7 @@ return response()->json(array("msg","no"),200);
                     where('trashed',0)->where('archive',0)->where('pin',1)->orderBy('title')->get();
             $unpinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->
                     where('trashed',0)->where('archive',0)->where('pin',0)->orderBy('title')->get();
+            $user = User::where('id','=',auth()->user()->id)->get();   
         }
         else if($var==3){
             $todos = Todo::where('user_id','=',auth()->user()->id)->
@@ -514,6 +530,7 @@ return response()->json(array("msg","no"),200);
             where('trashed',0)->where('pin',1)->orderBy('title')->get();
             $unpinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->
             where('trashed',0)->where('pin',0)->orderBy('title')->get();
+            $user = User::where('id','=',auth()->user()->id)->get();   
         }
         else if($var==4){
             $todos = Todo::where('user_id','=',auth()->user()->id)
@@ -528,16 +545,17 @@ return response()->json(array("msg","no"),200);
                             where('trashed','=','0')->
                             where('pin',0)->orderBy('title')->where('archive',0)->get();
                 $accepted = auth()->user()->todos()->where('status','A')->orderBy('title')->get();
-                $message = "!! Not Found !!";
-        $todoview = Todo::where('view',0)->get();
+                $user = User::where('id','=',auth()->user()->id)->get();   
+                $message = "!! Task Not Found !!";
+                 $todoview = Todo::where('view',0)->get();
         
         if(count($todoview))
         {
-        return view('todo.alltasks',compact('todos','pinned','unpinned','accepted','message'));
+        return view('todo.alltasks',compact('todos','pinned','unpinned','accepted','message','user'));
         }
         else
         {
-        return view('todo.alltasks',compact('todos','pinned','unpinned','accepted','message'));
+        return view('todo.alltasks',compact('todos','pinned','unpinned','accepted','message','user'));
         }
         }
         else if($var==5){
@@ -553,16 +571,18 @@ return response()->json(array("msg","no"),200);
                         where('trashed','=','0')->
                         where('archive',1)->
                         where('pin',0)->orderBy('title')->get();
+            $user = User::where('id','=',auth()->user()->id)->get();   
         }
         else if($var==6){
             $todos = Todo::where('user_id','=',auth()->user()->id)
                         ->where('trashed','=','1')
                         ->orderBy('title')
                         ->get();
-                        $message = "!! Not Found !!";
-                        $todoview = Todo::where('view',0)->get();
+           
+            $todoview = Todo::where('view',0)->get();
+            $message = "!! Task Not Found !!";
 
-                        return view('todo.trash',compact('todos','todoview','message'));
+            return view('todo.trash',compact('todos','todoview','message'));
                       
                                 
         }
@@ -578,8 +598,8 @@ return response()->json(array("msg","no"),200);
                         where('archive',0)->
                         where('pin',0)->orderBy('title')->get();
         }
-        $message = "!! Not Found !!";
-        $user = User::where('id','=',auth()->user()->id)->get();
+            $message = "!! Task Not Found !!";
+            $user = User::where('id','=',auth()->user()->id)->get();
 
         $todoview = Todo::where('user_id','=',auth()->user()->id)->where('view',0)->get();
         if(count($todoview))
@@ -605,10 +625,12 @@ return response()->json(array("msg","no"),200);
                 where('trashed',0)->where('archive',0)->where('pin',1)->orderBy('completion_date')->get();
             $unpinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->
                     where('trashed',0)->where('archive',0)->where('pin',0)->orderBy('completion_date')->get();
+                  
         }
         else if($var==1){
             $accepted = auth()->user()->todos()->where('status','A')->orderBy('completion_date')->get();
-            return view('todo.collab',compact('accepted'));   
+            $user = User::where('id','=',auth()->user()->id)->get();
+            return view('todo.collab',compact('accepted','user'));   
         }
         else if($var==2){
             $todos = Todo::where('user_id','=',auth()->user()->id)
@@ -641,16 +663,17 @@ return response()->json(array("msg","no"),200);
                             where('trashed','=','0')->
                             where('pin',0)->orderBy('completion_date')->where('archive',0)->get();
                 $accepted = auth()->user()->todos()->where('status','A')->orderBy('date')->get();
-                $message = "!! Not Found !!";
+                $user = User::where('id','=',auth()->user()->id)->get();
+                $message = "!! Task Not Found !!";
         $todoview = Todo::where('view',0)->get();
         
         if(count($todoview))
         {
-        return view('todo.alltasks',compact('todos','pinned','unpinned','accepted','message'));
+        return view('todo.alltasks',compact('todos','pinned','unpinned','accepted','message','user'));
         }
         else
         {
-        return view('todo.alltasks',compact('todos','pinned','unpinned','accepted','message'));
+        return view('todo.alltasks',compact('todos','pinned','unpinned','accepted','message','user'));
         }
         }
         else if($var==5){
@@ -672,10 +695,10 @@ return response()->json(array("msg","no"),200);
                         ->where('trashed','=','1')
                         ->orderBy('completion_date')
                         ->get();
-                        $message = "!! Not Found !!";
+                        $message = "!! Task Not Found !!";
                         $todoview = Todo::where('view',0)->get();
-
-                        return view('todo.trash',compact('todos','todoview','message'));
+                        $user = User::where('id','=',auth()->user()->id)->get();
+                        return view('todo.trash',compact('todos','todoview','message','user'));
                       
                                 
         }
@@ -691,7 +714,7 @@ return response()->json(array("msg","no"),200);
                         where('archive',0)->
                         where('pin',0)->orderBy('completion_date')->get();
         }
-        $message = "!! Not Found !!";
+        $message = "!! Task Not Found !!";
         $user = User::where('id','=',auth()->user()->id)->get();
 
         $todoview = Todo::where('user_id','=',auth()->user()->id)->where('view',0)->get();
@@ -701,14 +724,14 @@ return response()->json(array("msg","no"),200);
         }
         else
         {
-        return view('todo.index',compact('todos','pinned','unpinned','message'));
+        return view('todo.index',compact('todos','pinned','unpinned','message','user'));
         }
     }
     //Trash A Particular Task
     public function trashTask(Todo $todo){
         $todo->trashed=1;
         $todo->save();
-        return back()->with([
+        return redirect('/todo')->with([
             'flash_message' => 'Task has been trashed!'
         ]);
     }
@@ -731,10 +754,10 @@ return response()->json(array("msg","no"),200);
                         ->where('trashed','=','1')
                         ->orderBy('created_at','desc')
                         ->get();
-        $todoview = Todo::where('view',0)->get();
+         
+        $message = "!! Empty Trash !!";            
         $user = User::where('id','=',auth()->user()->id)->get();
-   
-        $message = "!! Tasks Not Found !!";            
+        $todoview = Todo::where('user_id','=',auth()->user()->id)->where('view',0)->get(); 
         return view('todo.trash',compact('todos','todoview','message','user'));
     }
 
@@ -769,7 +792,7 @@ return response()->json(array("msg","no"),200);
                     where('trashed','=','0')->
                     where('archive',1)->
                     where('pin',0)->get();
-        $message = "!! Not Found !!";
+        $message = "!! No Archived Task !!";
         $user = User::where('id','=',auth()->user()->id)->get();
 
         $todoview = Todo::where('user_id','=',auth()->user()->id)->where('view',0)->get();
@@ -918,19 +941,4 @@ return response()->json(array("msg","no"),200);
       } 
     }
       
-  public function hasnewnoti(){
-    date_default_timezone_set("Asia/Kolkata");
-    $notification =   DB::table('reminders')->where('user_id',Auth::id())->where('remdate','<=',date('d-m-Y'))->where('remtime','<=',date('h:i:sa'))->where('readed',0)->where('noti',1)->get();
-    $notification=$notification->count();
-    echo $notification;
-  }
-
-    public function makeread(Request $request){
-        $no_noti = $request->noti;  
-    foreach($no_noti as $n){
-        $t = Reminder::findOrFail($n['id']);
-        $t->readed = 1;
-        $t->save();
-    }
-    }
 }

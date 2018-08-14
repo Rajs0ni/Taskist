@@ -116,7 +116,7 @@ class LabelController extends Controller
         }
         else
         {
-                $message = "NO TASKS ON THIS LABEL!!!"; 
+                $message = "!! No Tasks For This Label !!"; 
                 return view('todo.index',compact('todos','pinned','unpinned','message','user'));
             
         }     

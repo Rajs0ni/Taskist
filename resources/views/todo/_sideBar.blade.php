@@ -21,8 +21,8 @@
                                        <i class="fa fa-trash" style="font-size:18px;"></i> Quick Clear
                                    </button>
                                    <div class="dropdown-menu">
-                                   <a href="#" class="dropdown-item">Trash</a>
-                                   <a href="#" class="dropdown-item">Clear All</a>
+                                   <a href="/todo/clearall?val=1" class="dropdown-item" >Trash</a>
+                                   <a href="/todo/clearall?val=2" class="dropdown-item">Clear All</a>
                                    </div>
      
                                </div>       

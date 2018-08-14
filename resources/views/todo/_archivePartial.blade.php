@@ -15,13 +15,15 @@
                             @else
                                 <a class="dropdown-item" id="pin"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin" style="color:red"></i> Unpin</a>
                             @endif
-                            <a class="dropdown-item" href="{{ action('TodosController@edit', $todo->id ) }}" id="edit"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-edit"  id="edit"></i> Edit</a>
+                                <a class="dropdown-item" href="{{ action('TodosController@edit', $todo->id ) }}" id="edit"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-edit"  id="edit"></i> Edit</a>
+                           
                             @if($todo->reminder==1)
                                 <a class="dropdown-item" id="reminder" data-toggle="modal" data-target="#addreminder"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-clock" style="color:rgb(244, 152, 66)"></i> Snooze</a>   
                             @else  
                                 <a class="dropdown-item" id="reminder" data-toggle="modal" data-target="#addreminder"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-clock" ></i> Snooze</a>
                             @endif          
-                            <a class="dropdown-item" id="tasklabel" data-toggle="modal" data-target="#tasklab"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fas fa-tags"></i> Labels</a>
+                                <a class="dropdown-item" id="tasklabel" data-toggle="modal" data-target="#tasklab"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fas fa-tags"></i> Labels</a>
+                           
                             @if($todo->archive == 0)
                                 <a class="dropdown-item" id="archive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="archive"></i> Archive</a>
                             @else   
@@ -44,7 +46,7 @@
 
         <div class="circle"></div><span id="span1"><?php if($count<=9)echo "0".$count; else echo $count++;?></span>
         <div class="wrapper">
-                <h3><a href="/todo/{{$todo->id}}/show">{{$todo->title}}</a></h3> 
+                <div class="todo-title-in-panel"><h3><a href="/todo/{{$todo->id}}/show">{{$todo->title}}</a></h3></div> 
                 <span id="span2" >&#x25cf; {{$todo->completion_date}}</span>
                 
         </div>

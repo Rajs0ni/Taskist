@@ -24,6 +24,10 @@ class Todo extends Model
     {
         return $this->belongsToMany(User::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     public function setCompletionDateAttribute($date)
     {
         $this->attributes['completion_date'] = Carbon::parse($date);

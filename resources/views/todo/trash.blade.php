@@ -20,7 +20,7 @@
                 <?php $count = 1; ?> 
                 @foreach($todos as $todo) 
                         <div class="row">
-                                <div class='panel container'> 
+                                <div class='panel container' style="background:linear-gradient(90deg,rgba(0,0,0,0.5)10%,rgba(255,255,255,0.5));"> 
                                         <div class="dropdown" >
                                                 <div class="btn-group">
                                                         <button type="button" class="btn" data-toggle="dropdown" style="background:none;border:none; outline:none"><i class="fa fa-ellipsis-v"></i>
@@ -35,7 +35,7 @@
 
                                         <div class="circle"></div><span id="span1"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
                                         <div class="wrapper">
-                                                <h3>{{$todo->title}}</h3> 
+                                                <div class="todo-title-in-panel"><h3>{{$todo->title}}</h3></div> 
                                                 <span id="span2" >&#x25cf; {{$todo->completion_date}}</span>
                                         </div>
                                         

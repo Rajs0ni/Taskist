@@ -124,9 +124,16 @@ body{
     padding: 0;
     display: inline;
 }
+.todo-title-in-panel{
+    display:inline-block;
+    max-width:250px;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 .circle{
     position: relative;
-    top: 8px;
+    top: 6px;
     left: 5px;
     width: 50px;
     height: 50px;
@@ -151,14 +158,13 @@ body{
     display: inline-block;
     padding: 0;
     margin: 0;
-    top:-10px;
+    top: 8px;
     position: relative;
-    margin-left: 10px;
-
+    /* margin-left: 10px; */
 }
 #span1{
     position: relative;
-    top:-8px;
+    top:-10px;
     left:-32px;
     color:rgb(27, 74, 91);
     font-size: 24px;
@@ -170,6 +176,9 @@ body{
     padding-left: 12px;
     font-weight: bold;
     font-size:17px;
+    display: inline-block;
+    position: relative;
+    top: -20px;
 }
 .formButton{
     background: #F76266;
@@ -365,7 +374,6 @@ body{
     border-top-left-radius:30px;
     border-bottom-right-radius:30px;
     border:1px solid rgb(27, 74, 91);
-    
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
 }
 .grid_count_title{
@@ -522,6 +530,7 @@ body{
     height:600px;
     border-radius:5px;
     background:white;
+    overflow:hidden;
     z-index: 100;
     display: none;
 }
@@ -537,7 +546,7 @@ body{
      padding-left:3%;
  }
  .Notification-content{
-     height:500px;
+
      padding:.7%;
      color: #000;
  }
@@ -773,16 +782,22 @@ font-weight: bold;
     font-weight:normal;
     cursor:pointer;
 }
-
-@keyframes swinging{
-    0%{transform: rotate(10deg);}
-    50%{transform: rotate(-5deg)}
-    100%{transform: rotate(10deg);}
+.dellabtask:hover{
+    color:red;
+    font-weight:bold;
 }
- 
-.swingimage{
-    -webkit-transform-origin: 50% 0;
-    transform-origin: 50% 0;
-    -webkit-animation: swinging 1.5s ease-in-out forwards infinite;
-    animation: swinging 1.5s ease-in-out forwards infinite;
+.CRCount{
+    display:inline-block;
+    position:relative;
+    padding:0;
+    background:green;
+    width:25px;
+    height:25px;
+    top :-10px;
+    left :-10px;
+    text-align:center;
+    border-radius:50%;
+    color:#fff;
+    border:2px solid #EFEFF0;
+    font-weight:bold;
 }
