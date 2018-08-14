@@ -1,5 +1,7 @@
+
 (function ( $ ) {
     var taskid,id,title,oldval,editevent="",thishtml,canedit="",addlab=""; 
+
 $('document').ready(function(){
    $('.row').mouseover(function(){
     $(this).find(".outersubmenu").css({'display':'block'});  
@@ -15,9 +17,10 @@ $('body').on('click',"#colorpicker",function()
     {
         color = $(this).val();
         id = $(this).parents('.color').children().text();
-        x = $(this).parents('.panel');
+        $(this).parents('.panel').css('background','linear-gradient(90deg,'+color+',rgb(239, 240, 240)') ;
+
         //gr = linear-gradient(color,rgb(239, 240, 240));
-        x.css('background',color);
+        //x.css('background',color);
 
         $.ajax
         ({
@@ -623,7 +626,27 @@ if(v!='0'){
             dateFormat: 'dd-mm-yy'
            });
      id=$(this).parent().find('#task_id').val();           
-     title=$(this).parent().find('#task_title').val();       
+     title=$(this).parent().find('#task_title').val();     
+    
+     $.ajaxSetup({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({                       
+    url: '/getremtime',
+    method:'get',
+    data:{
+        id:id
+    },
+    success(response){       
+        if(response !="no reminder"){
+                response=response.split('on');                             
+                $('#datepicker').val(response[0]);
+                $('#timepicker').val(response[1]);
+        }
+    }
+    });  
     })
 
     $('body').on('click','#snooze',function(){
@@ -634,6 +657,26 @@ if(v!='0'){
            });
      id=$(this).parent().find('#task_id').val();           
      title=$(this).parent().find('#task_title').val();
+
+     $.ajaxSetup({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({                       
+    url: '/getremtime',
+    method:'get',
+    data:{
+        id:id
+    },
+    success(response){       
+        if(response !="no reminder"){
+                response=response.split('on');                             
+                $('#datepicker').val(response[0]);
+                $('#timepicker').val(response[1]);
+        }
+    }
+    });
         })
 
     $('#addremm').click(function(){
@@ -804,7 +847,7 @@ $('body').on('dblclick','.newlabel',function(event){
      editevent="ready";
     event.stopImmediatePropagation();
      oldval = $(this).find('.labelvalue').text();
-    var ip=$('<input type="text" class="newlabelval">').val(oldval).css({"border":"none","border-bottom":"1px solid"});
+    var ip=$('<input type="text" class="newlabelval">').val(oldval);
     $(this).html(ip);
 });
 

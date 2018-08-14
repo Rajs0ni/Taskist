@@ -105,34 +105,33 @@
               @endif
 
               @if(count($collab))
-                    <br>
+                    <br><div class="collabNameContainer col-12 text-justify">
                     @foreach($collab as $coll)
-                        <!-- {{$coll->name}} -->
-                        @if($coll->name==auth()->user()->name)
-                            You
-                        @else
-                            {{$coll->name}}
-                        @endif
+                      @if($coll->name==auth()->user()->name)
+                            <span class=""><i class="fa fa-user-circle fa-2x"></i>You</sapn>
+                       @else
+                             <span class=""><i class="fa fa-user-circle fa-2x"></i>{{$coll->name}}</sapn>
+                       @endif
                     @endforeach
               @endif
       <!-- Action Panel -->
         <div class="col">
-         <div class="row">
-           <div class="col-4">
+         <div class="row text-justify">
+           <div class="col-4" style="padding:0">
                <a href="{{ action('TodosController@index') }}">
                    <button id="goBack" type="button" class="btn btn-defeault myButton vanishOutline" >
                        <i class="fa fa-arrow-circle-left"></i> Go Back
                     </button>
                 </a>
            </div>
-           <div class="col-4">
+           <div class="col-4" style="padding:0">
                <a href="{{ action('TodosController@edit', $todo->id ) }}">
                    <button id="edit"  type="button" class="btn btn-info myButton vanishOutline" >
                     <li class="fa fa-edit"></li> Edit
                     </button>
                 </a>
            </div>
-          <div class="col-4">
+          <div class="col-4" style="padding:0">
             
                 <button id="delete" type="submit" class="btn btn-danger myButton vanishOutline"><span hidden>{{$todo->id}}</span>
                         <i class="fa fa-trash"></i> Delete

@@ -768,6 +768,11 @@ font-weight: bold;
 
 .labeledTaskContainer{
     margin-top:5%; 
+    padding-left:15px;
+    height: auto;  
+}
+.collabNameContainer{
+    margin-top:2%; 
     padding-left:15px;  
 }
 
@@ -776,7 +781,7 @@ font-weight: bold;
     padding:10px;
     border-radius:5px;
     font-weight:bold;
-    margin-left:3px;
+    margin-bottom:30px;
 }
 .dellabtask{
     font-weight:normal;
@@ -813,4 +818,30 @@ font-weight: bold;
     transform-origin: 50% 0;
     -webkit-animation: swinging 1.5s ease-in-out forwards infinite;
     animation: swinging 1.5s ease-in-out forwards infinite;
+}
+ 
+.rmCount{
+    display:none;
+    position:relative;
+    padding:0;
+    background:green;
+    width:25px;
+    height:25px;
+    top :-10px;
+    left :-15px;
+    text-align:center;
+    border-radius:50%;
+    color:#fff;
+    border:2px solid #EFEFF0;
+    font-weight:bold;
+}
+.newreminder{
+    font-size:13px;
+    background:rgb(244, 152, 66);
+    padding:0px 10px;
+    border-radius:10px;
+    font-weight:bold;
+    color:#fff;
+    font-family:arial;
+    border:1px solid yellow;
 }

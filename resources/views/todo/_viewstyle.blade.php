@@ -16,9 +16,11 @@
        <i class="fa fa-user-friends" ></i></button><div class="CRCount">{{session('hasRequests')?session('hasRequests'):0}}</div>
                  
 
-        <ul class="navbar-nav ml-auto" >
-    <button type="button" class="btn viewtype vanishOutline" title="Notifications" id="shownoti" style="background:<?php echo $color; ?>;"><i class="fa fa-bell notibell"  id="shownoti" ></i></button>
-          <ul class="navbar-nav ml-3 " >
+        <ul class="navbar-nav" >
+    <button type="button" class="btn viewtype vanishOutline" title="Notifications" id="shownoti" style="background:<?php echo $color; ?>;"><i class="fa fa-bell notibell"  id="shownoti" ></i></button> 
+     <div class="rmCount"></div> 
+       
+          <ul class="navbar-nav ml-2"  >
                 <!-- Authentication Links -->
                 @guest
                         <li class="nav-item">
@@ -84,18 +86,25 @@ $('.rem').mouseenter(function(){
     bellswing = setInterval(function(){ 
             notii()  ;
    
-           if(newnoti=='yes')
+           if(newnoti=='yes'){
+                   $('.rmCount').css('display','inline-block');
                    $('.notibell').addClass('swingimage');
-            }, 3000);
+   
+           }
+            }, 1000);
 };
 
 $('.closenotific').click(function(){
     $('.notis').css('display','none');
              notii()  ;
-           if(newnoti=='yes')
-                   $('.notibell').addClass('swingimage');
-           else
-            $('.notibell').removeClass('swingimage');                 
+           if(newnoti=='yes'){
+                  $('.notibell').addClass('swingimage');      
+           }
+           else{
+            $('.notibell').removeClass('swingimage');            
+            $('.rmCount').css('display','none');
+           }
+            
       $('#shownoti').off('click');              
    $('#shownoti').click(down);
         
@@ -111,10 +120,15 @@ function notii(){
       url: '/hasnewnoti',
       method:'get',
       success(response){    
-             if(response>0)
+             if(response>0){
                newnoti='yes';
-           else
-               newnoti='';            
+               $('.rmCount').css('display','inline-block');
+               $('.rmCount').text(response);
+             }
+           else{
+               newnoti='';
+               $('.rmCount').css('display','none');
+           }            
       }
       }); 
     
@@ -155,11 +169,11 @@ function noti(){
                var div=$("<div class='rem' id='remm'></div>");
               var ip=$('<input type="hidden" class="taskid">').val(response[i].id );
               var divv=$("<div class='nooo'></div>");
-              var a=$('<a class="Noti-title"></a>').text(response[i].title).attr({'href':"/todo/"+response[i].taskid+"/show"});
+              var a=$('<a class="Noti-title"></a>').text('Title:- '+response[i].title).attr({'href':"/todo/"+response[i].taskid+"/show"});
               var div1 = $("<div class='no'></div>").css({'display':'inline-block','max-width':'50%','overflow':'hidden','text-overflow':'ellipsis','white-space':'nowrap'}).append(a);
               var span=$("<span class='delrem' id='dell'></span>").css({'float':'right','cursor':'pointer','font-weight':'bold','margin-right':'2.5%'}).html('&times;');
               divv.append(div1).append(span);
-              var span2 =$("<span class='remdatetime'></span>").text(response[i].remdate + " " + response[i].remtime);
+              var span2 =$("<span class='remdatetime'></span>").text('Reminder Date:-'+response[i].remdate + " " + response[i].remtime);
               div.append(ip);
               div.append(divv);
               div.append(span2);
@@ -168,18 +182,17 @@ function noti(){
                $(".Notification-content").prepend(div);
             }
            else{
-            var div=$("<div class='rem' id='remm'></div>");
+            var div=$("<div class='rem' id='remm'></div>").css('background','rgba(239,239,240)');
             var ip=$('<input type="hidden" class="taskid">').val(response[i].id );
             var divv=$("<div class='nooo'></div>");
-            var a=$('<a class="Noti-title"></a>').text(response[i].title).attr({'href':"/todo/"+response[i].taskid+"/show"});
+            var a=$('<a class="Noti-title"></a>').text('Title:-'+response[i].title).attr({'href':"/todo/"+response[i].taskid+"/show"});
             var div1 = $("<div class='no'></div>").css({'display':'inline-block','max-width':'50%','overflow':'hidden','text-overflow':'ellipsis','white-space':'nowrap'}).append(a);
             var span=$("<span class='delrem' id='dell'></span>").css({'float':'right','cursor':'pointer','font-weight':'bold','margin-right':'2.5%'}).html('&times;');
             divv.append(div1).append(span);
-            var span2 =$("<span class='remdatetime'></span>").text(response[i].remdate + " " + response[i].remtime);
+            var span2 =$("<span class='remdatetime'></span>").text('Reminder Date:-'+response[i].remdate + " " + response[i].remtime);
             div.append(ip);
             div.append(divv);
             div.append(span2);
-           
             $(".Notification-content").append(div);
            }
       }
@@ -213,6 +226,7 @@ function down(){
    $('#shownoti').off('click');             
    $('.Notification-content').empty();
    noti();
+   $('.rmCount').css('display','none');
    newnoti='';             
    $('.notibell').removeClass('swingimage');
    $('.notis').css('display','block');
@@ -222,10 +236,14 @@ function down(){
 
 function up(){
      notii()  ;
-           if(newnoti=='yes')
-                   $('.notibell').addClass('swingimage');
-           else
-            $('.notibell').removeClass('swingimage');
+           if(newnoti=='yes'){
+                  $('.rmCount').css('display','inline-block');
+                  $('.notibell').addClass('swingimage');      
+           }
+           else{
+            $('.notibell').removeClass('swingimage');            
+            $('.rmCount').css('display','none');
+           }
    $('.notis').css('display','none');
    $('#shownoti').off('click');      
    $('#shownoti').click(down);
@@ -245,10 +263,14 @@ $('body').click(function(evt){
                  
                 $(".notis").css('display','none');
               notii()  ;
-           if(newnoti=='yes')
-                   $('.notibell').addClass('swingimage');
-           else
-            $('.notibell').removeClass('swingimage');
+           if(newnoti=='yes'){
+                  $('.rmCount').css('display','inline-block');
+                  $('.notibell').addClass('swingimage');      
+           }
+           else{
+            $('.notibell').removeClass('swingimage');            
+            $('.rmCount').css('display','none');
+           }
                $('#shownoti').off('click');             
                   $('#shownoti').click(down);
           } 
