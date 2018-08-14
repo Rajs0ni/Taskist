@@ -530,7 +530,6 @@ body{
     height:600px;
     border-radius:5px;
     background:white;
-    overflow:hidden;
     z-index: 100;
     display: none;
 }
@@ -546,7 +545,8 @@ body{
      padding-left:3%;
  }
  .Notification-content{
-
+    height:550px;
+    overflow: auto;
      padding:.7%;
      color: #000;
  }
@@ -787,7 +787,7 @@ font-weight: bold;
     font-weight:bold;
 }
 .CRCount{
-    display:inline-block;
+    display:none;
     position:relative;
     padding:0;
     background:green;
