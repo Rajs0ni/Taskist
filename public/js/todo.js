@@ -551,6 +551,9 @@ if(v!='0'){
        
     })
 
+    $("#collabrequest").click(function(){
+        $("#collabnotific").toggle();
+    });
     $("body").on('click','#delete',function(){
         todo = $(this).children().text();
       
@@ -692,6 +695,8 @@ $('#timepicker').val('');
   });
 
   $('#labels_add').click(function(){
+    $("#addlabels").attr("placeholder",'create new label');
+
     $("#alllabels").empty();  
     $.ajaxSetup({
         headers: {
@@ -708,7 +713,7 @@ $('#timepicker').val('');
             var span1=$('<span class="labelvalue"></span>').text(response[i].name);
             var ii=$('<i class="fa fa-trash pr-3" ></i>');
             span.append(ii);
-            var div=$("<div class='newlabel'></div>");
+            var div=$("<div class='newlabel'></div>");	
             div.append(span1).append(span);
             $("#alllabels").append(div);
         }

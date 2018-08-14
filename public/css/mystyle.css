@@ -801,3 +801,16 @@ font-weight: bold;
     border:2px solid #EFEFF0;
     font-weight:bold;
 }
+
+@keyframes swinging{
+    0%{transform: rotate(10deg);}
+    50%{transform: rotate(-5deg)}
+    100%{transform: rotate(10deg);}
+}
+ 
+.swingimage{
+    -webkit-transform-origin: 50% 0;
+    transform-origin: 50% 0;
+    -webkit-animation: swinging 1.5s ease-in-out forwards infinite;
+    animation: swinging 1.5s ease-in-out forwards infinite;
+}

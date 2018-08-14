@@ -78,5 +78,7 @@ Route::get('/getlabelstask','LabelController@getlabelstask');
 Route::get('/addnewsearch','LabelController@addnewsearch');
 Route::get('/relexists','LabelController@relexists');
 Route::get('/getlabelstasks/{labelid}','LabelController@getlabelstasks');
+Route::get('/hasnewnoti','TodosController@hasnewnoti');
+Route::post('/makeread','TodosController@makeread');
 
 
