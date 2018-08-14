@@ -155,11 +155,11 @@ function noti(){
                var div=$("<div class='rem' id='remm'></div>");
               var ip=$('<input type="hidden" class="taskid">').val(response[i].id );
               var divv=$("<div class='nooo'></div>");
-              var a=$('<a class="Noti-title"></a>').text(response[i].title).attr({'href':"/todo/"+response[i].taskid+"/show"});
+              var a=$('<a class="Noti-title"></a>').text('Title:-'+response[i].title).attr({'href':"/todo/"+response[i].taskid+"/show"});
               var div1 = $("<div class='no'></div>").css({'display':'inline-block','max-width':'50%','overflow':'hidden','text-overflow':'ellipsis','white-space':'nowrap'}).append(a);
               var span=$("<span class='delrem' id='dell'></span>").css({'float':'right','cursor':'pointer','font-weight':'bold','margin-right':'2.5%'}).html('&times;');
               divv.append(div1).append(span);
-              var span2 =$("<span class='remdatetime'></span>").text(response[i].remdate + " " + response[i].remtime);
+              var span2 =$("<span class='remdatetime'></span>").text('Reminder Date:-'+response[i].remdate + " " + response[i].remtime);
               div.append(ip);
               div.append(divv);
               div.append(span2);
@@ -168,18 +168,17 @@ function noti(){
                $(".Notification-content").prepend(div);
             }
            else{
-            var div=$("<div class='rem' id='remm'></div>");
+            var div=$("<div class='rem' id='remm'></div>").css('background','rgba(239,239,240)');
             var ip=$('<input type="hidden" class="taskid">').val(response[i].id );
             var divv=$("<div class='nooo'></div>");
-            var a=$('<a class="Noti-title"></a>').text(response[i].title).attr({'href':"/todo/"+response[i].taskid+"/show"});
+            var a=$('<a class="Noti-title"></a>').text('Title:-'+response[i].title).attr({'href':"/todo/"+response[i].taskid+"/show"});
             var div1 = $("<div class='no'></div>").css({'display':'inline-block','max-width':'50%','overflow':'hidden','text-overflow':'ellipsis','white-space':'nowrap'}).append(a);
             var span=$("<span class='delrem' id='dell'></span>").css({'float':'right','cursor':'pointer','font-weight':'bold','margin-right':'2.5%'}).html('&times;');
             divv.append(div1).append(span);
-            var span2 =$("<span class='remdatetime'></span>").text(response[i].remdate + " " + response[i].remtime);
+            var span2 =$("<span class='remdatetime'></span>").text('Reminder Date:-'+response[i].remdate + " " + response[i].remtime);
             div.append(ip);
             div.append(divv);
             div.append(span2);
-           
             $(".Notification-content").append(div);
            }
       }

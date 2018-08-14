@@ -874,8 +874,10 @@ return response()->json(array("msg","success"),200);
      
      if(sizeof($notification)>0){
          for($ct=0;$ct<sizeof($notification);$ct++){
-                 if(Todo::find($notification[$ct]->taskid)->trashed ==0) 
+             if(Todo::find($notification[$ct]->taskid)!=null){
+               if(Todo::find($notification[$ct]->taskid)->trashed ==0) 
                     $notifications[$c++]=$notification[$ct];
+             }
              
          }
      }
@@ -891,8 +893,12 @@ return response()->json(array("msg","success"),200);
     
     }
     public function  getremtime(Request $request){
-          $rem = Reminder::where('taskid',$request->id)->get()[0];
-          echo $rem->remdate . " on " .$rem->remtime;
+          if(sizeof(Reminder::where('taskid',$request->id)->get())>0){
+                $rem = Reminder::where('taskid',$request->id)->get()[0];
+                echo $rem->remdate . " on " .$rem->remtime;
+          }
+          else
+          echo "no reminder";
     }
 
     public function  removereminder(Request $request){
