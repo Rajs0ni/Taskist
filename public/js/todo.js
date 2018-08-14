@@ -514,10 +514,10 @@ $("#addCollaborator").click(function(){
 })
 v=$(".CRCount").text();
 if(v=='0'){
-    $(".CRCount").hide();
+    $(".CRCount").css('display','none');
 }
 if(v!='0'){
-    $(".CRCount").show();
+    $(".CRCount").css('display','inline-block');;
 }
 
     $("body").on('click','#pin',function(){
@@ -557,6 +557,8 @@ if(v!='0'){
     $("#collabrequest").click(function(){
         $("#collabnotific").toggle();
     });
+
+    
     $("body").on('click','#delete',function(){
         todo = $(this).children().text();
       
