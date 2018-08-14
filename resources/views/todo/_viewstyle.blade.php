@@ -59,7 +59,7 @@
  </div>
 
  
-<div class="notis" id="collabnotific">
+<div class=" NotiPanelCSS" id="collabnotific">
     <div class="Notification-header">
       Collaboration Requests
       <button type="button" class="close mr-2 mt-1" data-dismiss="modal" >&times;</button>
@@ -67,7 +67,7 @@
     <div id="notify" ></div>
 </div>
 
-<div class="notis" id="notific">
+<div class="notis NotiPanelCSS" id="notific">
     <div class="Notification-header">
       Notifications
       <button type="button" class="close mr-2 mt-1" data-dismiss="modal" >&times;</button>

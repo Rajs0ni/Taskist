@@ -523,7 +523,7 @@ body{
     background: none !important;
 }
 
-.notis{
+.notis, .NotiPanelCSS{
     position:absolute;
     right:14.8%;
     width:500px;
@@ -534,7 +534,7 @@ body{
     z-index: 100;
     display: none;
 }
-.notis:hover{
+.notis:hover, .NotiPanelCSS:hover{
     box-shadow: 0px 5px 20px rgba(0,0,0,0.3);
 }
  .Notification-header{
