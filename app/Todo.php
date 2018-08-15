@@ -39,8 +39,7 @@ class Todo extends Model
     public function scopeSearch($query,$keyword)
     {
         return $query->where('title', 'like', '%' .$keyword. '%')
-                ->orWhere('date_created', 'like', '%' .$keyword. '%')
-                ->orWhere('completion_date', 'like', '%' .$keyword. '%');
+                ->orWhere('date_created', 'like', '%' .$keyword. '%');
     }
     public function scopeGetCompleted($query)
     {

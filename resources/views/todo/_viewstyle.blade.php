@@ -16,11 +16,11 @@
        <i class="fa fa-user-friends" ></i></button><div class="CRCount">{{session('hasRequests')?session('hasRequests'):0}}</div>
                  
 
-        <ul class="navbar-nav ml-auto" >
+        <ul class="navbar-nav" >
     <button type="button" class="btn viewtype vanishOutline" title="Notifications" id="shownoti" style="background:<?php echo $color; ?>;"><i class="fa fa-bell notibell"  id="shownoti" ></i></button> 
      <div class="rmCount"></div> 
        
-          <ul class="navbar-nav ml-3 " >
+          <ul class="navbar-nav ml-2"  >
                 <!-- Authentication Links -->
                 @guest
                         <li class="nav-item">
@@ -169,7 +169,7 @@ function noti(){
                var div=$("<div class='rem' id='remm'></div>");
               var ip=$('<input type="hidden" class="taskid">').val(response[i].id );
               var divv=$("<div class='nooo'></div>");
-              var a=$('<a class="Noti-title"></a>').text('Title:-'+response[i].title).attr({'href':"/todo/"+response[i].taskid+"/show"});
+              var a=$('<a class="Noti-title"></a>').text('Title:- '+response[i].title).attr({'href':"/todo/"+response[i].taskid+"/show"});
               var div1 = $("<div class='no'></div>").css({'display':'inline-block','max-width':'50%','overflow':'hidden','text-overflow':'ellipsis','white-space':'nowrap'}).append(a);
               var span=$("<span class='delrem' id='dell'></span>").css({'float':'right','cursor':'pointer','font-weight':'bold','margin-right':'2.5%'}).html('&times;');
               divv.append(div1).append(span);

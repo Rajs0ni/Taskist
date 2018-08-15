@@ -849,7 +849,7 @@ $('body').on('dblclick','.newlabel',function(event){
      editevent="ready";
     event.stopImmediatePropagation();
      oldval = $(this).find('.labelvalue').text();
-    var ip=$('<input type="text" class="newlabelval">').val(oldval).css({"border":"none","border-bottom":"1px solid"});
+    var ip=$('<input type="text" class="newlabelval">').val(oldval);
     $(this).html(ip);
 });
 

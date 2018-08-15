@@ -22,7 +22,8 @@ class TodosController extends Controller
        
     }
     public function index1($x)
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $todo = Todo::where('user_id','=',auth()->user()->id)->get();
         if($x == 1)
         {  
@@ -74,7 +75,8 @@ class TodosController extends Controller
         }        
     }
     public function all()
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $todos = Todo::where('user_id','=',auth()->user()->id)
         ->where('trashed','=','0')
         ->orderBy('pin','desc')
@@ -104,20 +106,23 @@ class TodosController extends Controller
 
 
     public function acceptcollab(Request $request)
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $id=request('id');
         DB::table('todo_user')->where('user_id','=',auth()->user()->id)->where('todo_id','=',$id)->update([ 'status' => 'A' ]);
         return response()->json(array("msg","Accepted"),200);
     }
     public function rejectcollab(Request $request)
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $id=request('id');
         DB::table('todo_user')->where('user_id','=',auth()->user()->id)->where('todo_id','=',$id)->delete();
         return response()->json(array("msg","Rejected"),200);
     }
 
     public function collab()
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $accepted = auth()->user()->todos()->where('status','A')->where('trashed',0)->get();
         $unaccepted = auth()->user()->todos()->where('status','I')->where('trashed',0)->get();
         $user = User::where('id','=',auth()->user()->id)->get();
@@ -128,19 +133,22 @@ class TodosController extends Controller
     
     // Create New Task
     public function create()
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $user = User::where('id','=',auth()->user()->id)->get();
         return view('todo.create',compact('user'));
     }
     //create after search
     public function create1($search)
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $user = User::where('id','=',auth()->user()->id)->get();
         return view('todo.create',compact('search','user'));
     }
     // Store Task
     public function store(Request $request)
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $user = User::where('id',auth()->user()->id)->get();
         $this->validate($request,[
 
@@ -178,7 +186,8 @@ class TodosController extends Controller
 
     }
     public function removecollab(Request $request)
-{
+{ $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+    Session::put('hasRequests', $value);
 $task = request('task');
 $user = request('user');
 $todo=Todo::find($task);
@@ -192,7 +201,8 @@ return response()->json(array("msg","no"),200);
 }
 
 public function uncollab(Request $request)
-{
+{ $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+    Session::put('hasRequests', $value);
 $task = request('task');
 $user = auth()->user();
 $todo=Todo::find($task);
@@ -203,7 +213,8 @@ return response()->json(array("msg","success"),200);
 }
     // Show a particular task
     public function show($id)
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         
         $todo = Todo::find($id);
         if($todo->users()->where('id',auth()->user()->id)->exists()||$todo->user_id==auth()->user()->id)
@@ -236,7 +247,8 @@ return response()->json(array("msg","success"),200);
     
 
    public function getcollab(Request $request)
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $todo = Todo::where('id','=',request('id'))->first();
         $users=$todo->users()->get();
         if(count($users)){
@@ -248,7 +260,8 @@ return response()->json(array("msg","success"),200);
     }
         
     public function getrequest()
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $unaccepted = auth()->user()->todos()->where('status','I')->get();
         $q="";
         foreach($unaccepted as $u){
@@ -268,7 +281,8 @@ return response()->json(array("msg","success"),200);
  } 
     // Grid Show
     public function gridshow($id)
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $todo = Todo::where('user_id','=',auth()->user()->id)
                       ->findOrFail($id);
                  $user = User::where('id',auth()->user()->id)->get();             
@@ -276,7 +290,8 @@ return response()->json(array("msg","success"),200);
     }
     // Edit task
     public function edit($id)
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $todo = Todo::find($id);
         $user = User::where('id',auth()->user()->id)->get();
         if($todo->users()->where('id',auth()->user()->id)->exists()||$todo->user_id==auth()->user()->id)
@@ -288,7 +303,8 @@ return response()->json(array("msg","success"),200);
     }
     // Update task
     public function update($id, Request $request)
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $this->validate($request,[
 
             'title' => 'required',
@@ -310,7 +326,8 @@ return response()->json(array("msg","success"),200);
     }
     // Delete a particular task
     public function deleteTask($id)
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $todo = Todo::where('user_id','=',auth()->user()->id)
                         ->findOrFail($id);
         $todo->delete();
@@ -319,14 +336,16 @@ return response()->json(array("msg","success"),200);
     }
     // Search task
     public function search()
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $user = User::where('id','=',auth()->user()->id)->get();
         return view('todo.search',compact('user'));
     }
     // Find the task
 
     public function setsession(Request $request)
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $type = request('type');
         if($type=='success'){
             Session::put('flash',request('message'));
@@ -353,17 +372,18 @@ return response()->json(array("msg","success"),200);
     }
 
     public function find(Request $request)
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $this->validate($request,[
 
             'keyword' => 'required'
         ]);
         $keyword = $request->input('keyword');
         $todos = Todo::where('user_id','=',auth()->user()->id)
-                       ->search($keyword)->orderBy('pin','DESC')->get();
+                       ->search($keyword)->orderBy('pin','DESC')->where('trashed','0')->get();
         $search = Input::get('keyword');               
-        $pinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->where('pin',1)->get();
-        $unpinned = DB::table('todos')->where('user_id','=',auth()->user()->id)->where('trashed','=','0')->where('pin',0)->get();
+        $pinned = Todo::search($keyword)->where('user_id','=',auth()->user()->id)->where('trashed','=','0')->where('pin',1)->get();
+        $unpinned = Todo::search($keyword)->where('user_id','=',auth()->user()->id)->where('trashed','=','0')->where('pin',0)->get();
         $message = "Not Exists !!"; 
         $user = User::where('id','=',auth()->user()->id)->get();
         $todoview = Todo::where('user_id','=',auth()->user()->id)->where('view',0)->get();
@@ -378,7 +398,8 @@ return response()->json(array("msg","success"),200);
     }
     // Delete all tasks
     public function clearall(Request $request)
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $val=request('val');
         if($val==1){
             $todos = Todo::where('user_id','=',auth()->user()->id)
@@ -398,7 +419,8 @@ return response()->json(array("msg","success"),200);
     }
     // Get completed tasks
     public function getCompleted()
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $todos = Todo::where('user_id','=',auth()->user()->id)->
                        where('trashed',0)->where('archive',0)
                         ->getCompleted()->orderBy('pin','desc')->get();
@@ -421,7 +443,8 @@ return response()->json(array("msg","success"),200);
     }
     // Get In Process tasks
     public function getProcessing()
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $todos = Todo::where('user_id','=',auth()->user()->id)->
                         where('trashed',0)->where('archive',0)
                         ->getProcessing()->orderBy('pin','desc')
@@ -445,7 +468,8 @@ return response()->json(array("msg","success"),200);
     }
     // Get pending tasks
     public function getPending()
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $todos = Todo::where('user_id','=',auth()->user()->id)
                        ->where('trashed',0)->where('archive',0)
                        ->getPending()->orderBy('pin','desc')
@@ -469,13 +493,15 @@ return response()->json(array("msg","success"),200);
     }
     // Help User
     public function help()
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $user = User::where('id','=',auth()->user()->id)->get();
         return view('todo.help',compact('user'));
     }
     // Grid View
     public function gridview()
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $todos = Todo::where('user_id','=',auth()->user()->id)->
                         where('trashed',0)->
                         where('archive',0)->orderBy('pin','desc')->get();
@@ -492,7 +518,8 @@ return response()->json(array("msg","success"),200);
     }
     // Sort by Title
     public function sortByTitle()
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $var = request('var');
         
         if($var==0){
@@ -613,7 +640,8 @@ return response()->json(array("msg","success"),200);
     }
     // Sort by Date
     public function sortByDate()
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $var = request('var');
         
         if($var==0){
@@ -728,7 +756,8 @@ return response()->json(array("msg","success"),200);
         }
     }
     //Trash A Particular Task
-    public function trashTask(Todo $todo){
+    public function trashTask(Todo $todo){ $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $todo->trashed=1;
         $todo->save();
         return redirect('/todo')->with([
@@ -736,7 +765,8 @@ return response()->json(array("msg","success"),200);
         ]);
     }
     //Pin task
-    public function pinTask(Todo $todo){
+    public function pinTask(Todo $todo){ $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $todo->pin=!$todo->pin;
         $todo->save();
         if($todo->pin==1)
@@ -749,7 +779,8 @@ return response()->json(array("msg","success"),200);
         ]);
     }
     //Tasks In Trash
-    public function trash(){
+    public function trash(){ $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $todos = Todo::where('user_id','=',auth()->user()->id)
                         ->where('trashed','=','1')
                         ->orderBy('created_at','desc')
@@ -762,7 +793,8 @@ return response()->json(array("msg","success"),200);
     }
 
     public function addcollab(Request $request)
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $user2 = User::where('email','=',request('email'))->first();
         $task = Todo::where('id','=',request('id'))->first();
         $user1 = auth()->user()->id;
@@ -778,7 +810,8 @@ return response()->json(array("msg","success"),200);
         }
     }
 
-    public function archived(){
+    public function archived(){ $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $todos = Todo::where('user_id','=',auth()->user()->id)
                         ->where('archive','=','1')
                         ->where('trashed','=','0')
@@ -807,7 +840,8 @@ return response()->json(array("msg","success"),200);
         //return view('todo.archive',compact('todos','pinned','unpinned','message'));
     }
     //Unarchive task
-    public function unarchive(Todo $todo){
+    public function unarchive(Todo $todo){ $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $todo->archive=0;
         $todo->save();
         return back()->with([
@@ -815,7 +849,8 @@ return response()->json(array("msg","success"),200);
         ]);
     }
     //Archive task
-    public function archiveTask(Todo $todo){
+    public function archiveTask(Todo $todo){ $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $todo->archive=1;
         $todo->save();
         return back()->with([
@@ -824,7 +859,8 @@ return response()->json(array("msg","success"),200);
     }
     //Restore Task
     public function restore(Todo $todo)
-    {
+    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $todo->trashed=0;
         $todo->save();
         return back()->with([
@@ -832,7 +868,8 @@ return response()->json(array("msg","success"),200);
         ]);
     }
 
-    public function addreminder(Request $request){
+    public function addreminder(Request $request){ $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         date_default_timezone_set("Asia/Kolkata");
           $todo = Todo::where('user_id','=',auth()->user()->id)->findOrFail($request->id);
           $find=sizeof(Reminder::where('user_id',Auth::id())->where('taskid',$request->id)->get());
@@ -866,7 +903,8 @@ return response()->json(array("msg","success"),200);
 
     }
 
-    public function getreminder(){
+    public function getreminder(){ $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         date_default_timezone_set("Asia/Kolkata");
         $notifications=[];
         $c=0;
@@ -886,6 +924,8 @@ return response()->json(array("msg","success"),200);
  }
 
     public function removeremindernoti(Request $request){
+        $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $rem = Reminder::findOrFail($request->id);
         $rem->noti=0;
         $rem->save();      
@@ -893,6 +933,10 @@ return response()->json(array("msg","success"),200);
     
     }
     public function  getremtime(Request $request){
+        $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
+          $rem = Reminder::where('taskid',$request->id)->get()[0];
+          echo $rem->remdate . " on " .$rem->remtime;
           if(sizeof(Reminder::where('taskid',$request->id)->get())>0){
                 $rem = Reminder::where('taskid',$request->id)->get()[0];
                 echo $rem->remdate . " on " .$rem->remtime;
@@ -902,12 +946,15 @@ return response()->json(array("msg","success"),200);
     }
 
     public function  removereminder(Request $request){
+        $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         $rem = Reminder::where('taskid',$request->id)->get()[0];
         $rem->delete();
   } 
   
   public function color(Request $request)
-  {
+  { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+    Session::put('hasRequests', $value);
       $color = $request->color;
       $id = $request->id;
       $todo = Todo::findOrFail($id);
@@ -915,7 +962,8 @@ return response()->json(array("msg","success"),200);
       $todo->save();
   }  
   public function reset()
-  {
+  { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+    Session::put('hasRequests', $value);
       $todo = Todo::where('user_id','=',auth()->user()->id)->get();
       $user = User::where('id','=',auth()->user()->id)->get();
       foreach($todo as $t)
@@ -931,7 +979,8 @@ return response()->json(array("msg","success"),200);
       return back();
   } 
   public function ThemeColor(Request $request)
-  {
+  { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+    Session::put('hasRequests', $value);
       $themecolor = $request->color;
       $todo = Todo::where('user_id','=',auth()->user()->id)->get();
       $user = User::where('id','=',auth()->user()->id)->get();
@@ -948,6 +997,8 @@ return response()->json(array("msg","success"),200);
     }
 
     public function hasnewnoti(){
+        $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        Session::put('hasRequests', $value);
         date_default_timezone_set("Asia/Kolkata");
         $notification =   DB::table('reminders')->where('user_id',Auth::id())->where('remdate','<=',date('d-m-Y'))->where('remtime','<=',date('h:i:sa'))->where('readed',0)->where('noti',1)->get();
         $notification=$notification->count();
@@ -955,6 +1006,8 @@ return response()->json(array("msg","success"),200);
       }
     
         public function makeread(Request $request){
+            $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+            Session::put('hasRequests', $value);
             $no_noti = $request->noti;  
         foreach($no_noti as $n){
             $t = Reminder::findOrFail($n['id']);
