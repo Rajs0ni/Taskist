@@ -1013,5 +1013,20 @@ return response()->json(array("msg","success"),200);
             $t->save();
         }
         }
-      
+          
+   
+        public function removeremindernotiall(Request $request){
+            $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+            Session::put('hasRequests', $value);
+            $rem = Reminder::all();
+            if(sizeof($rem)>0){
+                foreach($rem as $r){
+                    $r->noti = 0;
+                    $r->save();
+                }
+                        
+            }
+        
+        }
+       
 }

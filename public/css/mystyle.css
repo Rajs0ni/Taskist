@@ -846,3 +846,7 @@ font-weight: bold;
     font-family:arial;
     border:1px solid yellow;
 }
+#clearallnoti{
+    text-align: center;
+    border:solid;
+}

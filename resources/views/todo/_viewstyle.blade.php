@@ -74,6 +74,7 @@
       <button type="button" class="close mr-2 mt-1 closenotific" data-dismiss="modal" >&times;</button>
     </div>
     <div class="Notification-content"></div>
+      <div id='clearallnoti'>Clear All</div>
 </div>
  <script>
 $('.rem').mouseenter(function(){
@@ -95,7 +96,7 @@ $('.rem').mouseenter(function(){
 };
 
 $('.closenotific').click(function(){
-    $('.notis').css('display','none');
+    $('.notis').slideUp();
              notii()  ;
            if(newnoti=='yes'){
                   $('.notibell').addClass('swingimage');      
@@ -148,6 +149,7 @@ function noti(){
       success(response){
        response=JSON.parse(response);
       if(response.length>0){
+        $('#clearallnoti').css('display','block');
         notifications=response;
                   $.ajaxSetup({
               headers: {
@@ -200,6 +202,7 @@ function noti(){
     else{
              var span=$('<span class="no-notifications-msg"></span>').text('No Notifications');
            $(".Notification-content").append('<i class="fa fa-bell no-notifications-bell"></i>').append(span).append('<p class="noti_MSG">You have no new Notifications.</p>');
+            $('#clearallnoti').css('display','none');
     }
           }
       }); 
@@ -229,7 +232,7 @@ function down(){
    $('.rmCount').css('display','none');
    newnoti='';             
    $('.notibell').removeClass('swingimage');
-   $('.notis').css('display','block');
+   $('.notis').slideDown();
    $('#shownoti').click(up);
    
 }
@@ -244,7 +247,8 @@ function up(){
             $('.notibell').removeClass('swingimage');            
             $('.rmCount').css('display','none');
            }
-   $('.notis').css('display','none');
+ 
+   $('.notis').slideUp();
    $('#shownoti').off('click');      
    $('#shownoti').click(down);
 }
@@ -261,7 +265,7 @@ $('body').click(function(evt){
             
           if($(".notis").css('display')=='block'){
                  
-                $(".notis").css('display','none');
+              $('.notis').css('display','none');
               notii()  ;
            if(newnoti=='yes'){
                   $('.rmCount').css('display','inline-block');
@@ -296,6 +300,37 @@ $('body').on('click','.delrem',function(){
        $(this).parents('.rem').find('.newreminder').css('display','none');
     $(this).parents('.rem').animate({width: "0px"},function(){
         $(this).remove();
+        if($(".Notification-content").html() == ""){
+             $('#shownoti').off('click');      
+             $('#shownoti').click(down);
+             $('.notis').slideUp();
+        }
+ 
     });
 })
+
+ $('#clearallnoti').click(function(){
+     $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({                       
+      url: '/removeremindernotiall',
+      method:'get'
+      }); 
+      $('.rem').find('.remdatetime').css('display','none');
+       $('.rem').find('.newreminder').css('display','none');
+      
+    $('.rem').animate({width: "0px"},function(){
+        $('.rem').remove();
+        if($(".Notification-content").html() == ""){
+             $('#shownoti').off('click');      
+             $('#shownoti').click(down);
+             $('.notis').slideUp();
+
+        }
+ 
+    });
+ })
  </script>
