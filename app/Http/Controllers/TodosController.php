@@ -935,8 +935,6 @@ return response()->json(array("msg","success"),200);
     public function  getremtime(Request $request){
         $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
         Session::put('hasRequests', $value);
-          $rem = Reminder::where('taskid',$request->id)->get()[0];
-          echo $rem->remdate . " on " .$rem->remtime;
           if(sizeof(Reminder::where('taskid',$request->id)->get())>0){
                 $rem = Reminder::where('taskid',$request->id)->get()[0];
                 echo $rem->remdate . " on " .$rem->remtime;
