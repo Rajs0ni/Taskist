@@ -209,7 +209,8 @@ body{
     transform-origin: center;
     transition-duration: 0.1s;
     margin-top: 70px;
-    width:200px
+    width:200px;
+    margin-left: -15px;
 }
 .myButton:hover{
     font-size: 17px;
@@ -845,4 +846,14 @@ font-weight: bold;
     color:#fff;
     font-family:arial;
     border:1px solid yellow;
+}
+.fa-user-circle{     
+    display:inline-grid;
+    color:rgb(173, 152, 56);
+    margin-left:12px;
+}
+.collabNamespan{
+font-size:16px;
+margin-top:2px;
+color:rgb(173, 152, 56);
 }

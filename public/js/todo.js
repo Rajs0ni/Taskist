@@ -1128,7 +1128,7 @@ $('body').on('click','#tasklabel',function(){
        
             var ipp=$("<input type='hidden' class='labelid'>").val(search.id);
             var span=$('<span></span>').text(search.name);
-            var div=$('<div class="labelcheck"></div>').append(ipp).append(ip).append(span).css({'border':'1px solid lavender','margin':'3px','padding':'3px'});
+            var div=$('<div class="labelcheck"></div>').append(ipp).append(ip).append(span);
             $("#alllabelstask").append(div);         
 
       }
@@ -1139,7 +1139,7 @@ $('body').on('click','#tasklabel',function(){
             $("#alllabelstask").empty();
             var i=$("<input type='checkbox' class='individuallab' id='individuallab'>").css({'margin':'3px'}).prop('checked',true);
             var spann=$('<span></span>').text($('#searchlabels').val().toUpperCase());
-            var divv=$('<div class="labelcheck"></div>').append(i).append(spann).css({'border':'1px solid lavender','margin':'3px','padding':'3px'});
+            var divv=$('<div class="labelcheck"></div>').append(i).append(spann);
             labelsontask();
             $("#alllabelstask").prepend(divv);
             

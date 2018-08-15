@@ -2,7 +2,7 @@
 
 @section('content')
 
-<span id="mainHeading">Todo App</span>
+<span id="mainHeading">TaskIST</span>
 <div class="container helpContainer">
     <span>Help Desk</span>
     <br><br>

@@ -1,7 +1,7 @@
 @extends('todo.app')
 
 @section('content')
-<span id="mainHeading">Todo App</span>
+<span id="mainHeading">TaskIST</span>
 @if($todo)
 <div class="row">
 <div class="ml-5 mt-5 text-justify col-offset-3" style="width:100%">
@@ -108,9 +108,9 @@
                     <br><div class="collabNameContainer col-12 text-justify">
                     @foreach($collab as $coll)
                       @if($coll->name==auth()->user()->name)
-                            <span class=""><i class="fa fa-user-circle fa-2x"></i>You</sapn>
+                      <i class="fa fa-user-circle fa-2x"><span class="collabNamespan">You</sapn></i>
                        @else
-                             <span class=""><i class="fa fa-user-circle fa-2x"></i>{{$coll->name}}</sapn>
+                       <i class="fa fa-user-circle fa-2x"><span class="collabNamespan">{{$coll->name}}</sapn></i>
                        @endif
                     @endforeach
               @endif
