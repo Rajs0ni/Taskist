@@ -772,11 +772,13 @@ font-weight: bold;
 }
 
 .labeledTask{
+    display:inline-block;
     background:lavender;
     padding:10px;
     border-radius:5px;
     font-weight:bold;
     margin-left:3px;
+    margin-bottom:5px;
 }
 .dellabtask{
     font-weight:normal;

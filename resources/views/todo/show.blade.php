@@ -99,7 +99,7 @@
              @if(isset($labels))
               <div class="labeledTaskContainer col-12 text-justify">
                @foreach($labels as $label)
-                 <span class="labeledTask">{{$label->name}} <span class='dellabtask' title="Delete">&times;<input type="hidden" value={{$label->id}} id='labtaskid'></span></span>
+                 <span class="labeledTask">{{$label->name}} <span class='dellabtask' title="Delete" style="display:none">&times;<input type="hidden" value={{$label->id}} id='labtaskid'></span></span>
               @endforeach  
               </div>  
               @endif
@@ -148,6 +148,16 @@
 
 <script>
 
+$('body').on('mouseenter','.labeledTask',function(){
+   $(this).find('.dellabtask').css('display','inline-block');
+})
+
+
+$('body').on('mouseleave','.labeledTask',function(){
+   $(this).find('.dellabtask').css('display','none');
+})
+
+ 
     $('body').on('click','.dellabtask',function(){
                 
             $.ajaxSetup({
