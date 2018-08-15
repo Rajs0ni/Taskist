@@ -1,7 +1,7 @@
 @extends('todo.app')
 @section('content')
         @include('todo._viewstyle')            <!-- include top view-->       
-         <span id="mainHeading">Todo App</span>
+         <span id="mainHeading">TaskIST</span>
         <!-- flash messages start -->
         @if (Session::has('flash_message'))
                 <div class="alert alert-success ml-5 {{ Session::has('flash_message_important')? 'alert-important' : ''}}">

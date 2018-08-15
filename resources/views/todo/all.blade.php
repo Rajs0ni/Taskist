@@ -4,7 +4,7 @@
    
         @include('todo._viewstyle')
      
-        <span id="mainHeading">Todo App</span>
+        <span id="mainHeading">TaskIST</span>
                 @if (Session::has('flash_message'))
                   <div class="alert alert-success ml-5 {{ Session::has('flash_message_important')? 'alert-important' : ''}}">
                         {{ Session::get('flash_message')}}

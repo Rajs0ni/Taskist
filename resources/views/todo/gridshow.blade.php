@@ -1,7 +1,7 @@
 @extends('todo.app')
 
 @section('content')
-<span id="mainHeading">Todo App</span>
+<span id="mainHeading">TaskIST</span>
 @if($todo)
 <div class="row">
 <div class="ml-5 mt-5 text-justify col-offset-3" style="width:100%">

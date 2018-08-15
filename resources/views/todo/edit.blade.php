@@ -1,7 +1,7 @@
 @extends('todo.app')
 
 @section('content')
-<span id="mainHeading">Todo App</span>
+<span id="mainHeading">TaskIST</span>
 @include('errors.list')
 <h1 class="heading">Edit Task</h1>
 <br>

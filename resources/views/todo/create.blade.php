@@ -4,7 +4,7 @@
         @foreach($user as $u)
            <?php $color = $u->themeColor;?>
         @endforeach
-    <span id="mainHeading">Todo App</span>
+    <span id="mainHeading">TaskIST</span>
     @include('errors.list') 
 	    
     <h1 class="heading" style="text-shadow:0px 6px 8px <?php echo $color; ?>;">Create A New Task</h1>   
