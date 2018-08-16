@@ -74,7 +74,7 @@
       <button type="button" class="close mr-2 mt-1 closenotific" data-dismiss="modal" >&times;</button>
     </div>
     <div class="Notification-content"></div>
-      <div id='clearallnoti'>Clear All</div>
+      <div id='clearallnoti'>Clear</div>
 </div>
  <script>
 $('.rem').mouseenter(function(){
@@ -96,7 +96,7 @@ $('.rem').mouseenter(function(){
 };
 
 $('.closenotific').click(function(){
-    $('.notis').slideUp();
+    $('.notis').fadeOut();
              notii()  ;
            if(newnoti=='yes'){
                   $('.notibell').addClass('swingimage');      
@@ -232,7 +232,7 @@ function down(){
    $('.rmCount').css('display','none');
    newnoti='';             
    $('.notibell').removeClass('swingimage');
-   $('.notis').slideDown();
+   $('.notis').fadeIn(100);
    $('#shownoti').click(up);
    
 }
@@ -248,7 +248,7 @@ function up(){
             $('.rmCount').css('display','none');
            }
  
-   $('.notis').slideUp();
+   $('.notis').fadeOut();
    $('#shownoti').off('click');      
    $('#shownoti').click(down);
 }
@@ -265,7 +265,7 @@ $('body').click(function(evt){
             
           if($(".notis").css('display')=='block'){
                  
-              $('.notis').css('display','none');
+              $('.notis').fadeOut();
               notii()  ;
            if(newnoti=='yes'){
                   $('.rmCount').css('display','inline-block');
@@ -303,7 +303,7 @@ $('body').on('click','.delrem',function(){
         if($(".Notification-content").html() == ""){
              $('#shownoti').off('click');      
              $('#shownoti').click(down);
-             $('.notis').slideUp();
+             $('.notis').fadeOut();
         }
  
     });
@@ -327,7 +327,7 @@ $('body').on('click','.delrem',function(){
         if($(".Notification-content").html() == ""){
              $('#shownoti').off('click');      
              $('#shownoti').click(down);
-             $('.notis').slideUp();
+             $('.notis').fadeOut();
 
         }
  

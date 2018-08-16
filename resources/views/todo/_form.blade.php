@@ -15,5 +15,5 @@
         {!! Form::input('text', 'completion_date', $todo->completion_date, ['class'=>'form-control show_content hover','placeholder'=>'In Any Format']) !!}
         </div>
         <div class='form-group'>
-        {!! Form::submit($submitButtonText,['class'=>'btn btn-danger formButton form-control']) !!}
+        {!! Form::submit($submitButtonText,['class'=>'btn btn-danger formButton form-control','onclick'=>'test(this)']) !!}
         </div>

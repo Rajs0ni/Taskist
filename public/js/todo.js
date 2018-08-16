@@ -1,4 +1,7 @@
-
+function test(btn){
+    btn.disabled = true;    
+    btn.form.submit();
+}
 (function ( $ ) {
     var taskid,id,title,oldval,editevent="",thishtml,canedit="",addlab=""; 
 
@@ -1195,6 +1198,8 @@ $('body').on('click','#tasklabel',function(){
     window.location.assign('/getlabelstasks/'+labelid);
     
  })
+
+
 });
 
 }( jQuery ));

@@ -180,6 +180,7 @@ class TodosController extends Controller
             $todo->taskColor = $u->themeColor;
         }
         $todo->save();
+        
         return redirect('/todo')->with([
             'flash_message' => 'Task has been created!'
         ]);
