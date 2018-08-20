@@ -23,7 +23,7 @@
                                 <div class='panel container' style="background:linear-gradient(90deg,rgba(0,0,0,0.5)10%,rgba(255,255,255,0.5));"> 
                                         <div class="dropdown" >
                                                 <div class="btn-group">
-                                                        <button type="button" class="btn" data-toggle="dropdown" style="background:none;border:none; outline:none"><i class="fa fa-ellipsis-v"></i>
+                                                        <button type="button" class="btn vanishOutline" data-toggle="dropdown" style="background:none;border:none; outline:none"><i class="fa fa-ellipsis-v"></i>
                                                         </button>
                                                         
                                                         <div class="dropdown-menu">
@@ -51,16 +51,19 @@
                 <?php $count = 1; ?>
                 @foreach($todos as $todo) 
                         <div class="grid">
-                                <div class="grid_count_title">
-                                        <div class="count"></div>
+                                <div class="grid_count_title" style="pointer-events:none">
+                                        <div class="count" style="border:5px solid {{$todo->taskColor}};"></div>
                                         <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
                                         <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
+                                        <div style="display:inline-block;padding-left:15px"><a href="{{ action('TodosController@show', $todo->id ) }}" title="View"><i class="fa fa-eye" id="gridEye"></i></a></div>
                                 </div>
+                
+                                <div class="gridtask"><textarea class="text" style="background:linear-gradient(45deg,rgba(0,0,0,0.5) 10%,rgba(255,255,255,0.5));">{{ $todo->task}}</textarea></div>
                                 <div class="gridbtn">
-                                        <input type='hidden' value={{$todo->id}} id='task_id'>
-                                        <input type='hidden' value={{$todo->title}} id='task_title'>
-                                        <a  href="#" id="restore"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-undo" id="restore"></i> Restore</a>
-                                        <a href="#" id="delete"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  id="delete"></i> Delete</a>    
+                                        <input type='hidden' value='{{$todo->id}}' id='task_id'>
+                                        <input type='hidden' value='{{$todo->title}}' id='task_title'>
+                                        <a  href="#" id="restore" title="Restore"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-undo" id="restore">&nbsp;</i></a>
+                                        <a href="#" id="delete" title="Delete"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  id="delete"></i></a>    
                                 </div>
                         </div>
                 @endforeach

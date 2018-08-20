@@ -16,7 +16,18 @@
                 {{ session()->forget('alert')}}
         </div>
     @endif
-
+    @if (Session::has('duplicate'))
+                <div class="alert alert-warning">
+                        {{ session('duplicate') }}
+                       {{ session()->forget('duplicate')}}
+                </div>
+    @endif
+    @if (Session::has('flash'))
+                <div class="alert alert-success">
+                        {{ session('flash') }}
+                       {{ session()->forget('flash')}}
+                </div>
+    @endif
 <div class="container gridContainer">
 @if(count($todos)) 
        <!-- for pinned tasks -->
@@ -58,7 +69,7 @@
                     <button id="color_btn" title="Color"><i title="Color" class="fa fa-palette"></i></button>
                     <input type="color" id="grid_color"/>
                     <a  href="#" id="tasklabel" title="Labels" data-toggle="modal" data-target="#tasklab"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-tags"></i></a>
-                    <a href="#" id="addcollab" class="addcollab" title="Collaborator" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i></a>
+                    <a href="#" id="addcollab" class="addcollab" title="Collaborator"  data-toggle="modal" data-target="#myModal"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i></a>
                     <a  href="#"  id="trash"  title="Trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i></a>
                 </div>
             </div><!-- End of Grid -->

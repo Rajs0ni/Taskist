@@ -36,7 +36,7 @@
                     <span data-toggle="dropdown" id='labelsavail'>
                        <i class="fa fa-caret-down" style="font-size:20px;cursor:pointer;"></i>
                     </span>
-                    <div class="dropdown-menu" id='alllabelsavail' style='max-height:500px;z-index:1;'>             
+                    <div class="dropdown-menu" id='alllabelsavail' style='width:100%;max-height:350px;z-index:1;overflow-y:scroll;'>             
                     </div>
                 </div>
                  <hr>

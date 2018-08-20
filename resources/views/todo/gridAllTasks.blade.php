@@ -35,82 +35,95 @@
         <?php $count = 1; ?>
         @foreach($todos as $todo) 
             @if($todo->pin == 1 && $todo->archive == 0)
-                <div class="grid">                  <!-- first div-->
-                    <div class="grid_count_title">  <!-- second div-->
-                        <div class="count" style="border:5px solid {{$todo->taskColor}};"></div>
-                        <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
-                        <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
-                    </div>                          <!-- end second div-->
-                    <div class="gridtask">
-                       <textarea class="text" style="background:linear-gradient(45deg,{{$todo->taskColor}} 10%,rgb(239, 240, 240));">{{ $todo->task}}
-                    </textarea></div>
-                    <div class="gridbtn">           <!--third div -->
-                                    <input type='hidden' value={{$todo->id}} id='task_id'>
-                                    <input type='hidden' value={{$todo->title}} id='task_title'>
+            <div class="grid">
+                <div class="grid_count_title">
+                    <div class="count" style="border:5px solid {{$todo->taskColor}};"></div>
+                    <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
+                    <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
+                    <div style="display:inline-block;padding-left:15px"><a href="{{ action('TodosController@show', $todo->id ) }}" title="View"><i class="fa fa-eye" id="gridEye"></i></a></div>
+                </div>
+                
+                <div class="gridtask"><textarea class="text" style="background:linear-gradient(45deg,{{$todo->taskColor}} 10%,rgb(239, 240, 240));">{{ $todo->task}}</textarea></div>
+                <div class="gridbtn">
+                                <input type='hidden' value='{{$todo->id}}' id='task_id'>
+                                <input type='hidden' value='{{$todo->title}}' id='task_title'>
 
-                        @if($todo->pin==0)    
-                            <a href="#" id="pin" title="Pin"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i></a>
-                        @else
-                            <a href="#" id="pin" title="Unpin"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin" style="color:red"></i></a>
-                        @endif
-                            <a href="{{ action('TodosController@edit', $todo->id ) }}" id="edit" title="Edit"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-edit" id="edit"></i></a>
-                            <a href="#" id="snooze" title="Snooze" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-clock"></i></a>
-                        @if($todo->archive == 0)
-                            <a href="#" id="archive" title="Archive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="archive"></i></a>
-                        @else   
-                            <a href="#" id="unarchive" title="Unarchive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="unarchive" style="color:rgb(244, 152, 66)"></i></a>
-                        @endif 
-                            <button id="color_btn"><i class="fa fa-palette"></i></button>
-                            <input type="color" id="grid_color"/>
-                            <a href="#" id="addcollab" class="addcollab" title="Collaborator" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i></a>
-                            <a  href="#"  id="trash"  title="Trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i></a>
-                    </div>                         <!-- end third div-->
-                </div>                             <!-- End of first div -->
+                    @if($todo->pin==0)    
+                        <a href="#" id="pin" title="Pin"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i></a>
+                    @else
+                        <a href="#" id="pin" title="Unpin"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin" style="color:red"></i></a>
+                    @endif
+                        <a href="{{ action('TodosController@edit', $todo->id ) }}" id="edit" title="Edit"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-edit" id="edit"></i></a>
+                    @if($todo->reminder==1)
+                        <a href="#" id="snooze" title="Reminder" data-toggle="modal" data-target="#addreminder" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-bell" style="color:rgb(244, 152, 66)"></i></a>   
+                    @else  
+                        <a href="#" id="snooze" title="Reminder" data-toggle="modal" data-target="#addreminder" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-bell"></i></a>
+                    @endif
+                    @if($todo->archive == 0)
+                        <a href="#" id="archive" title="Archive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="archive"></i></a>
+                    @else   
+                        <a href="#" id="unarchive" title="Unarchive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="unarchive" style="color:rgb(244, 152, 66)"></i></a>
+                    @endif 
+                    <button id="color_btn" title="Color"><i title="Color" class="fa fa-palette"></i></button>
+                    <input type="color" id="grid_color"/>
+                    <a  href="#" id="tasklabel" title="Labels" data-toggle="modal" data-target="#tasklab"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-tags"></i></a>
+                    <a href="#" id="addcollab" class="addcollab" title="Collaborator"  data-toggle="modal" data-target="#myModal"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i></a>
+                    <a  href="#"  id="trash"  title="Trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i></a>
+                </div>
+            </div><!-- End of Grid -->
             @endif
         @endforeach
     @else    
     @endif<!-- check for pinned tasks end -->
-    <br><br>
+    
     @if(count($archive))<!-- check for archive tasks-->
+    <br><br>
         <h4>Archive</h4><hr> 
         <?php $count = 1; ?>
         @foreach($todos as $todo) 
             @if($todo->archive == 1)
-                <div class="grid">
-                        <div class="grid_count_title">
-                            <div class="count" style="border:5px solid {{$todo->taskColor}};"></div>
-                            <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
-                            <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
-                        </div>
-                        <div class="gridtask">
-                        <textarea class="text" style="background:linear-gradient(45deg,{{$todo->taskColor}} 10%,rgb(239, 240, 240));">{{ $todo->date_created}}</textarea></div>
-                        <div class="gridbtn">
-                                        <input type='hidden' value={{$todo->id}} id='task_id'>
-                                        <input type='hidden' value={{$todo->title}} id='task_title'>
-
-                            @if($todo->pin==0)    
-                                <a href="#" id="pin" title="Pin"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack" id="pin"></i></a>
-                            @else
-                                <a href="#" id="Unpin" title="Unpin"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack" id="pin" style="color:red"></i></a>
-                            @endif
-                                <a href="{{ action('TodosController@edit', $todo->id ) }}" id="edit" title="Edit"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-edit" id="edit"></i></a>
-                                <a href="#" id="snooze" title="Reminder"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-bell"></i></a>
-                            @if($todo->archive == 0)
-                                <a href="#" id="archive" title="Archive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="archive"></i></a>
-                            @else   
-                                <a href="#" id="unarchive" title="Unarchive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="unarchive" style="color:rgb(244, 152, 66)"></i></a>
-                            @endif 
-                                <button id="color_btn"><i class="fa fa-palette"></i></button>
-                                <input type="color" id="grid_color"/>
-                                <a class="addcollab" href="#"   id="addcollab"  title="Collaborator" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i></a>
-                                <a  href="#" id="trash" title="Trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i></a>
-                        </div>
+            <div class="grid">
+                <div class="grid_count_title">
+                    <div class="count" style="border:5px solid {{$todo->taskColor}};"></div>
+                    <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
+                    <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
+                    <div style="display:inline-block;padding-left:15px"><a href="{{ action('TodosController@show', $todo->id ) }}" title="View"><i class="fa fa-eye" id="gridEye"></i></a></div>
                 </div>
+                
+                <div class="gridtask"><textarea class="text" style="background:linear-gradient(45deg,{{$todo->taskColor}} 10%,rgb(239, 240, 240));">{{ $todo->task}}</textarea></div>
+                <div class="gridbtn">
+                                <input type='hidden' value='{{$todo->id}}' id='task_id'>
+                                <input type='hidden' value='{{$todo->title}}' id='task_title'>
+
+                    @if($todo->pin==0)    
+                        <a href="#" id="pin" title="Pin"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i></a>
+                    @else
+                        <a href="#" id="pin" title="Unpin"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin" style="color:red"></i></a>
+                    @endif
+                        <a href="{{ action('TodosController@edit', $todo->id ) }}" id="edit" title="Edit"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-edit" id="edit"></i></a>
+                    @if($todo->reminder==1)
+                        <a href="#" id="snooze" title="Reminder" data-toggle="modal" data-target="#addreminder" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-bell" style="color:rgb(244, 152, 66)"></i></a>   
+                    @else  
+                        <a href="#" id="snooze" title="Reminder" data-toggle="modal" data-target="#addreminder" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-bell"></i></a>
+                    @endif
+                    @if($todo->archive == 0)
+                        <a href="#" id="archive" title="Archive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="archive"></i></a>
+                    @else   
+                        <a href="#" id="unarchive" title="Unarchive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="unarchive" style="color:rgb(244, 152, 66)"></i></a>
+                    @endif 
+                    <button id="color_btn" title="Color"><i title="Color" class="fa fa-palette"></i></button>
+                    <input type="color" id="grid_color"/>
+                    <a  href="#" id="tasklabel" title="Labels" data-toggle="modal" data-target="#tasklab"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-tags"></i></a>
+                    <a href="#" id="addcollab" class="addcollab" title="Collaborator"  data-toggle="modal" data-target="#myModal"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i></a>
+                    <a  href="#"  id="trash"  title="Trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i></a>
+                </div>
+            </div><!-- End of Grid -->
             @endif
         @endforeach
     @endif<!-- check for archivetask end-->
-    <br><br>
+   
     @if(count($unpinned))<!-- check for unpinned tasks-->
+    <br><br>
             @if(count($pinned) || count($archive))
             <h4>Others</h4><hr> 
             @else
@@ -118,36 +131,42 @@
         <?php $count = 1; ?>
         @foreach($todos as $todo) 
             @if($todo->pin == 0 && $todo->archive == 0)
-                <div class="grid">
-                    <div class="grid_count_title">
-                        <div class="count" style="border:5px solid {{$todo->taskColor}};"></div>
-                        <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
-                        <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
-                    </div>
-                    <div class="gridtask">
-                    <textarea class="text" style="background:linear-gradient(45deg,{{$todo->taskColor}} 10%,rgb(239, 240, 240));">{{ $todo->date_created}}</textarea></div>
-                    <div class="gridbtn">
-                                    <input type='hidden' value={{$todo->id}} id='task_id'>
-                                    <input type='hidden' value={{$todo->title}} id='task_title'>
-
-                        @if($todo->pin==0)    
-                            <a href="#" id="pin" title="Pin"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack" id="pin"></i></a>
-                        @else
-                            <a href="#" id="Unpin" title="Unpin"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack" id="pin" style="color:red"></i></a>
-                        @endif
-                            <a href="{{ action('TodosController@edit', $todo->id ) }}" id="edit" title="Edit"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-edit" id="edit"></i></a>
-                            <a href="#" id="snooze" title="Reminder"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-bell"></i></a>
-                        @if($todo->archive == 0)
-                            <a href="#" id="archive" title="Archive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="archive"></i></a>
-                        @else   
-                            <a href="#" id="unarchive" title="Unarchive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="unarchive" style="color:rgb(244, 152, 66)"></i></a>
-                        @endif 
-                            <button id="color_btn"><i class="fa fa-palette"></i></button>
-                            <input type="color" id="grid_color"/>
-                            <a class="addcollab" href="#"   id="addcollab"  title="Collaborator" data-toggle="modal" data-target="#myModal" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i></a>
-                            <a  href="#" id="trash" title="Trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i></a>
-                    </div>
+            <div class="grid">
+                <div class="grid_count_title">
+                    <div class="count" style="border:5px solid {{$todo->taskColor}};"></div>
+                    <span id="gridnum"><?php if($count<=9)echo "0".$count++;else echo $count++; ?></span>
+                    <div class="gridtitle"><input type="text" value='{{ $todo->title}}'></div>
+                    <div style="display:inline-block;padding-left:15px"><a href="{{ action('TodosController@show', $todo->id ) }}" title="View"><i class="fa fa-eye" id="gridEye"></i></a></div>
                 </div>
+                
+                <div class="gridtask"><textarea class="text" style="background:linear-gradient(45deg,{{$todo->taskColor}} 10%,rgb(239, 240, 240));">{{ $todo->task}}</textarea></div>
+                <div class="gridbtn">
+                                <input type='hidden' value='{{$todo->id}}' id='task_id'>
+                                <input type='hidden' value='{{$todo->title}}' id='task_title'>
+
+                    @if($todo->pin==0)    
+                        <a href="#" id="pin" title="Pin"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin"></i></a>
+                    @else
+                        <a href="#" id="pin" title="Unpin"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-thumb-tack"  id="pin" style="color:red"></i></a>
+                    @endif
+                        <a href="{{ action('TodosController@edit', $todo->id ) }}" id="edit" title="Edit"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-edit" id="edit"></i></a>
+                    @if($todo->reminder==1)
+                        <a href="#" id="snooze" title="Reminder" data-toggle="modal" data-target="#addreminder" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-bell" style="color:rgb(244, 152, 66)"></i></a>   
+                    @else  
+                        <a href="#" id="snooze" title="Reminder" data-toggle="modal" data-target="#addreminder" ><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-bell"></i></a>
+                    @endif
+                    @if($todo->archive == 0)
+                        <a href="#" id="archive" title="Archive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="archive"></i></a>
+                    @else   
+                        <a href="#" id="unarchive" title="Unarchive"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-archive" id="unarchive" style="color:rgb(244, 152, 66)"></i></a>
+                    @endif 
+                    <button id="color_btn" title="Color"><i title="Color" class="fa fa-palette"></i></button>
+                    <input type="color" id="grid_color"/>
+                    <a  href="#" id="tasklabel" title="Labels" data-toggle="modal" data-target="#tasklab"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-tags"></i></a>
+                    <a href="#" id="addcollab" class="addcollab" title="Collaborator"  data-toggle="modal" data-target="#myModal"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-user-plus"></i></a>
+                    <a  href="#"  id="trash"  title="Trash"><div hidden style="display:inline-block">{{$todo->id}}</div><i class="fa fa-trash"  ></i></a>
+                </div>
+            </div><!-- End of Grid -->
             @endif
         @endforeach
     @endif<!-- check for unpinned task end--> 
@@ -180,7 +199,8 @@
     </div>
   </div>
 
-</div><!-- main grid cont. end-->
-<!-- grid view of all tasks end -->
-@include('todo._sideBar')                    <!--include side bar -->       
+
+</div><!-- End of gridContainer -->
+
+@include('todo._sideBar')
 @endsection

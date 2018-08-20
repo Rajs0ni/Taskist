@@ -83,7 +83,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Collaborators</h4>
-          <button type="button" class="close modalclose" data-dismiss="modal">&times;</button>
+          <button type="button" class="close modalclose vanishOutline" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
            
@@ -92,12 +92,12 @@
           <h5 >Add Collaborators</h5>
           <label for="" id="collabLabel">Email:</label>
           <input type="email" class="email" id="collab">
-          <button type="button" class="btn" id="addCollaborator">Add</button>
+          <button type="button" class="btn vanishOutline" id="addCollaborator">Add</button>
           </p>
           <input  id="val" value="" hidden>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn"  data-dismiss="modal" id="modaldone">Done</button>
+          <button type="button" class="btn vanishOutline"  data-dismiss="modal" id="modaldone">Done</button>
         </div>
       </div>
       
@@ -107,7 +107,7 @@
 @include('todo._sideBar')
 @include('todo.remindermodalbox')
                 <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-dismiss="modal" id="add_reminder">DONE</button>
+                        <button type="button" class="btn btn-success vanishOutline" data-dismiss="modal" id="add_reminder">DONE</button>
                         </div>
                         
                     </div>
@@ -117,7 +117,7 @@
 
      @include('todo.remindermodalbox')
                          <div class="modal-footer">
-                        <button type="button" class="btn btn-success" id="addremm" data-dismiss="modal">DONE</button>
+                        <button type="button" class="btn btn-success vanishOutline" id="addremm" data-dismiss="modal">DONE</button>
                         </div>
                         
                     </div>

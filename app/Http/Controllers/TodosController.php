@@ -67,7 +67,7 @@ class TodosController extends Controller
         
         if(count($todoview))
         {
-            return view('todo.gridview',compact('todos','pinned','unpinned','user'));
+            return view('todo.gridview',compact('todos','pinned','unpinned','message','user'));
         }
         else
         {
@@ -494,9 +494,8 @@ return response()->json(array("msg","success"),200);
     }
     // Help User
     public function help()
-    { $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
-        Session::put('hasRequests', $value);
-        $user = User::where('id','=',auth()->user()->id)->get();
+    { 
+        $user = array();
         return view('todo.help',compact('user'));
     }
     // Grid View
@@ -761,7 +760,7 @@ return response()->json(array("msg","success"),200);
         Session::put('hasRequests', $value);
         $todo->trashed=1;
         $todo->save();
-        return redirect('/todo')->with([
+        return back()->with([
             'flash_message' => 'Task has been trashed!'
         ]);
     }
@@ -929,8 +928,7 @@ return response()->json(array("msg","success"),200);
         Session::put('hasRequests', $value);
         $rem = Reminder::findOrFail($request->id);
         $rem->noti=0;
-        $rem->save();      
- 
+        $rem->save();
     
     }
     public function  getremtime(Request $request){
@@ -946,9 +944,12 @@ return response()->json(array("msg","success"),200);
 
     public function  removereminder(Request $request){
         $value=count(DB::table('todo_user')->where('user_id',auth()->user()->id)->where('status','I')->get());
+        $todo = Todo::where('user_id','=',auth()->user()->id)->findOrFail($request->id);
         Session::put('hasRequests', $value);
         $rem = Reminder::where('taskid',$request->id)->get()[0];
         $rem->delete();
+        $todo->reminder = 0;
+        $todo->save();
   } 
   
   public function color(Request $request)

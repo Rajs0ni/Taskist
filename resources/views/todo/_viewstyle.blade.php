@@ -1,4 +1,4 @@
-<div class="viewWrapper">
+<div class="viewWrapper ">
 
   @foreach($user as $u)
            <?php $color = $u->themeColor;?>

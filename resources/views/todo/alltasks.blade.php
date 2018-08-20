@@ -46,7 +46,8 @@
                                 @endif
                         @endif        
                 @endforeach       
-        @endif         
+        @endif    
+            
 <!--condition for others tasks -->
         @if(count($unpinned))
                 @if(count($pinned))

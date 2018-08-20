@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>TaskIST</title>
+    <title>Taskist</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" >
      <meta name="csrf-token" content="{{ csrf_token() }}">
  
@@ -32,19 +32,22 @@
     <link rel="stylesheet" type="text/css" href=/css/offcanvas.css >
     <link rel="stylesheet" type="text/css" href=/css/deleteModal.css >
     <link rel="stylesheet" type="text/scss" href=/css/offcanvas.scss >
-   
+   <link rel="icon" href="/favicon.png" type="favicon">
     <script src="/js/todo.js"></script>
   
  </head>
     @yield('styles')
 <body>
     <div class="page">
-      
+      @if(count($user))
         @foreach($user as $u)
            <?php $color = $u->themeColor;?>
         @endforeach
+       
               <span class="menu_toggle" style="background:<?php echo $color; ?>;">
-    
+              @else
+              <span class="menu_toggle">
+              @endif
         <i class="menu_open fa fa-bars fa-lg"></i>
         <i class="menu_close fa fa-times fa-lg"></i>
     </span>
