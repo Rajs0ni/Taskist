@@ -38,49 +38,84 @@ All the records will be stored at PHP database.The App can be maintained by edit
 * Now,reach any browser and type in URL "/todo" following with your local server name (e.g. localhost/todo).  
 * Homepage of the app would be displayed as below shown.  
 
-![Todo Homepage](https://github.com/Rajs0ni/Web-Apps/blob/master/todo_using_Laravel/screenshots/homepage.png)  
+![Taskist Homepage](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/Home.png)  
 
-![Todo Homepage](https://github.com/Rajs0ni/Web-Apps/blob/master/todo_using_Laravel/screenshots/homepage(1).png)  
+![Taskist Homepage](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/Home2.png)  
 
 * Then you have to pass through Login/Signup phase.If you are new to App, firstly sign/register otherwise login. 
 
+![Registration Page](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/register.png)  
+
+![Login Page](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/login.png)  
+
+* List view.  
+ 
+ ![List View](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/listview.png)  
+ 
+ ![MenuList View](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/menu.png)  
+ 
+ * Grid view.  
+ 
+ ![Grid View](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/gridview.png)  
+ 
 * To __create a new task__.  
       
- ![Create Task](https://github.com/Rajs0ni/Web-Apps/blob/master/todo_using_Laravel/screenshots/createTask.png)  
+ ![Create Task](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/create.png)  
  
 * To __view a task__ .  
-  ![View Task](https://github.com/Rajs0ni/Web-Apps/blob/master/todo_using_Laravel/screenshots/viewTask.png)  
+  ![View Task](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/viewtask.png)  
  
  * To __edit a task__ .   
     
-  ![Edit Task](https://github.com/Rajs0ni/Web-Apps/blob/master/todo_using_Laravel/screenshots/editTask.png)  
+  ![Edit Task](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/Edit%20.png)  
 
 * To __delete a task__ .  
      
-  ![Delete Task](https://github.com/Rajs0ni/Web-Apps/blob/master/todo_using_Laravel/screenshots/viewTask.png)  
+  ![Delete Task](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/viewtask.png)  
   
  * To __find a task__ .  
   
-  ![Search Task](https://github.com/Rajs0ni/Web-Apps/blob/master/todo_using_Laravel/screenshots/searchTask.png)  
+  ![Search Task](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/search.png)  
  
  * To __delete all task__ .  
      * Go to the Homepage.  
      * Click on "Quick Clear" button placed at right-sidebar.  
  
  #### Some more  
+* To __set a snooze/reminder__ .
+
+ ![Set Snooze](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/addsnooze.png)  
+
+* To __collaborate the task__ .  
  
- * Navbar on clicking menu button.
+ ![collaboration](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/collaboration.png)  
  
- ![Navbar](https://github.com/Rajs0ni/Web-Apps/blob/master/todo_using_Laravel/screenshots/menubutton.png)  
+ ![Collab-Notification](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/collaborationAlert.png)  
  
- * Grid view of tasks.  
+ ![collaboration Request](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/Collabrequest.png)  
+  
+ ![collaborated Task](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/collaboratedView.png)  
  
- ![Grid View](https://github.com/Rajs0ni/Web-Apps/blob/master/todo_using_Laravel/screenshots/gridview.png)  
  
- * Do you need help, see Help Desk.  
+ * To __change the color__ . 
  
-  ![Help Desk](https://github.com/Rajs0ni/Web-Apps/blob/master/todo_using_Laravel/screenshots/helpdesk.png)  
+ ![Colored view](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/changecolor.png)  
  
+ ![Colored view](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/changeColor.png)  
+ 
+ 
+ * To __change the theme color__ . 
+ 
+  ![Theme Color](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/changeTheme.png)  
+  
+  * __Categorized View__ .
+  
+  ![Categorization](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/categorize.png) 
+  
+  ![Categorization](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/categorize2.png) 
+  
+  ![Categorization](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/categorize3.png) 
+  
   Thank You So Much  
   ---
 
