@@ -31,3 +31,56 @@ Date created :point_right: Sat,Jun 30 2018.
  
   
 All the records will be stored at PHP database.The App can be maintained by editors, writers, reviewers or readers like you as a way to focus your collaborative efforts.
+## Getting Started:-  
+
+* Since, app is built in Laravel. Before its use, open terminal and access the directory 
+             where the app folder is placed and trigger the command "$ php artisan serve" to start the local server.  
+* Now,reach any browser and type in URL "/todo" following with your local server name (e.g. localhost/todo).  
+* Homepage of the app would be displayed as below shown.  
+
+![Todo Homepage](https://github.com/Rajs0ni/Web-Apps/blob/master/todo_using_Laravel/screenshots/homepage.png)  
+
+![Todo Homepage](https://github.com/Rajs0ni/Web-Apps/blob/master/todo_using_Laravel/screenshots/homepage(1).png)  
+
+* Then you have to pass through Login/Signup phase.If you are new to App, firstly sign/register otherwise login. 
+
+* To __create a new task__.  
+      
+ ![Create Task](https://github.com/Rajs0ni/Web-Apps/blob/master/todo_using_Laravel/screenshots/createTask.png)  
+ 
+* To __view a task__ .  
+  ![View Task](https://github.com/Rajs0ni/Web-Apps/blob/master/todo_using_Laravel/screenshots/viewTask.png)  
+ 
+ * To __edit a task__ .   
+    
+  ![Edit Task](https://github.com/Rajs0ni/Web-Apps/blob/master/todo_using_Laravel/screenshots/editTask.png)  
+
+* To __delete a task__ .  
+     
+  ![Delete Task](https://github.com/Rajs0ni/Web-Apps/blob/master/todo_using_Laravel/screenshots/viewTask.png)  
+  
+ * To __find a task__ .  
+  
+  ![Search Task](https://github.com/Rajs0ni/Web-Apps/blob/master/todo_using_Laravel/screenshots/searchTask.png)  
+ 
+ * To __delete all task__ .  
+     * Go to the Homepage.  
+     * Click on "Quick Clear" button placed at right-sidebar.  
+ 
+ #### Some more  
+ 
+ * Navbar on clicking menu button.
+ 
+ ![Navbar](https://github.com/Rajs0ni/Web-Apps/blob/master/todo_using_Laravel/screenshots/menubutton.png)  
+ 
+ * Grid view of tasks.  
+ 
+ ![Grid View](https://github.com/Rajs0ni/Web-Apps/blob/master/todo_using_Laravel/screenshots/gridview.png)  
+ 
+ * Do you need help, see Help Desk.  
+ 
+  ![Help Desk](https://github.com/Rajs0ni/Web-Apps/blob/master/todo_using_Laravel/screenshots/helpdesk.png)  
+ 
+  Thank You So Much  
+  ---
+
