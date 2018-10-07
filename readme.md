@@ -17,6 +17,7 @@ Date created :point_right: Sat,Jun 30 2018.
 ## Project Description:-
 
 **T**askist, a small web app built in Laravel, is a clean and simple task management application. Its user friendly design and features let you keep track of important tasks & collaborate your task with multiple users and many more as following:
+ * To operate the application in **List**/**Grid** View. 
  * To create a new task.  
  * To get the detailed description of the task.  
  * To delete the task.  
@@ -24,6 +25,9 @@ Date created :point_right: Sat,Jun 30 2018.
  * To search the task (by title).  
  * To modify the task.  
  * To sort the tasks (by title & date).  
- * To view all the tasks in grid or list style.  
-     
+ * To highlight the important task by changing its background color and even you can change the color of the theme.  
+ * To set a snooze/reminder to a particular task and you will get the notification as the completion Date-Time arrives.  
+ * To create and set **Labels**/**Tags**.
+ 
+  
 All the records will be stored at PHP database.The App can be maintained by editors, writers, reviewers or readers like you as a way to focus your collaborative efforts.
