@@ -16,13 +16,12 @@ Date created :point_right: Sat,Jun 30 2018.
 
 ## Project Description:-
 
-**T**askist, a small web application built in Laravel, HTML, CSS  &amp; Jquery with complete validations, animations &
-     having the functionality as following:
+**T**askist, a small web app built in Laravel, is a clean and simple task management application. Its user friendly design and features let you keep track of important tasks & collaborate your task with multiple users and many more as following:
  * To create a new task.  
  * To get the detailed description of the task.  
  * To delete the task.  
  * To edit the task.  
- * To search the task (by title & date).  
+ * To search the task (by title).  
  * To modify the task.  
  * To sort the tasks (by title & date).  
  * To view all the tasks in grid or list style.  
