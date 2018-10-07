@@ -40,7 +40,7 @@ All the records will be stored at PHP database.The App can be maintained by edit
 
 ![Taskist Homepage](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/Home.png)  
 
-* Then you have to pass through Login/Signup phase.If you are new to App, firstly sign/register otherwise login. 
+* Then you have to pass through Login/Signup phase.If you are new to App, firstly signup/register otherwise login. 
 
 ![Registration Page](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/register.png)  
 
