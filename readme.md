@@ -24,7 +24,7 @@ Date created :point_right: Sat,Jun 30 2018.
  * To edit the task.  
  * To search the task (by title).  
  * To modify the task.  
- * To sort the tasks (by title & date).  
+ * To sort all the tasks (by title & date).  
  * To highlight the important task by changing its background color and even you can change the color of the theme.  
  * To set a snooze/reminder to a particular task and you will get the notification as the completion Date-Time arrives.  
  * To create and set **Labels**/**Tags**.
