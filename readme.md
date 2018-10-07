@@ -40,8 +40,6 @@ All the records will be stored at PHP database.The App can be maintained by edit
 
 ![Taskist Homepage](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/Home.png)  
 
-![Taskist Homepage](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/Home2.png)  
-
 * Then you have to pass through Login/Signup phase.If you are new to App, firstly sign/register otherwise login. 
 
 ![Registration Page](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/register.png)  
@@ -57,6 +55,8 @@ All the records will be stored at PHP database.The App can be maintained by edit
  * Grid view.  
  
  ![Grid View](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/gridview.png)  
+ 
+ ![Homepage Menu](https://github.com/Rajs0ni/Taskist/blob/master/screenshots/Home2.png)  
  
 * To __create a new task__.  
       
